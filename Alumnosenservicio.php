@@ -4,6 +4,8 @@
 	<title>Alumnos en Servicio Social</title>
 	<link rel="stylesheet" type="text/css" href="stylealumno.css">
 </head>
+
+
 <body>
 <header>
 	<div class="container">
@@ -27,6 +29,7 @@
 		</nav>
 	</div>
 </header>
+
 
 
 	<section id="main">
