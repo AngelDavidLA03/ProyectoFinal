@@ -53,10 +53,6 @@
 		</div>
 	</section>
 
-	<footer>
-		<div class="container">
-			<p>Derechos Reservados &copy; 2023</p>
-		</div>
-	</footer>
+	
 </body>
 </html>
