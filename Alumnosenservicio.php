@@ -5,21 +5,29 @@
 	<link rel="stylesheet" type="text/css" href="stylealumno.css">
 </head>
 <body>
-	<header>
-		<div class="container">
-			<h1>Alumnos en Servicio Social</h1>
-			<nav>
-				<ul>
-					<li><a href="//index.html">Inicio</a></li>
-					<li><a href="alumnos.php">Alumnos</a></li>
-					<li><a href="convocatorias.php">Convocatorias</a></li>
-					<li><a href="nueva_convocatoria.php">Nueva Convocatoria</a></li>
-					<li><a href="aceptar_vacantes.php">Aceptar Vacantes</a></li>
-					<li><a href="aceptar_vacantes.php">Baja Alumno</a></li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+<header>
+	<div class="container">
+		<h1>Alumnos en Servicio Social</h1>
+		<nav class="top-menu">
+			<ul>
+				<li><a href="#">Inicio</a></li>
+				<li><a href="#">Acerca de</a></li>
+				<li><a href="#">Contacto</a></li>
+			</ul>
+		</nav>
+		<nav class="main-menu">
+			<ul>
+				<li><a href="//index.html">Inicio</a></li>
+				<li><a href="alumnos.php">Alumnos</a></li>
+				<li><a href="convocatorias.php">Convocatorias</a></li>
+				<li><a href="nueva_convocatoria.php">Nueva Convocatoria</a></li>
+				<li><a href="aceptar_vacantes.php">Aceptar Vacantes</a></li>
+				<li><a href="aceptar_vacantes.php">Baja Alumno</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
 
 	<section id="main">
 		<div class="container">

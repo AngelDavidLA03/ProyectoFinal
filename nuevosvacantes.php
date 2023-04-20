@@ -47,7 +47,8 @@
 					<td>Alumno 3</td>
 					<td>Especialidad 3</td>
 					<td>Documento 3</td>
-					<td><a href="#">Aceptar</a></td>
+					<td><a href="#">Aceptar</a>     <a href="#">Rechazar</a></td>
+					
 				</tr>
 			</table>
 		</div>
