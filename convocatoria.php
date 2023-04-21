@@ -69,7 +69,8 @@
             <li>Contribución al desarrollo social, económico y cultural del entorno.</li>
         </ul>
     </div>
-	
+</aside>	
+
 	</body>
 </html>
 
