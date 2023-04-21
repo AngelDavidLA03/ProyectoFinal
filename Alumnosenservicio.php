@@ -10,21 +10,15 @@
 <header>
 	<div class="container">
 		<h1>Alumnos en Servicio Social</h1>
-		<nav class="top-menu">
-			<ul>
-				<li><a href="#">Inicio</a></li>
-				<li><a href="#">Acerca de</a></li>
-				<li><a href="#">Contacto</a></li>
-			</ul>
-		</nav>
+
 		<nav class="main-menu">
 			<ul>
 				<li><a href="./index.html">Inicio</a></li>
 				<li><a href="#">Alumnos</a></li>
 				<li><a href="./convocatoria.php">Convocatorias</a></li>
 				<li><a href="./nuevaconvocatoria.php">Nueva Convocatoria</a></li>
-				<li><a href="./aceptarvacantes.php">Aceptar Vacantes</a></li>
-				<li><a href="./aceptarvacantes.php">Baja Alumno</a></li>
+				<li><a href="./nuevosvacantes.php">Aceptar Vacantes</a></li>
+				<li><a href="./bajaalumno.html">Baja Alumno</a></li>
 			</ul>
 		</nav>
 	</div>
