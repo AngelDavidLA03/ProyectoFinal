@@ -10,12 +10,12 @@
 			<h1>Aceptar Vacantes</h1>
 			<nav>
 				<ul>
-					<li><a href="index.php">Inicio</a></li>
-					<li><a href="alumnos.php">Alumnos</a></li>
-					<li><a href="convocatorias.php">Convocatorias</a></li>
-					<li><a href="nueva_convocatoria.php">Nueva Convocatoria</a></li>
-					<li><a href="aceptar_vacantes.php">Aceptar Vacantes</a></li>
-					<li><a href="aceptar_vacantes.php">Baja Alumno</a></li>
+					<li><a href="./index.php">Inicio</a></li>
+					<li><a href="./Alumnosenservicio.php">Alumnos</a></li>
+					<li><a href="./convocatoria.php">Convocatorias</a></li>
+					<li><a href="./nuevaconvocatoria.php">Nueva Convocatoria</a></li>
+					<li><a href="./nuevosvacantes.php">Aceptar Vacantes</a></li>
+					<li><a href="./bajaalumno.html">Baja Alumno</a></li>
 				</ul>
 			</nav>
 		</div>
