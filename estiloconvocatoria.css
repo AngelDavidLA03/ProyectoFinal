@@ -132,3 +132,15 @@ body {
         text-align: center;
         margin: 10px 0;
     }}
+
+
+    .container {
+      max-width: 960px; /* ajusta el ancho máximo del contenedor según tus necesidades */
+      margin: 0 auto; /* centra el contenedor horizontalmente */
+      padding: 0 20px; /* agrega un relleno de 20px a ambos lados del contenedor */
+    }
+    
+    section {
+      max-width: 800px; /* ajusta el ancho máximo del contenido según tus necesidades */
+      margin: 0 auto; /* centra el contenido horizontalmente */
+    }
