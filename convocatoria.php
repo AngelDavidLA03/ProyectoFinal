@@ -3,7 +3,16 @@
 <head>
     <title>Nueva Convocatoria</title>
     <link rel="stylesheet" type="text/css" href="estiloconvocatoria.css">
+
+
+	<style>
+    aside {
+        float: right;
+        max-width: 30%;
+    }
+</style>
 </head>
+
 <body>
 
 <header>
