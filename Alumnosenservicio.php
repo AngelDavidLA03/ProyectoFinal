@@ -21,10 +21,10 @@
 			<ul>
 				<li><a href="./index.html">Inicio</a></li>
 				<li><a href="#">Alumnos</a></li>
-				<li><a href="convocatorias.php">Convocatorias</a></li>
-				<li><a href="nueva_convocatoria.php">Nueva Convocatoria</a></li>
-				<li><a href="aceptar_vacantes.php">Aceptar Vacantes</a></li>
-				<li><a href="aceptar_vacantes.php">Baja Alumno</a></li>
+				<li><a href="./convocatorias.php">Convocatorias</a></li>
+				<li><a href="./nueva_convocatoria.php">Nueva Convocatoria</a></li>
+				<li><a href="./aceptar_vacantes.php">Aceptar Vacantes</a></li>
+				<li><a href="./aceptar_vacantes.php">Baja Alumno</a></li>
 			</ul>
 		</nav>
 	</div>
