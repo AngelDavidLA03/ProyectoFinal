@@ -133,14 +133,14 @@ body {
         margin: 10px 0;
     }}
 
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
     .center {
-      margin: auto;
-      width: 50%;
-      padding: 10px;
-  }
-  
-  @media (max-width: 768px) {
-      .center {
-          width: 100%;
-      }
-  }
+        width: 100%;
+    }
+}
