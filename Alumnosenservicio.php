@@ -19,7 +19,7 @@
 		</nav>
 		<nav class="main-menu">
 			<ul>
-				<li><a href="//index.html">Inicio</a></li>
+				<li><a href="..//servicioXd//index.html">Inicio</a></li>
 				<li><a href="alumnos.php">Alumnos</a></li>
 				<li><a href="convocatorias.php">Convocatorias</a></li>
 				<li><a href="nueva_convocatoria.php">Nueva Convocatoria</a></li>
