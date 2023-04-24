@@ -132,4 +132,9 @@ nav a:hover {
     text-decoration: none;
     cursor: pointer;
   }
+  /*css de la imagen a borrar*/
+  .card-content img {
+    width: 10%;
+    height: auto;
+  }
   
