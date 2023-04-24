@@ -217,7 +217,7 @@
 				<li><a href="./Alumnosenservicio.php">Alumnos en Servicio</a></li>
 				<li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Nueva Convocatoria</a></li>
 				<li><a href="../Convocatoria//Convocatoria.html">Convocatorias</a></li>
-        <li><a href="./accounts.html">Cerrar Sesión</a></li>
+        <li><a href="../accounts.html">Cerrar Sesión</a></li>
 
 			</ul>
 		</nav>
