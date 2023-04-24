@@ -215,7 +215,7 @@
 			<ul>
 				<li><a href="../accounts.html">Cuenta</a></li>
 				<li><a href="./Alumnosenservicio.php">Alumnos en Servicio</a></li>
-				<li><a href="">Nueva Convocatoria</a></li>
+				<li><a href="./NuevaConvocatoria.php">Nueva Convocatoria</a></li>
 				<li><a href="">Aceptar Aspirantes</a></li>
         <li><a href="./accounts.html">Cerrar Sesión</a></li>
 

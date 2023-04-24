@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Convocatorias de servicio social</title>
+  <link rel="stylesheet" href="stylegaleriaconvocatoria.css">
+  <script>
+    function mostrarSolicitantes(convocatoria) {
+      // Obtener el card flotante y el botón de cerrar
+      var modal = document.getElementById("modal");
+      var closeBtn = document.getElementById("close-btn");
+
+      // Mostrar el card flotante
+      modal.style.display = "block";
+
+      // Obtener y mostrar los solicitantes correspondientes
+      var solicitantes = obtenerSolicitantes(convocatoria);
+      var solicitantesHtml = "";
+      for (var i = 0; i < solicitantes.length; i++) {
+        solicitantesHtml += "<li>" + solicitantes[i] + "</li>";
+      }
+      var solicitantesList = document.getElementById("solicitantes-list");
+      solicitantesList.innerHTML = solicitantesHtml;
+
+      // Cerrar el card flotante al dar clic en el botón de cerrar
+      closeBtn.onclick = function() {
+        modal.style.display = "none";
+      }
+    }
+
+    function obtenerSolicitantes(convocatoria) {
+      // Aquí puedes agregar el código para obtener los solicitantes de la convocatoria seleccionada
+      return ["Solicitante 1", "Solicitante 2", "Solicitante 3"];
+    }
+  </script><!-- Menú superior -->
+<header>
+	<div class="container">
+		
+		<nav class="main-menu">
+			<ul>
+				<li><a href="../accounts.html">Cuenta</a></li>
+				<li><a href="./Alumnosenservicio.php">Alumnos en Servicio</a></li>
+				<li><a href="./NuevaConvocatoria.php">Nueva Convocatoria</a></li>
+				<li><a href="">Aceptar Aspirantes</a></li>
+        <li><a href="./accounts.html">Cerrar Sesión</a></li>
+
+			</ul>
+		</nav>
+	</div>
+</header>
+</head>
+<body>
+  <h1>Convocatorias de servicio social</h1>
+  
+  <div class="card-container">
+    <div class="card">
+      <div class="card-content">
+        <h3>Convocatoria 1</h3>
+        <p>Descripción de la convocatoria 1.</p>
+        <button onclick="mostrarSolicitantes(1)">Ver solicitantes</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-content">
+        <h3>Convocatoria 2</h3>
+        <p>Descripción de la convocatoria 2.</p>
+        <button onclick="mostrarSolicitantes(2)">Ver solicitantes</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-content">
+        <h3>Convocatoria 3</h3>
+        <p>Descripción de la convocatoria 3.</p>
+        <button onclick="mostrarSolicitantes(3)">Ver solicitantes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card flotante para mostrar los solicitantes -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="close-btn" class="close">&times;</span>
+      <h2>Solicitantes</h2>
+      <ul id="solicitantes-list"></ul>
+    </div>
+  </div>
+  
+</body>
+</html>
