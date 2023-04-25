@@ -3,7 +3,9 @@
   margin: 0 auto;
   overflow: hidden;
 }
-
+.input {
+  text-transform: uppercase;
+}
 header {
   background-color: #003366;
   padding: 20px;
