@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Nueva convocatoria - Servicio Social</title>
-    <link rel="stylesheet" type="text/css" href="stylenconvocatoria.css">
+    <link rel="stylesheet" type="text/css" href="stylesolicitud.css">
 
 
 </head>
@@ -14,7 +14,7 @@
 				<ul>
                     <li><a href="../accounts.html">Cuenta</a></li>
                     <li><a href="../AlumnoServicio/Alumnosenservicio.php">Alumnos en Servicio</a></li>
-                    <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Nueva Convocatoria</a></li>
+                    <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Solicitud</a></li>
                     <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
                     <li><a href="../accounts.html">Cerrar Sesión</a></li>
                 </ul>
