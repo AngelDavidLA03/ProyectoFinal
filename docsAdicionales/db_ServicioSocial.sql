@@ -5,7 +5,7 @@ INTEGRANTES:
 - ANGEL DAVID LOPEZ ALVAREZ - 20660062
 - PABLO ROCHA VARGAS - 20660075
 */
-
+db_serviciosocial
 CREATE DATABASE db_servicioSocial;
 
 USE db_servicioSocial;
@@ -40,6 +40,7 @@ CREATE TABLE dependencia(
 	ciudadDepend VARCHAR(20) NOT NULL,
 	efDepend VARCHAR(20) NOT NULL COMMENT 'Entidad Federativa',
 	/* --------- */
+	logo LONGBLOB NULL COMMENT 'Imagen de logo de la dependencia',
 	tipoDepend VARCHAR(7) NOT NULL COMMENT 'Solo permitir valores como Publica, Social y Privada'
 	) COMMENT 'CREAR UNICAMENTE CUANDO EXISTA UN CONVENIO ENTRE LA INSTITUCION Y LA DEPENDENCIA',
 	ENGINE=INNODB;
@@ -64,6 +65,19 @@ CREATE TABLE privada (
 	UNIQUE INDEX `codUserDependPriv` (`codUserDependPriv`) USING BTREE,
 	CONSTRAINT `ESPEC_codUserDependPriv` FOREIGN KEY (`codUserDependPriv`) REFERENCES `db_servicioSocial`.`dependencia` (`codUserDepend`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=INNODB;
+
+/* TABLA ESTADO DE VERIFICACION */
+CREATE TABLE estadoVerif (
+	idEstado INT(1) PRIMARY KEY NOT NULL,
+	nomEstado VARCHAR(11) NOT NULL COMMENT 'Solo permitir valores como Espera, Verificando, Aprobada, Rechazada'
+) COMMENT 'NO INTRODUCIR VALORES EN ESTA TABLA',
+ENGINE=INNODB;
+
+INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (1, 'Espera');
+INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (2, 'Verificando');
+INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (3, 'Aprobada');
+INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (4, 'Rechazada');
+
 
 /* TABLA DIRECTOR GENERAL */
 CREATE TABLE directorGeneral (
@@ -106,8 +120,9 @@ CREATE TABLE alumno (
 	localidadAlum VARCHAR(15) NOT NULL,
 	/* CONTACTO */
 	emailAlumn VARCHAR(128) NOT NULL,
-	numTelfAlumn VARCHAR(18) NOT NULL
+	numTelfAlumn VARCHAR(18) NOT NULL,
 	/* --------- */
+	foto LONGBLOB NULL COMMENT 'Foto del alumno'
 ) ENGINE=INNODB;
 
 /* TABLA COORDINADOR */
@@ -200,6 +215,18 @@ CREATE TABLE Solicitar (
 
 ALTER TABLE Solicitar ADD CONSTRAINT FK_codUserDepend_Solic FOREIGN KEY (codUserDepend) REFERENCES dependencia(codUserDepend) ON DELETE CASCADE ON UPDATE CASCADE; 
 ALTER TABLE Solicitar ADD CONSTRAINT FK_idServicio_Solic FOREIGN KEY (idServicio) REFERENCES servicioSocial(idServicio) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/* RELACION TENER (DEPENDENCIA M - ESTADO DE VERIFICACION M) */
+CREATE TABLE Tener(
+	codUserDepend VARCHAR(10) PRIMARY KEY NOT NULL,
+	idEstado INT(1) NOT NULL,
+	fechaUpdate DATE NOT NULL,
+	porcenActual INT(2) NULL COMMENT 'Introducir el porcentaje de revision actual en un rango de 0 - 99 (Solo cuando el idEstado sea de 2)',
+	razonRech VARCHAR(64) NULL COMMENT 'Introducir la razon por la cual se rechazo en un maximo de 64 caracteres (Solo cuando el idEstado sea de 4)'
+) ENGINE=INNODB;
+
+ALTER TABLE Tener ADD CONSTRAINT FK_codUserDepend_Tener FOREIGN KEY (codUserDepend) REFERENCES dependencia(codUserDepend) ON DELETE CASCADE ON UPDATE CASCADE; 
+ALTER TABLE Tener ADD CONSTRAINT FK_idEstado_Tener FOREIGN KEY (idEstado) REFERENCES estadoVerif(idEstado) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /* RELACION POSEER (DEPENDENCIA 1 - AREA M) */
 CREATE TABLE Poseer (
