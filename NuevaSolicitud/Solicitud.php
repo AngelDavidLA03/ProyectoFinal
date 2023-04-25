@@ -5,7 +5,11 @@
 	<title>Nueva convocatoria - Servicio Social</title>
     <link rel="stylesheet" type="text/css" href="stylesolicitud.css">
 
-
+    <style>
+      /* Aplica text-transform: uppercase al campo de entrada de texto */
+      input[type="text"] {
+        text-transform: uppercase;
+      }</style>
 </head>
 <body>
 	<header>

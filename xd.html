@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style> 
+      /* Aplica text-transform: uppercase al campo de entrada de texto */
+      input[type="text"] {
+        text-transform: uppercase;
+      }
+      /* No se aplica text-transform al campo de entrada de texto */
+      #titulo {
+        /* Aquí puedes agregar otros estilos para personalizar el aspecto del campo */
+        border: 1px solid black;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <form action="#" method="post">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" required>
+      <button type="submit">Enviar</button>
+    </form>
+    <p>El título que ingresaste es: <span id="titulo-resultado"></span></p>
+    <script>
+      const tituloInput = document.getElementById("titulo");
+      const tituloResultado = document.getElementById("titulo-resultado");
+      tituloInput.addEventListener("input", () => {
+        tituloResultado.textContent = tituloInput.value.toUpperCase();
+      });
+    </script>
+  </body>
+</html>
