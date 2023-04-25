@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Acceso al Sistema </title>
+</head>
+<body>
+  
+  <div class="loginbox">
+    <img src="../img/logo.png" alt="" class="avatar">
+    <h1>Iniciar Sesión</h1>
+    <br>
+    <br>
+    <form action="grantAccess.php" method="post">
+      <p>Usuario</p>
+      <input name="user" type="text" placeholder="" required="true">
+      <p>Contraseña</p>
+      <input name="pass" type="password" placeholder="" required="true">
+
+      <input type="submit" value="ACCEDER">
+
+      <div class="adviceText">
+      <b>¿Olvidaste la contraseña?</b>
+      <br>
+      <b>Revisa tu correo electronico</b>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
+
+
