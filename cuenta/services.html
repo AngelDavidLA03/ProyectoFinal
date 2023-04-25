@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Cuenta</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-finance-business.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+<!--
+
+Finance Business TemplateMo
+
+https://templatemo.com/tm-545-finance-business
+
+-->
+
+
+  <!-- Estilo Cards-->
+    <style>
+            .card {
+        border: 5px solid #99CC33;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .title-container {
+        background-color: #003366;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: white;
+        margin: 0;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #003366;
+        color: white;
+        margin-right: 10px;
+      }
+
+      button:hover {
+        background-color: #005599;
+      }
+
+      .button-container {
+        margin-top: 20px;
+      }
+
+      /* label*/
+      
+
+    </style>
+  </head>
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Menú superior-->
+   
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="#"><h2>Registro</h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="services.html">Registro
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Alumnos en Servicio</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Nueva Solicitud</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Solicitudes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar Sesión</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+       <!-- Page Content -->
+       <div class="page-heading header-text">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>REGISTRO</h1>
+              <span>DATOS y DOCUMENTOS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Menú de Opciones lateral-->
+    <div class="single-services">
+      <div class="container">
+        <div class="row" id="tabs">
+          <div class="col-md-4">
+            <ul>
+              <li><a href='#tabs-1'>Datos Generales <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-2'>Subir Documentos <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-3'>Tramitar Convenio <i class="fa fa-angle-right"></i></a></li>
+              <li><a href='#tabs-4'>Calendario<i class="fa fa-angle-right"></i></a></li>
+            </ul>
+          </div>
+
+    <!-- Contenido lateral del menú de opciones-->      
+          <div class="col-md-8">
+            <section class='tabs-content'>
+             
+              <article id='tabs-1'>
+                <div class="card">
+                  <div class="title-container">
+                    <h2>Datos Dependencia</h2>
+                  </div>
+                  <div class="content-container">
+                    <form>
+                      <label>Nombre Dependencia:</label>
+                      <input type="text" name="street" style="text-transform: uppercase;" required>
+                
+                      <label>Nombre Director:</label>
+                      <input type="text" name="outdoor-number" style="text-transform: uppercase;" required>
+                
+                      <label>RFC Dependencia:</label>
+                      <input type="text" name="cologne" style="text-transform: uppercase;" required>
+                
+                      <label>Email:</label>
+                      <input type="text" name="postal-code" style="text-transform: uppercase;" required>
+                
+                      <label>Municipio:</label>
+                      <input type="text" name="municipality" style="text-transform: uppercase;" required>
+                
+                      <div class="button-container">
+                        <button type="submit">Guardar</button>
+                        <button type="button" onclick="hidePopup()">Cancelar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </article>
+              
+                <!-- <img src="assets/images/single_service_02.jpg" alt=""> -->
+                <article id='tabs-2'>
+                  <form action="/guardar-archivos" method="POST" enctype="multipart/form-data">
+                    <ul style="margin-top: 0; padding-left: 0;">
+                      <li style="list-style: none;">
+                        <label for="doc1">* Copia del decreto, ley, acuerdo o la normativa que acredita su creación.</label>
+                        <input type="file" id="doc1" name="archivo1" />
+                      </li>
+                      <li style="list-style: none;">
+                        <label for="doc2">* Copia del nombramiento del representante de la dependencia.</label>
+                        <input type="file" id="doc2" name="archivo2" />
+                      </li>
+                      <li style="list-style: none;">
+                        <label for="doc3">* Copia de identificación oficial del representante.</label>
+                        <input type="file" id="doc3" name="archivo3" />
+                      </li>
+                      <li style="list-style: none;">
+                        <label for="doc4">* Copia del comprobante de domicilio de la dependencia.</label>
+                        <input type="file" id="doc4" name="archivo4" />
+                      </li>
+                      <li style="list-style: none;">
+                        <label for="doc5">* Oficio en hoja membretada, dirigido al coordinador de servicio social, solicitando la celebración de un convenio.</label>
+                        <input type="file" id="doc5" name="archivo5" />
+                      </li>
+                    </ul>
+                    <br><br>
+                    <button type="submit">Guardar archivos</button>
+                    <br><br>
+                  </form>
+                </article>
+
+                 
+                <article id='tabs-3'>
+                  <img src="assets/images/single_service_03.jpg" alt="">
+                  <h4>Para más información</h4>
+                  <p>Las empresas y dependencias que deseen solicitar alumnos, para realizar su servicio social y práctica profesional, deberán celebrar un convenio de colaboración.
+                  <br><br>Para más información abrir el siguiente enlace:</p>
+          
+                  <a href="http://www.serviciosocial.buap.mx/content/informaci%C3%B3n-para-tr%C3%A1mite-de-convenio" target="_blank">Trámite de convenio</a>
+                    <br><br>
+                </article>
+                
+
+                <article id='tabs-4'>
+                  <img src="assets/images/calen2023.png" alt="">
+                  <br><br>
+                </article>
+
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/accordions.js"></script>
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+  </body>
+</html>
