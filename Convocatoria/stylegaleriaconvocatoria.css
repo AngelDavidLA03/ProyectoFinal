@@ -59,35 +59,37 @@ nav a:hover {
       margin: 0;
       padding: 0;
     }
-    /* Contenedor para los cards */
-    .card-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-    }
-    /* Estilos para las tarjetas */
-    .card {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px;
-      padding: 10px; /* Modificamos la propiedad padding */
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-      background-color: #ffffff;
-      max-width: 500px; /* Define el ancho máximo del card */
-      margin: 100px auto; /* Hace que el card se centre horizontalmente */
+ /* Estilos para el contenedor de los cards */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Ajustamos la propiedad flex-wrap */
+  gap: 20px; /* Añadimos un espacio entre los cards */
+}
+
+/* Estilos para las tarjetas */
+.card {
     
-    }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  max-width: 400px; /* Reducimos el ancho máximo del card */
+}
+
     /* Estilos para los botones */
     button {
       padding: 10px;
       border-radius: 5px;
       border: none;
       color: #ffffff;
-      background-color: #007bff;
+      background-color: #4CAF50;
       cursor: pointer;
     }
     /* Estilos para la lista de convocatorias */
