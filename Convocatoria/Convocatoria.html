@@ -1,95 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Convocatorias de servicio social</title>
-  <link rel="stylesheet" href="stylegaleriaconvocatoria.css">
-  <script>
-    
-    function mostrarSolicitantes(convocatoria) {
-      // Obtener el card flotante y el botón de cerrar
-      var modal = document.getElementById("modal");
-      var closeBtn = document.getElementById("close-btn");
-
-      // Mostrar el card flotante
-      modal.style.display = "block";
-
-      // Obtener y mostrar los solicitantes correspondientes
-      var solicitantes = obtenerSolicitantes(convocatoria);
-      var solicitantesHtml = "";
-      for (var i = 0; i < solicitantes.length; i++) {
-        solicitantesHtml += "<li>" + solicitantes[i] + "</li>";
-      }
-      var solicitantesList = document.getElementById("solicitantes-list");
-      solicitantesList.innerHTML = solicitantesHtml;
-
-      // Cerrar el card flotante al dar clic en el botón de cerrar
-      closeBtn.onclick = function() {
-        modal.style.display = "none";
-      }
-    }
-
-    function obtenerSolicitantes(convocatoria) {
-      // Aquí puedes agregar el código para obtener los solicitantes de la convocatoria seleccionada
-      return ["Solicitante 1", "Solicitante 2", "Solicitante 3"];
-    }
-  </script><!-- Menú superior -->
-<header>
-	<div class="container">
-		
-		<nav class="main-menu">
-			<ul>
-				<li><a href="../accounts.html">Cuenta</a></li>
-				<li><a href="../AlumnoServicio/Alumnosenservicio.php">Alumnos en Servicio</a></li>
-				<li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Solicitar</a></li>
-				<li><a href="../Convocatoria/Convocatoria.html">Solicitudes</a></li>
-        <li><a href="../accounts.html">Cerrar Sesión</a></li>
-
-			</ul>
-		</nav>
-	</div>
-</header>
-</head>
-<body>
-  <h1>Convocatorias de servicio social</h1>
-  
-  <div class="card-container">
+<html>
+  <head>
+    <title>Convocatorias y alumnos</title>
+    <link rel="stylesheet" href="stylegaleriaconvocatoria.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <ul>
+                      <li><a href="../accounts.html">Cuenta</a></li>
+                      <li><a href="../AlumnoServicio/Alumnosenservicio.php">Alumnos en Servicio</a></li>
+                      <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Solicitud</a></li>
+                      <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
+                      <li><a href="../accounts.html">Cerrar Sesión</a></li>
+                  </ul>
+              </nav>
+          </div>
+      </header>
+  </head>
+  <body>
     <div class="card">
-      <div class="card-content">
-        <h3>Convocatoria 1</h3>
-        <p>Descripción de la convocatoria 1.</p>
-        <button onclick="mostrarSolicitantes(1)">Ver solicitantes</button>
-      </div>
+      <h2>Convocatorias disponibles</h2>
+      <ul class="convocatorias">
+        <li><button class="convocatoria" data-id="1">Convocatoria 1</button></li>
+        <li><button class="convocatoria" data-id="2">Convocatoria 2</button></li>
+        <li><button class="convocatoria" data-id="3">Convocatoria 3</button></li>
+      </ul>
     </div>
-    
-    <div class="card">
-      <div class="card-content">
-        <h3>Convocatoria 2</h3>
-        <p>Descripción de la convocatoria 2.</p>
-        <button onclick="mostrarSolicitantes(2)">Ver solicitantes</button>
-      </div>
+    <div class="card" id="alumnos-card">
+      <h2>Alumnos inscritos</h2>
+      <ul class="alumnos" id="alumnos-list">
+      </ul>
     </div>
-    
-    <div class="card">
-      <div class="card-content">
-        <h3>Convocatoria 3</h3>
-        <p>Descripción de la convocatoria 3.</p>
-        <button onclick="mostrarSolicitantes(3)">Ver solicitantes</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Card flotante para mostrar los solicitantes -->
-  <div id="modal" class="modal">
-    <div class="modal-content">  
-
-      <span id="close-btn" class="close">&times;</span>
-      <h2>Solicitantes</h2>      
-
-      <ul id="solicitantes-list"></ul><img src="Enconstruccion.png" > ALTO AHI VELOCISTA ESTAMOS EN CONSTRUCCION
-      <img src="Enconstruccion.png" alt="Descripción de la imagen">
-    </div>
-  </div>
-  
-</body>
-</html>
+    <script>
+      // Seleccionar los botones de convocatoria y agregar un evento de clic
+const convocatorias = document.querySelectorAll(".convocatoria");
+convocatorias.forEach((convocatoria) => {
+  convocatoria.addEventListener("click", () => {
+    // Obtener el ID de la convocatoria seleccionada
+    const id = convocatoria.getAttribute("data-id");
+    // Hacer una solicitud a una API para obtener la lista de alumnos inscritos
+    fetch(`https://api.example.com/convocatorias/${id}/alumnos`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Limpiar la lista de alumnos
+        const alumnosList = document.getElementById("alumnos-list");
+        alumnosList.innerHTML = "";
+        // Agregar cada alumno a la lista
+        data.forEach((alumno) => {
+          const alumnoItem = document.createElement("li");
+          const alumnoLink = document.createElement("a");
+          alumnoLink.innerText = alumno.nombre;
+          alumnoLink.setAttribute("data-id", alumno.id);
+          alumnoLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            // Obtener el ID del alumno seleccionado
+            const id = event.target.getAttribute("data-id");
+            // Hacer una solicitud a una API para obtener la información del alumno
+            fetch(`https://api.example.com/alumnos/${id}`)
+              .then((response) => response.json())
+              .then((data) => {
+                // Mostrar la información del alumno en una alerta
+                alert(`Nombre: ${data.nombre}\nEmail: ${data.email}\nTeléfono: ${data.telefono}`);
+              });
+          });
+          alumnoItem.appendChild(alumnoLink);
+          alumnosList.appendChild(alumnoItem);
+        });
+        // Mostrar la tarjeta de alumnos
+        const alumnosCard = document.getElementById("alumnos-card");
+        alumnosCard.style.display = "block";
+      });
+  });
+});

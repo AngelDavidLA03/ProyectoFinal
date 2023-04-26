@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style> 
-      /* Aplica text-transform: uppercase al campo de entrada de texto */
-      input[type="text"] {
-        text-transform: uppercase;
-      }
-      /* No se aplica text-transform al campo de entrada de texto */
-      #titulo {
-        /* Aquí puedes agregar otros estilos para personalizar el aspecto del campo */
-        border: 1px solid black;
-        padding: 5px;
-      }
+    <style>
+        /* Aplica text-transform: uppercase al campo de entrada de texto */
+        input[type="text"] {
+          text-transform: uppercase;
+        }</style>
     </style>
   </head>
-  
   <body>
     <form action="#" method="post">
       <label for="titulo">Título:</label>
-      <input type="text" id="titulo" name="titulo" required>
+      <input type="text" id="titulo" name="titulo" data-uppercase required>
       <button type="submit">Enviar</button>
     </form>
     <p>El título que ingresaste es: <span id="titulo-resultado"></span></p>
@@ -26,8 +19,21 @@
       const tituloInput = document.getElementById("titulo");
       const tituloResultado = document.getElementById("titulo-resultado");
       tituloInput.addEventListener("input", () => {
-        tituloResultado.textContent = tituloInput.value.toUpperCase();
+        tituloResultado.textContent = tituloInput.value;
       });
-    </script>
+    </script><script>
+  function uppercaseInput(event) {
+    const input = event.target;
+    input.value = input.value.toUpperCase();
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const inputs = document.querySelectorAll("input[data-uppercase]");
+    inputs.forEach(input => {
+      input.addEventListener("input", uppercaseInput);
+    });
+  });
+</script>
+
   </body>
 </html>
