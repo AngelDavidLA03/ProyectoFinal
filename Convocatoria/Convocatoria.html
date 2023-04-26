@@ -9,17 +9,15 @@
       <div class="container">
         <nav>
           <ul>
-                      <li><a href="../cuenta//services.html">Cuenta</a></li>
-                      <li><a href="../alumnos//alumno.html">Alumnos en Servicio</a></li>
-                      <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
-                      <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
-                      <li><a href="../login/login.html">Cerrar Sesión</a></li>
-                  </ul>
-              </nav>
-          </div>
-      </header>
-  </head>
-  <body>
+            <li><a href="../accounts.html">Cuenta</a></li>
+            <li><a href="../AlumnoServicio/Alumnosenservicio.php">Alumnos en Servicio</a></li>
+            <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Solicitud</a></li>
+            <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
+            <li><a href="../accounts.html">Cerrar Sesión</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
     <div class="card">
       <label for="convocatorias">Convocatorias disponibles:</label>
       <select id="convocatorias" class="convocatorias">
@@ -30,50 +28,61 @@
         <option value="5">Convocatoria 5</option>
       </select>
     </div>
-    
+    <div class="card" id="Solicitud">
+      <h2>Solicitud</h2>
+      <p id="Solicitud"></p>
+    </div>
     <div class="card" id="alumnos-card">
       <h2>Alumnos inscritos</h2>
       <ul class="alumnos" id="alumnos-list">
       </ul>
     </div>
+    
+    <div class="card" id="alumno-info-card">
+      <h2>Información del alumno</h2>
+      <p id="alumno-info"></p>
+    </div>
+    
     <script>
-      // Seleccionar los botones de convocatoria y agregar un evento de clic
-const convocatorias = document.querySelectorAll(".convocatoria");
-convocatorias.forEach((convocatoria) => {
-  convocatoria.addEventListener("click", () => {
-    // Obtener el ID de la convocatoria seleccionada
-    const id = convocatoria.getAttribute("data-id");
-    // Hacer una solicitud a una API para obtener la lista de alumnos inscritos
-    fetch(`https://api.example.com/convocatorias/${id}/alumnos`)
-      .then((response) => response.json())
-      .then((data) => {
-        // Limpiar la lista de alumnos
-        const alumnosList = document.getElementById("alumnos-list");
-        alumnosList.innerHTML = "";
-        // Agregar cada alumno a la lista
-        data.forEach((alumno) => {
-          const alumnoItem = document.createElement("li");
-          const alumnoLink = document.createElement("a");
-          alumnoLink.innerText = alumno.nombre;
-          alumnoLink.setAttribute("data-id", alumno.id);
-          alumnoLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            // Obtener el ID del alumno seleccionado
-            const id = event.target.getAttribute("data-id");
-            // Hacer una solicitud a una API para obtener la información del alumno
-            fetch(`https://api.example.com/alumnos/${id}`)
-              .then((response) => response.json())
-              .then((data) => {
-                // Mostrar la información del alumno en una alerta
-                alert(`Nombre: ${data.nombre}\nEmail: ${data.email}\nTeléfono: ${data.telefono}`);
-              });
+      const alumnosPorConvocatoria = {
+        1: ["Juan", "María", "Pedro"],
+        2: ["Ana", "Luis", "Marta"],
+        3: ["Sofía", "Diego", "Lucía"],
+        4: ["Carla", "David", "Elena"],
+        5: ["Gabriel", "Miguel", "Raquel"]
+      };
+    
+      const convocatoriasSelect = document.getElementById("convocatorias");
+      const alumnosList = document.getElementById("alumnos-list");
+      const alumnoInfoCard = document.getElementById("alumno-info-card");
+      const alumnoInfo = document.getElementById("alumno-info");
+    
+      convocatoriasSelect.addEventListener("change", () => {
+        const convocatoriaSeleccionada = convocatoriasSelect.value;
+        const alumnos = alumnosPorConvocatoria[convocatoriaSeleccionada];
+        alumnosList.innerHTML = ""; // Limpiar lista de alumnos
+        alumnoInfoCard.style.display = "none"; // Ocultar card de información del alumno
+    
+        if (alumnos.length > 0) {
+          alumnos.forEach((alumno) => {
+            const li = document.createElement("li");
+            const botonVer = document.createElement("button");
+            botonVer.innerText = "Ver";
+            botonVer.addEventListener("click", () => {
+              alumnoInfo.innerText = `Nombre: ${alumno}`;
+              alumnoInfoCard.style.display = "block";
+            });
+            li.innerText = alumno;
+            li.appendChild(botonVer);
+            alumnosList.appendChild(li);
           });
-          alumnoItem.appendChild(alumnoLink);
-          alumnosList.appendChild(alumnoItem);
-        });
-        // Mostrar la tarjeta de alumnos
-        const alumnosCard = document.getElementById("alumnos-card");
-        alumnosCard.style.display = "block";
+        } else {
+          const li = document.createElement("li");
+          li.innerText = "No hay alumnos inscritos en esta convocatoria.";
+          alumnosList.appendChild(li);
+        }
       });
-  });
-});
+    </script>
+    
+  </body>
+</html>
