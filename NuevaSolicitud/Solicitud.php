@@ -29,17 +29,42 @@
     <div class="container">
 	    <section>
              
-	        <div class="card">
-	            <h2>Título de la convocatoria:</h2>
+        <div class="card">
+  <div class="card-header">
+    <h2>Nueva Solicitud</h2>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-group">
+        <label for="nombre-dependencia">Cargo:</label>
+        <input type="text" id="nombre-dependencia" name="nombre-dependencia" style="text-transform: uppercase;" required>
+      </div>
+      <div class="form-group">
+        <label for="nombre-representante">Nombre Representante:</label>
+        <input type="text" id="nombre-representante" name="nombre-representante" style="text-transform: uppercase;" required>
+      </div>
+      <div class="form-group">
+        <label for="rfc-dependencia">RFC Dependencia:</label>
+        <input type="text" id="rfc-dependencia" name="rfc-dependencia" style="text-transform: uppercase;" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" style="text-transform: uppercase;" required>
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="text" id="telefono" name="telefono" style="text-transform: uppercase;" required>
+      </div>
+      
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="button-container">
+      <!-- aquí puedes agregar tus botones -->
+    </div>
+  </div>
+</div>
 
-	            <form action="#" method="post">
-	                <label for="titulo">Título:</label>
-	                <input type="text" id="titulo" name="titulo" required>
-
-	                <label for="descripcion">Descripción:</label>
-	                <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
-	            </form>
-	        </div>
 
 	        <div class="card">
 	            <h2>Fecha y contacto:</h2>
