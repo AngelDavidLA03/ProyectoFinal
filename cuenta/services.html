@@ -2,14 +2,21 @@
 <html lang="en">
 
   <head>
-
+  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <title>Cuenta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    
+    <!-- otros enlaces a archivos CSS y JS -->
+    <link rel="stylesheet" type="text/css" href="../stylegaleria.css">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -18,73 +25,28 @@
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-finance-business.css">
     <link rel="stylesheet" href="assets/css/owl.css">
-<!--
 
-Finance Business TemplateMo
-
-https://templatemo.com/tm-545-finance-business
-
--->
-
-
-  <!-- Estilo Cards-->
     <style>
-            .card {
-        border: 5px solid #99CC33;
-        border-radius: 10px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+
+      /*Carrusel en la izquierda */
+      .grid-x {
+        max-width: 800px; /* ajusta el ancho máximo según tus necesidades */
+        margin: 0 auto; /* centra el contenedor horizontalmente */
+        text-align: left; /* alinea el contenido a la izquierda */
       }
 
-      .title-container {
-        background-color: #003366;
-        padding: 10px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-      }
+      /* Tamaño imagenes carrusel*/
+      .item img {
+      max-width: 100%;
+      max-height: 150px;
+      object-fit: contain;
+    }
 
-      h2 {
-        color: white;
-        margin: 0;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 10px;
-      }
-
-      input[type="text"] {
-        width: 100%;
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        margin-bottom: 20px;
-      }
-
-      button {
-        padding: 10px 20px;
-        border-radius: 5px;
-        border: none;
-        background-color: #003366;
-        color: white;
-        margin-right: 10px;
-      }
-
-      button:hover {
-        background-color: #005599;
-      }
-
-      .button-container {
-        margin-top: 20px;
-      }
-
-      /* label*/
-      
+    
 
     </style>
   </head>
+
 
   <body>
 
@@ -110,21 +72,21 @@ https://templatemo.com/tm-545-finance-business
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="services.html">Cuenta
+                <a class="nav-link" href="services.html">Nueva Solicitud
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../alumnos/alumno.html">Alumnos en Servicio</a>
+                <a class="nav-link" href="#">Alumnos en Servicio</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="../NuevaSolicitud/Solicitud.php">Solicitud</a>
+                <a class="nav-link" href="#">Registro</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../Convocatoria/Convocatoria.html">Convocatorias</a>
+                <a class="nav-link" href="#">Solicitudes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../login/login.html">Cerrar Sesión</a>
+                <a class="nav-link" href="#">Cerrar Sesión</a>
               </li>
             </ul>
           </div>
@@ -162,18 +124,19 @@ https://templatemo.com/tm-545-finance-business
     <!-- Contenido lateral del menú de opciones-->      
           <div class="col-md-8">
             <section class='tabs-content'>
-             
+
+    <!-- Contenido relacionado a Datos Dependencia-->          
               <article id='tabs-1'>
                 <div class="card">
                   <div class="title-container">
-                    <h2>Datos Dependencia</h2>
+                    <h2 color="white">Datos Dependencia</h2>
                   </div>
                   <div class="content-container">
                     <form>
                       <label>Nombre Dependencia:</label>
                       <input type="text" name="street" style="text-transform: uppercase;" required>
                 
-                      <label>Nombre Director:</label>
+                      <label>Nombre Representante:</label>
                       <input type="text" name="outdoor-number" style="text-transform: uppercase;" required>
                 
                       <label>RFC Dependencia:</label>
@@ -182,7 +145,7 @@ https://templatemo.com/tm-545-finance-business
                       <label>Email:</label>
                       <input type="text" name="postal-code" style="text-transform: uppercase;" required>
                 
-                      <label>Municipio:</label>
+                      <label>Teléfono:</label>
                       <input type="text" name="municipality" style="text-transform: uppercase;" required>
                 
                       <div class="button-container">
@@ -193,43 +156,85 @@ https://templatemo.com/tm-545-finance-business
                   </div>
                 </div>
               </article>
-              
-                <!-- <img src="assets/images/single_service_02.jpg" alt=""> -->
-                
-                <article id='tabs-2'>
-                  <form action="/guardar-archivos" method="POST" enctype="multipart/form-data">
-                    <ul style="margin-top: 0; padding-left: 0;">
+         
 
-                      <h2> Subir Documentos</h2>
-
-                      <li style="list-style: none;">
-                        <label for="doc1">* Copia del decreto, ley, acuerdo o la normativa que acredita su creación.</label>
-                        <input type="file" id="doc1" name="archivo1" />
-                      </li>
-                      <li style="list-style: none;">
-                        <label for="doc2">* Copia del nombramiento del representante de la dependencia.</label>
-                        <input type="file" id="doc2" name="archivo2" />
-                      </li>
-                      <li style="list-style: none;">
-                        <label for="doc3">* Copia de identificación oficial del representante.</label>
-                        <input type="file" id="doc3" name="archivo3" />
-                      </li>
-                      <li style="list-style: none;">
-                        <label for="doc4">* Copia del comprobante de domicilio de la dependencia.</label>
-                        <input type="file" id="doc4" name="archivo4" />
-                      </li>
-                      <li style="list-style: none;">
-                        <label for="doc5">* Oficio en hoja membretada, dirigido al coordinador de servicio social, solicitando la celebración de un convenio.</label>
-                        <input type="file" id="doc5" name="archivo5" />
-                      </li>
-                    </ul>
-                    <br><br>
-                    <button type="submit">Guardar archivos</button>
-                    <br><br>
-                  </form>
+        <!-- Contenido relacionado a  Carrusel subir documentos-->    
+ 
+                <article id="tabs-2">
+                  <div class="grid-x">
+                    <div class="large-12 columns">
+                      <div class="owl-carousel owl-theme">
+                        <div class="item">
+                          <div class="image-container">
+                            <label for="doc1">
+                              <img src="./images/decreto.jpg" alt="imagen1" />
+                            </label>
+                            <p>Copia del decreto, ley, acuerdo o la normativa que acredita su creación.</p>
+                            <input type="file" id="doc1" name="archivo1" />
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="image-container">
+                            <label for="doc2">
+                              <img src="./images/representante.jpg" alt="imagen2" />
+                            </label>
+                            <p>Copia del nombramiento del representante de la dependencia</p>
+                            <input type="file" id="doc2" name="archivo2" />
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="image-container">
+                            <label for="doc3">
+                              <img src="./images/identificacionoficial.jpg" alt="imagen3" />
+                            </label>
+                            <p>Copia de identificación oficial del representante</p>
+                            <input type="file" id="doc3" name="archivo3" />
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="image-container">
+                            <label for="doc4">
+                              <img src="./images/comprobantedomicilio.jpg" alt="imagen4" />
+                            </label>
+                            <p>Copia del comprobante de domicilio de la dependencia</p>
+                            <input type="file" id="doc4" name="archivo4" />
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="image-container">
+                            <label for="doc5">
+                              <img src="./images/RFC.png" alt="imagen5" />
+                            </label>
+                            <p>Copia del registro federal de contribuyentes (RFC) de la dependencia</p>
+                            <input type="file" id="doc5" name="archivo5" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="btn-container">
+                      <button type="submit">Enviar documentos</button>
+                    </div>
+                  </div>
                 </article>
-
-                 
+                
+                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+                <script>
+                    $('.owl-carousel').owlCarousel({
+              loop:true,
+              margin:10,
+              nav:true,
+              merge:false,
+              responsive:{
+                  0:{
+                      items:1
+                  },
+              }
+          });
+         </script>
+                
+                          
+            <!-- Contenido relacionado a Tramitar cinevenio-->    
                 <article id='tabs-3'>
                   <img src="assets/images/single_service_03.jpg" alt="">
                   <h4>Para más información</h4>
@@ -240,18 +245,40 @@ https://templatemo.com/tm-545-finance-business
                     <br><br>
                 </article>
                 
-
+  <!-- Contenido relacionado a Calendario-->    
                 <article id='tabs-4'>
                   <img src="assets/images/calen2023.png" alt="">
                   <br><br>
                 </article>
 
-              </section>
+                  </section>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
     
+          <script>
+            $(document).ready(function() {
+            $("#tabs-2 .item").owlCarousel({
+              loop: true,
+              margin: 20,
+              nav: true,
+              dots: false,
+              navText: ['<span class="icon-arrow_back"></span>', '<span class="icon-arrow_forward"></span>'],
+              responsive: {
+                0: {
+                  items: 1
+                },
+                600: {
+                  items: 2
+                },
+                1000: {
+                  items: 3
+                }
+              }
+            });
+          });
+          </script>              
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
