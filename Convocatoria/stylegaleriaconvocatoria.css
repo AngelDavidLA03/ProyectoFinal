@@ -53,7 +53,7 @@ nav a:hover {
   background-color: #fff;
   color: #2c3e50;
 }
-     /* Estilos para la página */
+     /* Estilos para la pÃ¡gina */
      body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -65,7 +65,7 @@ nav a:hover {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap; /* Ajustamos la propiedad flex-wrap */
-  gap: 20px; /* Añadimos un espacio entre los cards */
+  gap: 20px; /* AÃ±adimos un espacio entre los cards */
 }
 
 /* Estilos para las tarjetas */
@@ -79,7 +79,7 @@ nav a:hover {
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  max-width: 400px; /* Reducimos el ancho máximo del card */
+  max-width: 400px; /* Reducimos el ancho mÃ¡ximo del card */
   
   
 
@@ -99,9 +99,9 @@ nav a:hover {
 
 
 #alumnos-card {
-  float: left;
-  margin-left: 10px;
-  max-width: 400px; /* Reducimos el ancho máximo del card */
+  float: right; /* Cambiamos el valor de 'left' a 'right' */
+  margin-right: 10px; /* En lugar de 'margin-left', aplicamos 'margin-right' */
+  max-width: 400px;
   margin-top: 20px;
   width: 9cm;
   height: 9cm;
@@ -109,12 +109,12 @@ nav a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
+
 #alumno-info-card {
   float: left;
   margin-left: 0px;
-  max-width: 400px; /* Reducimos el ancho máximo del card */
+  max-width: 400px; /* Reducimos el ancho mÃ¡ximo del card */
   margin-top: 20px;
   width: 9cm;
   height: 9cm;
@@ -138,10 +138,11 @@ button {
   padding: 5px 10; /* Espacio interno */
   text-align: center; /* Centrado del texto */
   text-decoration: none; /* Sin subrayado */
-  display: inline-block; /* Display en línea */
-  font-size: 16px; /* Tamaño de la fuente */
+  display: inline-block; /* Display en lÃ­nea */
+  font-size: 16px; /* TamaÃ±o de la fuente */
   margin: 4px 2px; /* Margen exterior */
   cursor: pointer; /* Cambio de cursor al pasar por encima */
+  
 }
 
 
