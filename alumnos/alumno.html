@@ -537,7 +537,7 @@ https://templatemo.com/tm-545-finance-business
           </div>
         </div>
 
-        <button id="popup-trigger">Saber más</button>
+      
 
         <script>
           var popup = document.getElementById("popup-content");
@@ -582,42 +582,41 @@ https://templatemo.com/tm-545-finance-business
             </div>
           </div>
         </div>
-
+        
         <script>
           // Obtener el botón de activación del popup
           const popupTrigger = document.querySelector('#popup-trigger');
-
+        
           // Obtener el contenedor del popup
           const popupContainer = document.querySelector('#popup-container');
-
+        
           // Obtener el botón de cancelar del popup
           const popupCancel = popupContainer.querySelector('.cancelar');
-
+        
           // Función para mostrar el popup
           function showPopup() {
             console.log("Mostrar popup"); // Agrega este console.log() para verificar
             popupContainer.style.display = 'block';
           }
-
+        
           // Función para ocultar el popup
           function hidePopup() {
             popupContainer.style.display = 'none';
           }
-
+        
           // Agregar evento al botón de activación del popup
           popupTrigger.addEventListener('click', showPopup);
-
+        
           // Agregar evento al botón de cancelar del popup
           popupCancel.addEventListener('click', hidePopup);
-        </script>
-
-        <script>
+        
           // Obtener el botón de activación del popup para solicitar cambio
           const popupTriggerCambio = document.querySelector('#popup-trigger-cambio');
-
+        
           // Agregar evento al botón de activación del popup para solicitar cambio
           popupTriggerCambio.addEventListener('click', showPopup);
         </script>
+        
 
 
 
