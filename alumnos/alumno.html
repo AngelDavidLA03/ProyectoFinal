@@ -516,7 +516,7 @@ https://templatemo.com/tm-545-finance-business
 
 
 <!-- POUP DAtos-->
-        <div id="popup-content">
+        <div id="popup-content" style="display:none;">
           <div class="row">
             <div class="col">
               <div class="card">
@@ -529,7 +529,7 @@ https://templatemo.com/tm-545-finance-business
                 <input type="text" value="Juan Pérez">
                 <label>Horas Completadas:</label>
                 <input type="text" value="180">
-        
+
                 <button onclick="window.open('../alumnos/PdfServicio/1nuevopresentacion_ss.pdf')">Carta Presentación</button>
                 <button id="popup-close">Cerrar</button>
               </div>
@@ -537,30 +537,7 @@ https://templatemo.com/tm-545-finance-business
           </div>
         </div>
 
-        <script>
-          // Obtener el botón de activación del popup
-          var popupTrigger = document.getElementById("popup-trigger");
-
-          // Obtener el contenido del popup
-          var popupContent = document.getElementById("popup-content");
-
-          // Agregar un controlador de eventos para el botón de activación del popup
-          popupTrigger.addEventListener("click", function() {
-            // Mostrar el popup
-            popupContent.style.display = "block";
-          });
-        </script>
-
-        <script>
-          // Obtener el botón de cierre del popup
-          var popupClose = document.getElementById("popup-close");
-
-          // Agregar un controlador de eventos para el botón de cierre del popup
-          popupClose.addEventListener("click", function() {
-            // Ocultar el popup
-            popupContent.style.display = "none";
-          });
-        </script>
+        <button id="popup-trigger">Saber más</button>
 
         <script>
           var popup = document.getElementById("popup-content");
@@ -568,13 +545,16 @@ https://templatemo.com/tm-545-finance-business
           var closeButton = document.getElementById("popup-close");
 
           trigger.onclick = function() {
-            popup.style.display = "block";
+            if (popup.style.display === "none") {
+              popup.style.display = "block";
+            }
           };
 
           closeButton.onclick = function() {
             popup.style.display = "none";
           };
         </script>
+
 
 
 
