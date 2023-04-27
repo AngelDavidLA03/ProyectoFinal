@@ -9,10 +9,10 @@
       <div class="container">
         <nav>
           <ul>
-            <li><a href="../cuenta/services.html">Cuenta</a></li>
+            <li><a href="../accounts.html">Cuenta</a></li>
             <li><a href="../AlumnoServicio/Alumnosenservicio.php">Alumnos en Servicio</a></li>
             <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Solicitud</a></li>
-            <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+            <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
             <li><a href="../accounts.html">Cerrar Sesion</a></li>
           </ul>
         </nav>
