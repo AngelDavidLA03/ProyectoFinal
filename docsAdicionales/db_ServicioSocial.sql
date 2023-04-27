@@ -13,7 +13,7 @@ USE db_servicioSocial;
 /* TABLA USUARIO */
 CREATE TABLE usuario (
 	codUser VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Vincular de los codigos ya generados',
-	username INT(5) NOT NULL COMMENT 'Generar automaticamente y no sera posible modificarlo',
+	username VARCHAR(5) NOT NULL COMMENT 'Generar automaticamente y no sera posible modificarlo',
 	pass VARCHAR(10) NOT NULL COMMENT 'Sera igual al codigo secundario del tipo de usuario',
 	tipoUser VARCHAR(11) NOT NULL COMMENT 'Solo permitir valores como Dependencia, Alumno y Coordinador'
 	) ENGINE=INNODB;
@@ -275,3 +275,20 @@ CREATE TABLE Revisar (
 ALTER TABLE Revisar ADD CONSTRAINT FK_codUserCoord_Rev FOREIGN KEY (codUserCoord) REFERENCES coordinador(codUserCoord) ON DELETE CASCADE ON UPDATE CASCADE; 
 ALTER TABLE Revisar ADD CONSTRAINT FK_idDocument_Rev FOREIGN KEY (idDocument) REFERENCES documento(idDocument) ON DELETE CASCADE ON UPDATE CASCADE;
 
+/* PROCEDIMIENTOS PARA LA BASE DE DATOS */
+
+/* PROCEDIMIENTO UTILIZADO PARA CONTROLAR EL ACCESO AL SISTEMA */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `loginAccess`(
+	IN `usernameL` VARCHAR(5),
+	IN `passwordL` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO UTILIZADO PARA CONTROLAR EL ACCESO AL SISTEMA'
+SELECT COUNT(codUser) AS isExist, tipoUser, codUser
+FROM usuario;
+WHERE (usernameL LIKE username) AND (passwordL LIKE pass);
+
+/* PROCEDIMIENTO PARA LA CARGA DE ARCHIVOS */

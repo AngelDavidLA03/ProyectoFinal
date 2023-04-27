@@ -8,13 +8,12 @@
   <title>Acceso al Sistema </title>
 </head>
 <body>
-  
   <div class="loginbox">
     <img src="../img/logo.png" alt="" class="avatar">
     <h1>Iniciar Sesión</h1>
     <br>
     <br>
-    <form action="grantAccess.php" method="post">
+    <form action="../functionsDB/grantAccess.php" method="post">
       <p>Usuario</p>
       <input name="user" type="number" placeholder="" required="true">
       <p>Contraseña</p>
@@ -28,8 +27,20 @@
       <b>Revisa tu correo electronico</b>
       </div>
     </form>
-  </div>
-
+    <script language="javascript">
+      
+      // Se obtiene el parametro enviado desde el PHP y se comprueba de que coincida con el argumento dado
+		  const urlParams = new URLSearchParams(window.location.search);
+		  const error = urlParams.get('fail');
+      
+      // Se analiza si el parametro es verdadero
+      if (error === "true")
+      {
+        // Muestra el mensaje de alerta dado cuando el login falla
+        alert("Credenciales de Acceso Incorrectas\nIntroduzcalas correctamente.")
+      }
+      
+    </script>
 </body>
 </html>
 
