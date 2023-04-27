@@ -1,0 +1,80 @@
+/* Carrusel galeria*/
+.btn-container {
+    text-align: center;
+    margin-top: 20px;
+    }
+    
+    .btn-container button {
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    
+    /* Agregar estas líneas */
+    .owl-item label {
+    display: block;
+    margin-bottom: 10px;
+    }
+    
+    .owl-item input {
+    display: block;
+    margin: 0 auto;
+    }
+    
+
+/* Cards */
+.card {
+    border: 5px solid #99CC33;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title-container {
+    background-color: #003366;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  h2 {
+    color: white;
+    margin: 0;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #003366;
+    color: white;
+    margin-right: 10px;
+  }
+
+  button:hover {
+    background-color: #005599;
+  }
+
+  .button-container {
+    margin-top: 20px;
+  }
