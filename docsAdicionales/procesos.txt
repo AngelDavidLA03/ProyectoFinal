@@ -1,0 +1,61 @@
+- ALUMNO -
+
+- Ingresar al sistema
+- Subir fotografia del alumno.
+- Seleccionar el servicio social
+- Realizar solicitud al servicio social (subir carta de presentacion y constancia)
+- Esperar respuesta de la dependencia
+- Subir un reporte de avance por lapsos especificados (180 hrs, 360 hrs, 480 hrs).
+- Recibir la carta de liberacion por parte de la dependencia siemppre que se cumpla lo establecido en el servicio social.
+- Recibir carta de finalizacion de servicio por parte del coordinador (despues de la verificacion).
+
+DOCUMENTOS
++ Foto de perfil
++ Carta de presentacion 
++ Constancia de estudios
++ Reporte de Actividades (180hrs, 360hrs, 480hrs)
+
+- DEPENDENCIA -
+
+- Registrarse para conseguir el convenio con la institucion.
+- Subir documentos solicitados (decretos, nombramiento del representante, INE del representante, comprobante de domicilio, RFC de la dependencia, logo de la dependencia).
+- Esperar respuesta por parte de la institucion.
+- Ingresar al sistema con las credenciales de acceso enviadas al correo electronico.
+- Crear una solicitud de servicio social (subir el listado de actividades y honorarios (opcional)).
+- Revisar los documentos subidos por los solicitantes del servicio social.
+- Aceptar al alumno en el servicio social y generar la carta de aceptacion (o por el contrario, rechazar al alumno).
+- Realizar reportes (cuando sean solicitados por la institucion).
+- Enviar peticion a la institucion para dar la baja a un alumno del servicio social (cuando la baja este justificada).
+- Proporcionar carta de liberacion con firma del gerente y jefe inmediato al alumno.
+
+DOCUMENTOS
++ Decretos
++ Nombramiento del representante
++ INE del representante
++ Comprobante de domicilio
++ RFC
++ Logo de la dependencia
++ Carta de Aceptacion
++ Listado de Actividades
++ Honorarios
++ Reporte de alumnos en servicio social
++ Carta de baja de alumno del servicio social
++ Carta de liberacion 
+
+- COORDINADOR -
+- Ingresar al sistema.
+- Enviar la carta de presentacion y la constancia de los alumnos que la soliciten.
+- Realizar reportes (cuando sean solicitados por la institucion).
+- Revisar documentos subidos por el alumno.
+- Revisar documentos subidos por la dependencia.
+- Aceptar el convenio con la dependencia (o por el contrario, rechazarlo).
+- Autorizar o rechazar el convenio con la empresa.
+- Proporcionar carta de finalizacion de servicio social por parte de la institucion.
+
+DOCUMENTOS
++ Carta de presentacion 
++ Constancia de estudios
++ Convenio
++ Reporte de alumnos en servicio social
++ Reporte de dependencias con servicio social autorizado
++ Carta de finalizacion
