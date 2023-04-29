@@ -1,6 +1,8 @@
 <?php
 
 require_once('database.php');
+session_start();
+
 
 $conexion = conexion();
 
@@ -30,26 +32,30 @@ $codigo = $getConsulta[2];
 // Se analizan los valores obtenidos para poder reedireccionar a la pagina correspondiente
 if($exsite == 1)
 {
+    $_SESSION['isLogged'] = true;
+    $_SESSION['tipo'] = $usuario;
+    $_SESSION['user'] = $codigo;
+
     if($usuario == "Dependencia")
     {   
-        header("location:../Dependencia/Index.php");
+        header("location:../test/Dependencia/Index.php");
     }
     else if($usuario == "Alumno")
     {   
-        header("location:../Alumno/Index.php");
+        header("location:../test/Alumno/Index.php");
     } 
     else if($usuario == "Coordinador")
-    {   
-        header("location:../Coordinador/Index.php");
+    {
+        header("location:../test/Coordinador/Index.php");
     }
     else
     {
-        header("location:../login/login.html?fail=true"); //Carga la pagina y vuelve a solicitar los datos
+        header("location:../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
     }
 }
 else
 {
-    header("location:../login/login.html?fail=true"); //Carga la pagina y vuelve a solicitar los datos
+    header("location:../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
 }
 
 mysqli_free_result($result);

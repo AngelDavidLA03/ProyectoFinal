@@ -19,10 +19,15 @@ CREATE TABLE usuario (
 	pass VARCHAR(10) NOT NULL COMMENT 'Sera igual al codigo secundario del tipo de usuario',
 	tipoUser VARCHAR(11) NOT NULL COMMENT 'Solo permitir valores como Dependencia, Alumno y Coordinador'
 	) ENGINE=INNODB;
+	
+INSERT INTO usuario (`codUser`, `username`, `pass`, `tipoUser`) VALUES ('2366ALU000', '00000', '1234', 'Alumno');
+INSERT INTO usuario (`codUser`, `username`, `pass`, `tipoUser`) VALUES ('2366COR000', '00000', '567', 'Coordinador');
+INSERT INTO usuario (`codUser`, `username`, `pass`, `tipoUser`) VALUES ('2366DEP000', '00000', '890', 'Dependencia');
+
 
 /* TABLA DEPENDENCIA */
 CREATE TABLE dependencia(
-	codUserDepend VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con la fecha de creacion, tipo de usuario simplificado (D), y numeros siguiendo el orden del 001 hasta el 999',
+	codUserDepend VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (DEP), y numeros siguiendo el orden del 001 hasta el 999',
 	idDepend VARCHAR(7) NOT NULL COMMENT 'Generar automaticamente con el año de generacion del documento de convenio, el separador "-" y el numero de convenio arrojado por el documento de convenio',
 	nomDepend VARCHAR(32) NOT NULL COMMENT 'Introducir el nombre de la dependencia (abreviado o completo dependiendo el caso) en un maximo de 32 caracteres',
 	RFC VARCHAR(13) NOT NULL,
@@ -106,7 +111,7 @@ CREATE TABLE area (
 
 /* TABLA ALUMNO */
 CREATE TABLE alumno (
-	codUserAlumn VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con la fecha de creacion, tipo de usuario simplificado (A), y numeros siguiendo el orden del 001 hasta el 999',
+	codUserAlumn VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (ALU), y numeros siguiendo el orden del 001 hasta el 999',
 	matricula VARCHAR(10) NOT NULL COMMENT 'Modificar la longitud segun si es requerido por la institucion',
 	/* NOMBRE */
 	nomAlumn VARCHAR(24) NOT NULL,
@@ -129,7 +134,7 @@ CREATE TABLE alumno (
 
 /* TABLA COORDINADOR */
 CREATE TABLE coordinador (
-	codUserCoord VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con la fecha de creacion, tipo de usuario simplificado (C), y numeros siguiendo el orden del 001 hasta el 999',
+	codUserCoord VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (COR), y numeros siguiendo el orden del 001 hasta el 999',
 	idCoord VARCHAR(10) NOT NULL COMMENT 'Generar automaticamente con el año de registro, codigo de la escuela, letra inicial de su nombre(s) y apellidos',
 	/* NOMBRE */
 	nomCoord VARCHAR(24) NOT NULL,
@@ -157,8 +162,7 @@ CREATE TABLE servicioSocial (
 
 /* TABLA DOCUMENTO */
 CREATE TABLE documento (
-	idDocument VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con la letra inicial del nombre(s) y apellidos del director general, tipo de documento abreviado y año de generacion',
-	descDocument VARCHAR(52) NOT NULL COMMENT 'Introducir la descripcion del documento en un maximo de 52 caracteres',
+	idDocument VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el tipo de documento abreviado y año de generacion',
 	fechaEntrega DATE NOT NULL,
 	document LONGBLOB NOT NULL COMMENT 'Documentos subidos por los usuarios',
 	tipoDocument VARCHAR(18) NOT NULL COMMENT 'Solo permitir valores como CartaAceptacion, CartaFinalizacion, ReporteActividades, Honorarios y Convenio'
@@ -170,7 +174,8 @@ CREATE TABLE convenio (
 	numConv INT(4) NOT NULL,
 	UNIQUE INDEX `idDocumentConv` (`idDocumentConv`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentConv` FOREIGN KEY (`idDocumentConv`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = CNV',
+ENGINE=INNODB;
 
 /* SUBTABLA CARTA DE PRESENTACION */
 CREATE TABLE cartaPresentacion (
@@ -178,7 +183,8 @@ CREATE TABLE cartaPresentacion (
 	matriculaPresent VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentPresent` (`idDocumentPresent`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentPresent` FOREIGN KEY (`idDocumentPresent`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = CPE',
+ENGINE=INNODB;
 
 /* SUBTABLA CONSTANCIA DE ESTUDIOS */
 CREATE TABLE constancia (
@@ -186,28 +192,32 @@ CREATE TABLE constancia (
 	matriculaConst VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentConst` (`idDocumentConst`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentConst` FOREIGN KEY (`idDocumentConst`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = CON',
+ENGINE=INNODB;
 
 /* SUBTABLA REPORTE DE ACTIVIDADES */
 CREATE TABLE reporteActividades (
 	idDocumentReportAct VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `idDocumentReportAct` (`idDocumentReportAct`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentReportAct` FOREIGN KEY (`idDocumentReportAct`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = NRE',
+ENGINE=INNODB;
 
 /* SUBTABLA DECRETOS */
 CREATE TABLE decretos (
 	idDocumentDec VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `idDocumentDec` (`idDocumentDec`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentDec` FOREIGN KEY (`idDocumentDec`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = DEC',
+ENGINE=INNODB;
 
 /* SUBTABLA NOMBRAMIENTO DEL REPRESENTANTE */
 CREATE TABLE nombramientoRepresentante (
 	idDocumentNomRep VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `idDocumentNomRep` (`idDocumentNomRep`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentNomRep` FOREIGN KEY (`idDocumentNomRep`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = NRE',
+ENGINE=INNODB;
 
 /* SUBTABLA IDENTIFICACION OFICIAL DEL REPRESENTANTE */
 CREATE TABLE identificacionRepresentante (
@@ -215,14 +225,16 @@ CREATE TABLE identificacionRepresentante (
 	documentCURP VARCHAR(18) NOT NULL,
 	UNIQUE INDEX `idDocumentINE` (`idDocumentINE`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentINE` FOREIGN KEY (`idDocumentINE`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = INE',
+ENGINE=INNODB;
 
 /* SUBTABLA COMPROBANTE DE DOMICILIO */
 CREATE TABLE comprobanteDomicilio (
 	idDocumentDomic VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `idDocumentDomic` (`idDocumentDomic`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentDomic` FOREIGN KEY (`idDocumentDomic`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = DOM',
+ENGINE=INNODB;
 
 /* SUBTABLA REGISTRO FEDERAL DEL CONTRIBUYENTE */
 CREATE TABLE regFedCont (
@@ -230,7 +242,8 @@ CREATE TABLE regFedCont (
 	documentRFC VARCHAR(13) NOT NULL,
 	UNIQUE INDEX `idDocumentRFC` (`idDocumentRFC`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentRFC` FOREIGN KEY (`idDocumentRFC`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = RFC',
+ENGINE=INNODB;
 
 /* SUBTABLA CARTA DE ACEPTACION */
 CREATE TABLE cartaAceptacion (
@@ -238,7 +251,8 @@ CREATE TABLE cartaAceptacion (
 	matriculaAcept VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentAcept` (`idDocumentAcept`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentAcept` FOREIGN KEY (`idDocumentAcept`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+)COMMENT 'ABREVIACION = CAC',
+ENGINE=INNODB;
 
 /* SUBTABLA LISTADO DE ACTIVIDADES */
 CREATE TABLE listaActividades (
@@ -246,7 +260,8 @@ CREATE TABLE listaActividades (
 	listAct VARCHAR(128) NOT NULL COMMENT 'Introducir las actividades a realizar en un maximo de 128 caracteres',
 	UNIQUE INDEX `idDocumentAct` (`idDocumentAct`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentAct` FOREIGN KEY (`idDocumentAct`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = LAC',
+ENGINE=INNODB;
 
 /* SUBTABLA HONORARIOS */
 CREATE TABLE honorarios (
@@ -256,7 +271,8 @@ CREATE TABLE honorarios (
 	matriculaHon VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentHon` (`idDocumentHon`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentHon` FOREIGN KEY (`idDocumentHon`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = HON',
+ENGINE=INNODB;
 
 /* SUBTABLA REPORTE DE ALUMNOS EN SERVICIO SOCIAL */
 CREATE TABLE reportAlumnos (
@@ -264,7 +280,8 @@ CREATE TABLE reportAlumnos (
 	documentMotivoAlumn VARCHAR(24) NOT NULL COMMENT 'Motivo de la realizacion del reporte',
 	UNIQUE INDEX `idDocumentReportAlumn` (`idDocumentReportAlumn`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentReportAlumn` FOREIGN KEY (`idDocumentReportAlumn`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = RAL',
+ENGINE=INNODB;
 
 /* SUBTABLA CARTA DE BAJA DE ALUMNO DE SERVICIO SOCIAL */
 CREATE TABLE cartaBaja (
@@ -272,7 +289,8 @@ CREATE TABLE cartaBaja (
 	matriculaBaja VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentBajaAlumn` (`idDocumentBajaAlumn`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentBajaAlumn` FOREIGN KEY (`idDocumentBajaAlumn`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = CBA',
+ENGINE=INNODB;
 
 /* SUBTABLA CARTA DE LIBERACION */
 CREATE TABLE cartaLiberacion (
@@ -280,7 +298,8 @@ CREATE TABLE cartaLiberacion (
 	matriculaLib VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentLib` (`idDocumentLib`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentLib` FOREIGN KEY (`idDocumentLib`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = CLI',
+ENGINE=INNODB;
 
 /* SUBTABLA REPORTE DE DEPENDENCIAS */
 CREATE TABLE reportDependencias (
@@ -288,7 +307,8 @@ CREATE TABLE reportDependencias (
 	documentMotivoDep VARCHAR(24) NOT NULL COMMENT 'Motivo de la realizacion del reporte',
 	UNIQUE INDEX `idDocumentReportDep` (`idDocumentReportDep`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentReportDep` FOREIGN KEY (`idDocumentReportDep`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = RDE',
+ENGINE=INNODB;
 
 /* SUBTABLA CARTA DE FINALIZACION */
 CREATE TABLE cartaFinalizacion (
@@ -296,7 +316,8 @@ CREATE TABLE cartaFinalizacion (
 	matriculaFin VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentFin` (`idDocumentFin`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentFin` FOREIGN KEY (`idDocumentFin`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=INNODB;
+) COMMENT 'ABREVIACION = CFI',
+ENGINE=INNODB;
 
 /* RELACION ADMINISTRAR (DIRECTOR GENERAL 1 - DEPENDENCIA 1) */
 CREATE TABLE Administrar (
