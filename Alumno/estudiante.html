@@ -1,22 +1,35 @@
-<div class="menu">
-    <h2>Menú</h2>
-    <link rel="stylesheet" type="text/css" href="styleestudiante.css">
-
-    <ul>
-      <li><a href="#">Ingresar al sistema</a></li>
-      <li><a href="#">Subir fotografía del alumno</a></li>
-      <li><a href="#">Seleccionar el servicio social</a></li>
-      <li class="dropdown">
-        <a href="#">Realizar solicitud al servicio social</a>
-        <ul>
-          <li><a href="#">Subir carta de presentación</a></li>
-          <li><a href="#">Subir constancia</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Esperar respuesta de la dependencia</a></li>
-      <li><a href="#">Subir reporte de avance por lapsos especificados</a></li>
-      <li><a href="#">Recibir la carta de liberación por parte de la dependencia</a></li>
-      <li><a href="#">Recibir carta de finalización de servicio por parte del coordinador</a></li>
-    </ul>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formulario de Servicio Social</title>
+	<link rel="stylesheet" type="text/css" href="styleestudiante.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="../accounts.html">Cuenta</a></li>
+        <li><a href="../AlumnoServicio/Alumnosenservicio.php">Buscar servicio social</a></li>
+        <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Cerrar sesion</a></li>
+        
+      </ul>
+    </nav>
   </div>
   
+	<div class="form-container">
+		<form>
+			<div class="image-container">
+				<label for="foto">Subir fotografia del alumno:</label>
+				<input type="file" id="foto" name="foto">
+			</div>
+			<label for="servicio">Servicio social:</label>
+			<select id="servicio" name="servicio"></select>
+			<label for="carta">Subir carta de presentacion:</label>
+			<input type="file" id="carta" name="carta">
+			<label for="constancia">Subir constancia:</label>
+			<input type="file" id="constancia" name="constancia">
+			<button type="submit">Aceptar</button>
+		</form>
+	</div>
+</body>
+</html>
