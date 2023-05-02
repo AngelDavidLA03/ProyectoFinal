@@ -1,3 +1,5 @@
+/* Estilos menú superior */
+
 .container1 {
     width: 90%;
     margin: 0 auto;
@@ -57,6 +59,7 @@
   /* Termina menu superior*/
 
 
+
   /* Carrusel */
   .owl-carousel {
     margin-top: 20px;
@@ -74,10 +77,10 @@
   }
 
   .owl-dots {
-text-align: center;
-margin-top: 20px;
-bottom: -20px; /* Agregar esta línea */
-}
+    text-align: center;
+    margin-top: 20px;
+    bottom: -20px; /* Agregar esta línea */
+  }
 
   .owl-dot {
     display: inline-block;
@@ -113,51 +116,26 @@ bottom: -20px; /* Agregar esta línea */
   }
 
   .owl-prev, .owl-next {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-margin-top: 0;
-}
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 0;
+  }
 
-.owl-prev {
-left: 0;
-}
+  .owl-prev {
+  left: 0;
+  }
 
-.owl-next {
-right: 0;
-}
+  .owl-next {
+  right: 0;
+  }
 
-.owl-carousel .owl-nav button.owl-prev:before, .owl-carousel .owl-nav button.owl-next:before {
-font-size: 30px;
-color: #000;
-}
-
-.owl-carousel .owl-nav button.owl-prev:before {
-content: "<";
-}
-
-.owl-carousel .owl-nav button.owl-next:before {
-content: ">";
-}
-
-.owl-carousel .owl-nav button.owl-prev:focus, .owl-carousel .owl-nav button.owl-next:focus {
-outline: none;
-}
-.owl-dots,
-.btn-container {
-margin-top: -150px;
-}
-
-.owl-prev:hover, .owl-next:hover {
-background-color: rgba(255, 0, 0, 0.8);
-border-color: rgba(255, 0, 0, 0.8);
-}
 
 /* Container*/
 
 .container {
   max-width: 800px;
-  margin: 100px auto 0; /* Agregamos 40px de margen superior */
+  margin: 40px auto 0; /* Agregamos 40px de margen superior */
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
