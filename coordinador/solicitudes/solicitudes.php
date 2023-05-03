@@ -55,7 +55,7 @@
           <tr>
             <td>Empresa1</td>
             <td>Empresa1@gmail.com</td>
-            <td>Alumno</td>
+            <td>Dependencia</td>
             <td class="btn-group">
               <button>Aceptar</button>
               <button class="reject-btn">Rechazar</button>
