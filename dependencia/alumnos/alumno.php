@@ -30,6 +30,18 @@ Finance Business TemplateMo
 https://templatemo.com/tm-545-finance-business
 
 -->
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
+
+        // Se comprueba si la Dependencia ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
 
     <!-- Estilo para el texto del menú -->
     <style>
@@ -422,11 +434,11 @@ https://templatemo.com/tm-545-finance-business
         <div class="container">
           <nav>
             <ul>
-                        <li><a href="../cuenta/services.html">Cuenta</a></li>
-                        <li><a href="./alumno.html">Alumnos en Servicio</a></li>
-                        <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
-                        <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
-                        <li><a href="../login/login.html">Cerrar Sesión</a></li>
+                      <li><a href="../cuenta/services.php">Cuenta</a></li>
+                      <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
+                      <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
+                      <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+                      <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
                     </ul>
                 </nav>
             </div>

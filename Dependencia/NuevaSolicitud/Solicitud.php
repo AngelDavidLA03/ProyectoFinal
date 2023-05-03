@@ -5,6 +5,19 @@
 	<title>Nueva convocatoria - Servicio Social</title>
     <link rel="stylesheet" type="text/css" href="stylesolicitud.css">
 
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
+
+        // Se comprueba si la Dependencia ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
+
     <style>
       /* Aplica text-transform: uppercase al campo de entrada de texto */
       input[type="text"] {
@@ -16,11 +29,11 @@
 		<div class="container">
 			<nav>
 				<ul>
-                    <li><a href="../cuenta/services.html">Cuenta</a></li>
-                    <li><a href="../alumnos/alumno.html">Alumnos en Servicio</a></li>
+                    <li><a href="../cuenta/services.php">Cuenta</a></li>
+                    <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
                     <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
                     <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
-                    <li><a href="../login/login.html">Cerrar Sesión</a></li>
+                    <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>

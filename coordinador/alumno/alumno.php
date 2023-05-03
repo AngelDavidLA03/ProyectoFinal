@@ -31,14 +31,6 @@ Finance Business TemplateMo
 https://templatemo.com/tm-545-finance-business
 
 -->
-
-  
-  </head>
-
-
-
-  <body>
-
   <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
   <?php
         session_start();
@@ -51,6 +43,12 @@ https://templatemo.com/tm-545-finance-business
             exit;
         } 
     ?>
+  
+  </head>
+
+
+
+  <body>
 <!-- Menú superior-->
 <header>
   <div class="container1">

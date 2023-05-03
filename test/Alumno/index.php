@@ -4,6 +4,7 @@
 	<title>Página de prueba</title>
 </head>
 <body>
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
     <?php
         session_start();
 

@@ -8,15 +8,8 @@
   
     <link rel="stylesheet" type="text/css" href="coordinador.css">
 
-   
-    
-
-
-
-  <body>
-
-    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php
+   <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+   <?php
         session_start();
 
         // Se comprueba si el Coordinador ha iniciado sesion
@@ -28,6 +21,10 @@
         } 
     ?>
     
+
+
+
+  <body>
     <!-- Menú superior-->
     <header>
       <div class="container1">

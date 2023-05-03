@@ -26,6 +26,20 @@
     <link rel="stylesheet" href="assets/css/templatemo-finance-business.css">
     <link rel="stylesheet" href="assets/css/owl.css">
 
+    
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
+
+        // Se comprueba si la Dependencia ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
+
     <style>
 
       /*Carrusel en la izquierda */
@@ -77,16 +91,16 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../alumnos/alumno.html">Alumnos en Servicio</a>
+                <a class="nav-link" href="../alumnos/alumno.php">Alumnos en Servicio</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="../cuenta/services.html">Registro</a>
+                <a class="nav-link" href="../cuenta/services.php">Registro</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../Convocatoria/Convocatoria.html">Solicitudes</a>
+                <a class="nav-link" href="../Convocatoria/Convocatoria.php">Solicitudes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../login/login.html">Cerrar Sesión</a>
+                <a class="nav-link" href="../../functionsDB/logout.php">Cerrar Sesión</a>
               </li>
             </ul>
           </div>

@@ -10,7 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
-   
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
+
+        // Se comprueba si el Coordinador ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Coordinador"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
+
+
     <!-- Estilo para el texto del menú -->
     <style>
           /*
@@ -147,20 +160,6 @@
 
 
   <body>
-
-    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php
-        session_start();
-
-        // Se comprueba si el Coordinador ha iniciado sesion
-        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Coordinador"))
-        {
-            header("location: ../../login/login.html?redirect=true");
-            session_destroy();
-            exit;
-        } 
-    ?>
-
     <!-- Menú superior-->
     <header>
         <div class="container1">

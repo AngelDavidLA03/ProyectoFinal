@@ -3,17 +3,31 @@
   <head>
     <title>Convocatorias y alumnos</title>
     <link rel="stylesheet" href="stylegaleriaconvocatoria.css">
+
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
+
+        // Se comprueba si la Dependencia ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
+
   </head>
   <body>
     <header>
       <div class="container">
         <nav>
           <ul>
-            <li><a href="../accounts.html">Cuenta</a></li>
-            <li><a href="../AlumnoServicio/Alumnosenservicio.php">Alumnos en Servicio</a></li>
-            <li><a href="../ConvocatoriasNuevas/NuevaConvocatoria.php">Solicitud</a></li>
-            <li><a href="../Convocatoria/Convocatoria.html">Convocatorias</a></li>
-            <li><a href="../accounts.html">Cerrar Sesion</a></li>
+                <li><a href="../cuenta/services.php">Cuenta</a></li>
+                <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
+                <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
+                <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+                <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
           </ul>
         </nav>
       </div>
