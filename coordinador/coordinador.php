@@ -15,17 +15,30 @@
 
   <body>
 
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
+
+        // Se comprueba si el Coordinador ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Coordinador"))
+        {
+            header("location: ../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
+    
     <!-- Menú superior-->
     <header>
       <div class="container1">
         <nav>
           <ul>
-                      <li><a href="../coordinador/coordinador.html">Crear cuenta</a></li>
-                      <li><a href="../coordinador/documentos/documentos.html">Subir documentos</a></li>
-                      <li><a href="../coordinador/alumno/alumno.html">Alumnos en Servicio</a></li>
-                      <li><a href="../coordinador/dependencias/dependencias.html">Dependencias</a></li>
-                      <li><a href="../coordinador/solicitudes/solicitudes.html">Solicitudes</a></li>
-                      <li><a href="../login/login.html">Cerrar Sesión</a></li>
+                      <li><a href="../coordinador/coordinador.php">Crear cuenta</a></li>
+                      <li><a href="../coordinador/documentos/documentos.php">Subir documentos</a></li>
+                      <li><a href="../coordinador/alumno/alumno.php">Alumnos en Servicio</a></li>
+                      <li><a href="../coordinador/dependencias/dependencias.php">Dependencias</a></li>
+                      <li><a href="../coordinador/solicitudes/solicitudes.php">Solicitudes</a></li>
+                      <li><a href="../functionsDB/logout.php">Cerrar Sesión</a></li>
                   </ul>
               </nav>
           </div>

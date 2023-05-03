@@ -31,13 +31,19 @@
       
       // Se obtiene el parametro enviado desde el PHP y se comprueba de que coincida con el argumento dado
 		  const urlParams = new URLSearchParams(window.location.search);
-		  const error = urlParams.get('failed');
-      
-      // Se analiza si el parametro es verdadero
-      if (error === "true")
+		  const fail = urlParams.get('failed');
+      const red = urlParams.get('redirect');
+
+      // Se analiza si uno de los parametros es verdadero
+      if (fail === "true")
       {
         // Muestra el mensaje de alerta dado cuando el login falla
         alert("Credenciales de Acceso Incorrectas\nIntroduzcalas correctamente.")
+      }
+      else if(red === "true")
+      {
+        // Muestra el mensaje de alerta dado cuando se regresa al login despues de un redireccionamiento
+        alert("Inicie sesión para acceder a este apartado.")
       }
       
     </script>

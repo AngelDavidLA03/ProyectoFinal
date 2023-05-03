@@ -10,7 +10,7 @@
         // Se comprueba si la Dependencia ha iniciado sesion
         if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
         {
-            header("location:../../login/login.html");
+            header("location: ../login/login.html?redirect=true");
             session_destroy();
             exit;
         } 

@@ -36,26 +36,30 @@ if($exsite == 1)
     $_SESSION['tipo'] = $usuario;
     $_SESSION['user'] = $codigo;
 
+    // Se obtiene el directorio de la raiz
+    
+
     if($usuario == "Dependencia")
     {   
-        header("location:../test/Dependencia/Index.php");
+        
+        header("location: ../test/Dependencia/Index.php");
     }
     else if($usuario == "Alumno")
     {   
-        header("location:../test/Alumno/Index.php");
+        header("location: ../test/Alumno/Index.php");
     } 
     else if($usuario == "Coordinador")
     {
-        header("location:../test/Coordinador/Index.php");
+        header("location: ../coordinador/coordinador.php");
     }
     else
     {
-        header("location:../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
+        header("location: ../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
     }
 }
 else
 {
-    header("location:../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
+    header("location: ../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
 }
 
 mysqli_free_result($result);
