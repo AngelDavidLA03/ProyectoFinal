@@ -22,6 +22,7 @@
       height: 40px;
       border-radius: 50%;
       overflow: hidden;
+      
     }
     .user-icon img {
       width: 100%;
@@ -40,7 +41,7 @@
       border-radius: 5px;
     }
     .dropdown-menu li {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
     .user-icon:hover + .dropdown-menu,
     .dropdown-menu:hover {
@@ -236,7 +237,7 @@
     }
     
     [class^="w-icon-"], [class*=" w-icon-"] {
-      speak: none;
+      speak-as: none;
       font-variant: normal;
       text-transform: none;
       -webkit-font-smoothing: antialiased;
