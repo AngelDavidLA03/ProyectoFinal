@@ -144,7 +144,7 @@ CREATE TABLE coordinador (
 
 /* TABLA SERVICIO SOCIAL */
 CREATE TABLE servicioSocial (
-	idServicio VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, letra inicial del nombre(s) y apellidos del director general y especialidad solicitada',
+	idServicio VARCHAR(16) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, las iniciales del nombre(s) y apellidos del director general, dos caracteres incrementales del 01 al 99, un separador de -, y el periodo de solicitud (ENE-JUN, y JUL-DIC)',
 	nomServic VARCHAR(54) NOT NULL COMMENT 'Nombre descriptivo propio del servicio social',
 	actividades VARCHAR(256) NOT NULL COMMENT 'Introducir las actividades que se realizaran durante el servicio social en un maximo de 256 caracteres',
 	/* HORARIO */
@@ -153,7 +153,9 @@ CREATE TABLE servicioSocial (
 	horaFin TIME NOT NULL,
 	/* ------- */
 	fechaInicio DATE NOT NULL,
-	fechaFin DATE NOT NULL
+	fechaFin DATE NOT NULL,
+	fechaCreacion DATE NOT NULL
+	
 ) ENGINE=INNODB;
 
 /* TABLA DOCUMENTO */
@@ -317,7 +319,7 @@ ENGINE=INNODB;
 
 /* RELACION ADMINISTRAR (DIRECTOR GENERAL 1 - DEPENDENCIA 1) */
 CREATE TABLE Administrar (
-	codUserDepend VARCHAR(10) NOT NULL UNIQUE,
+	codUserDepend VARCHAR(11) NOT NULL UNIQUE,
 	idDirector VARCHAR(10) NOT NULL UNIQUE
 ) ENGINE=INNODB;
 
@@ -326,8 +328,8 @@ ALTER TABLE Administrar ADD CONSTRAINT FK_idDirector_Admin FOREIGN KEY (idDirect
 
 /* RELACION SOLICITAR (DEPENDENCIA 1 - SERVICIO SOCIAL M) */
 CREATE TABLE Solicitar (
-	codUserDepend VARCHAR(10) NOT NULL UNIQUE,
-	idServicio VARCHAR(11) NOT NULL UNIQUE
+	codUserDepend VARCHAR(11) NOT NULL,
+	idServicio VARCHAR(16) NOT NULL UNIQUE
 ) ENGINE=INNODB;
 
 ALTER TABLE Solicitar ADD CONSTRAINT FK_codUserDepend_Solic FOREIGN KEY (codUserDepend) REFERENCES dependencia(codUserDepend) ON DELETE CASCADE ON UPDATE CASCADE; 
@@ -335,7 +337,7 @@ ALTER TABLE Solicitar ADD CONSTRAINT FK_idServicio_Solic FOREIGN KEY (idServicio
 
 /* RELACION TENER (DEPENDENCIA M - ESTADO DE VERIFICACION M) */
 CREATE TABLE Tener(
-	codUserDepend VARCHAR(10) PRIMARY KEY NOT NULL,
+	codUserDepend VARCHAR(11) PRIMARY KEY NOT NULL,
 	idEstado INT(1) NOT NULL,
 	fechaUpdate DATE NOT NULL,
 	porcenActual INT(2) NULL COMMENT 'Introducir el porcentaje de revision actual en un rango de 0 - 99 (Solo cuando el idEstado sea de 2)',
@@ -347,7 +349,7 @@ ALTER TABLE Tener ADD CONSTRAINT FK_idEstado_Tener FOREIGN KEY (idEstado) REFERE
 
 /* RELACION POSEER (DEPENDENCIA 1 - AREA M) */
 CREATE TABLE Poseer (
-	codUserDepend VARCHAR(10) NOT NULL,
+	codUserDepend VARCHAR(11) NOT NULL,
 	idArea VARCHAR(7) NOT NULL UNIQUE
 ) ENGINE=INNODB;
 
@@ -356,8 +358,9 @@ ALTER TABLE Poseer ADD CONSTRAINT FK_idArea_Poseer FOREIGN KEY (idArea) REFERENC
 
 /* RELACION REALIZAR (ALUMNO M - SERVICIO SOCIAL 1) */
 CREATE TABLE Realizar (
-	codUserAlumn VARCHAR(10) NOT NULL UNIQUE,
-	idServicio VARCHAR(11) NOT NULL
+	codUserAlumn VARCHAR(11) NOT NULL UNIQUE,
+	idServicio VARCHAR(16) NOT NULL,
+	estado VARCHAR(9) NULL COMMENT 'Solo permitir valores como ACEPTADO o RECHAZADO'
 ) ENGINE=INNODB;
 
 ALTER TABLE Realizar ADD CONSTRAINT FK_codUserAlumn_Real FOREIGN KEY (codUserAlumn) REFERENCES alumno(codUserAlumn) ON DELETE CASCADE ON UPDATE CASCADE; 
@@ -365,7 +368,7 @@ ALTER TABLE Realizar ADD CONSTRAINT FK_idServicio_Real FOREIGN KEY (idServicio) 
 
 /* RELACION GENERAR (SERVICIO SOCIAL 1 - DOCUMENTO M) */
 CREATE TABLE Generar (
-	idServicio VARCHAR(11) NOT NULL,
+	idServicio VARCHAR(16) NOT NULL,
 	idDocument VARCHAR(11) NOT NULL UNIQUE,
 	coments VARCHAR(52) NOT NULL COMMENT 'Introducir los comentarios hacia el documento en un maximo de 52 caracteres' NULL
 ) ENGINE=INNODB;
@@ -375,7 +378,7 @@ ALTER TABLE Generar ADD CONSTRAINT FK_idDocument_Gen FOREIGN KEY (idDocument) RE
 
 /* RELACION REVISAR (COORDINADOR 1 - DOCUMENTO M) */
 CREATE TABLE Revisar (
-	codUserCoord VARCHAR(10) NOT NULL,
+	codUserCoord VARCHAR(11) NOT NULL,
 	idDocument VARCHAR(11) NOT NULL UNIQUE
 ) ENGINE=INNODB;
 
@@ -668,5 +671,153 @@ COMMENT 'PROCEDIMIENTO PARA OBTENER LOS VALORES DE LOS DOCUMENTOS EN GENERAL'
 
 
 
+
+/* PROCEDIMIENTO PARA OBTENER LAS SOLICITUDES DE SERVICIO SOCIAL HECHAS POR LA EMPRESA */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GETss`(
+	IN `codUser` VARCHAR(11)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+	SELECT solicitar.idServicio
+	FROM solicitar INNER JOIN serviciosocial ON solicitar.idServicio = serviciosocial.idServicio
+	WHERE solicitar.codUserDepend LIKE codUser
+	ORDER BY serviciosocial.fechaCreacion DESC;
+
+/* PROCEDIMIENTO PARA OBTENER LOS DETALLES DE LA SOLICITUD DE SERVICIO SOCIAL */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GETdetailsSS`(
+	IN `idServicio` VARCHAR(16)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+	SELECT nomServic,actividades,diasPorSem,horaInicio,horaFin,fechaInicio,fechaFin
+	FROM serviciosocial
+	WHERE serviciosocial.idServicio LIKE idServicio;
+
+/* PROCEDIMIENTO PARA OBTENER LOS ALUMNOS QUE SOLICITARON EL SERVICIO SOCIAL */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GETalumnosREQss`(
+	IN `idServicio` VARCHAR(16)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+	SELECT alumno.nomAlumn, alumno.codUserAlumn, alumno.matricula
+	FROM alumno INNER JOIN realizar ON realizar.codUserAlumn = alumno.codUserAlumn
+					INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
+	WHERE ((realizar.idServicio LIKE idServicio) AND (realizar.estado IS NULL))
+	ORDER BY alumno.matricula DESC;
+	
+/* PROCEDIMIENTO PARA OBTENER LOS DETALLES DE LOS ALUMNOS QUE SOLICITARON EL SERVICIO SOCIAL */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GETalumnosDETAILSss`(
+	IN `idServicio` VARCHAR(16),
+	IN `codUser` VARCHAR(11)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+	SELECT alumno.foto, CONCAT(alumno.nomAlumn,' ',alumno.apAlumn,' ',alumno.amAlumn) AS nombre, alumno.edadAlumn, alumno.generoAlumn, alumno.semestre, alumno.especialidad, alumno.creditosAcum, alumno.localidadAlum
+	FROM alumno INNER JOIN realizar ON realizar.codUserAlumn = alumno.codUserAlumn
+					INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
+	WHERE ((realizar.idServicio = idServicio) AND (realizar.codUserAlumn = codUser));
+	
+/* PROCEDIMIENTO PARA DETERMINAR SI SE ACEPTA AL ALUMNO EN EL SERVICIO SOCIAL O NO */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SETalumnoState`(
+	IN `state` VARCHAR(9),
+	IN `idServicio` VARCHAR(16),
+	IN `codUser` VARCHAR(11)
+)
+BEGIN
+	
+	-- SE MODIFICA EL ESTADO DEL ALUMNO QUE SOLICITO EL SERVICIO SOCIAL
+	UPDATE realizar
+	SET estado = state
+	WHERE ((realizar.idServicio = idServicio) AND (realizar.codUserAlumn = codUser));
+	
+	-- SE ANALIZA Y SE DETERMINA LA ACCION EN CASO DE QUE EL VALOR DEL ESTADO A INSERTAR SEA 'RECHAZADO'
+	CASE state
+	WHEN 'RECHAZADO' THEN 
+		DELETE FROM realizar 
+		WHERE ((realizar.idServicio = idServicio) AND (realizar.codUserAlumn = codUser));
+	ELSE 
+		SELECT '';
+   END CASE;
+END //
+DELIMITER ;
+
+/* PROCEDIMIENTO PARA LA CREACION DE UNA NUEVA SOLICITUD DE SERVICIO SOCIAL */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEss`(
+	IN `codUser` VARCHAR(11),
+	IN `nom` VARCHAR(54),
+	IN `acts` VARCHAR(256),
+	IN `hi` TIME,
+	IN `hf` TIME,
+	IN `dias` INT(1),
+	IN `fi` DATE,
+	IN `ff` DATE
+)
+COMMENT 'PROCEDIMIENTO PARA LA CREACION DEL REGISTRO DE SERVICIO SOCIAL Y LA RELACION EN LA BASE DE DATOS'
+BEGIN	
+	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
+	SELECT @lastValue:=
+    (CASE 
+        WHEN MAX(serviciosocial.idServicio) IS NOT NULL 
+        THEN LEFT(CAST(RIGHT(CAST(MAX(serviciosocial.idServicio) AS VARCHAR(16)), 10) AS VARCHAR(10)), 2) 
+        ELSE '00' 
+    END) INTO @lastValue
+	FROM serviciosocial INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
+   						  INNER JOIN dependencia ON solicitar.codUserDepend = dependencia.codUserDepend
+	WHERE dependencia.codUserDepend = codUser
+	ORDER BY serviciosocial.idServicio DESC
+	LIMIT 1;
+
+	
+	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
+	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
+	
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
+	-- SE OBTIENEN LAS INICIALES DE LOS NOMBRES
+	SELECT @initials:= CONCAT_WS('', 
+   CONCAT(LEFT(nomDirector, 1), ''),
+   CONCAT(LEFT(SUBSTRING_INDEX(SUBSTRING_INDEX(nomDirector, ' ', 2),' ', -1),1), ''),
+   CONCAT(LEFT(apDirector, 1), ''),
+   CONCAT(LEFT(amDirector, 1), '')
+	) INTO @initials
+	FROM directorgeneral INNER JOIN administrar ON administrar.idDirector = directorgeneral.idDirector
+								INNER JOIN dependencia ON administrar.codUserDepend = dependencia.codUserDepend
+	WHERE dependencia.codUserDepend = codUser;
+	
+	-- SE GENERA EL NUEVO NUMERO GENERADO
+	SELECT @newDigits:= 
+	(CASE @digits
+		WHEN 1 THEN CONCAT('0',(@lastValue + 1))
+		WHEN 2 THEN (@lastValue + 1)
+		ELSE NULL
+	END) INTO @newDigits;
+	
+	-- SE CAMBIA EL IDIOMA PARA TENER LOS NOMBRES DE LOS MESES EN ESPAÑOL
+	SET lc_time_names = 'es_ES';
+	
+	-- SE GENERA EL NUEVO ID
+	SELECT @id:= CONCAT(@numberYear,@initials,@newDigits,'-',UPPER(LEFT(CAST(MONTHNAME(fi) AS VARCHAR(12)),3)),'-',UPPER(LEFT(CAST(MONTHNAME(ff) AS VARCHAR(12)),3))) INTO @id;
+			
+	-- SE INTRODUCEN LOS VALORES DENTRO DE LA TABLA
+	INSERT INTO serviciosocial(`idServicio`,`nomServic`,`actividades`,`horaInicio`,`diasPorSem`,`horaFin`,`fechaInicio`,`fechaFin`,`fechaCreacion`) 
+	VALUES (@id,nom,acts,hi,dias,hf,fi,ff,DATE(NOW()));
+	
+	-- SE INTRODUCEN LOS VALORES DENTRO DE LA RELACION
+	INSERT INTO solicitar(codUserDepend,idServicio)
+	VALUES (codUser,@id);
+	
+END //
+DELIMITER ;
 
 
