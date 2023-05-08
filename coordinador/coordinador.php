@@ -8,6 +8,7 @@
   
     <link rel="stylesheet" type="text/css" href="coordinador.css">
 
+
    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
    <?php
         session_start();
@@ -22,54 +23,55 @@
     ?>
     
 
+</head>    
 
-
-  <body>
+<body>
     <!-- Menú superior-->
     <header>
-      <div class="container1">
-        <nav>
-          <ul>
-                      <li><a href="../coordinador/coordinador.php">Crear cuenta</a></li>
-                      <li><a href="../coordinador/documentos/documentos.php">Subir documentos</a></li>
-                      <li><a href="../coordinador/alumno/alumno.php">Alumnos en Servicio</a></li>
-                      <li><a href="../coordinador/dependencias/dependencias.php">Dependencias</a></li>
-                      <li><a href="../coordinador/solicitudes/solicitudes.php">Solicitudes</a></li>
-                      <li><a href="../functionsDB/logout.php">Cerrar Sesión</a></li>
-                  </ul>
-              </nav>
-          </div>
-      </header>
+        <div class="container1">
+            <nav>
+                <ul>
+                    <li><a href="../coordinador/coordinador.php">Crear cuenta</a></li>
+                    <li><a href="../coordinador/documentos/documentos.php">Subir documentos</a></li>
+                    <li><a href="../coordinador/alumno/alumno.php">Alumnos en Servicio</a></li>
+                    <li><a href="../coordinador/dependencias/dependencias.php">Dependencias</a></li>
+                    <li><a href="../coordinador/solicitudes/solicitudes.php">Solicitudes</a></li>
+                    <li><a href="../functionsDB/logout.php">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    
-      <div class="container">
+    <!-- Solicitar datos para crear un nuevo usuario  -->
+    <div class="container">
         <h1>Crear nuevo usuario</h1>
-        <form>
-          <label for="email">Correo electrónico:</label>
-          <input type="email" id="email" name="email" required>
-  
-          <label for="username">Nombre de usuario:</label>
-          <input type="text" id="username" name="username" required>
-  
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password" required>
-  
-          <div class="checkbox-group">
-            <input type="checkbox" id="alumno" name="tipo-cuenta" value="alumno">
-            <label for="alumno">Alumno</label>
-  
-            <input type="checkbox" id="dependencia" name="tipo-cuenta" value="dependencia">
-            <label for="dependencia">Dependencia</label>
-          </div>
-  
-          <button type="submit">Crear</button>
+        <form method="post">
+            <label for="code">Código de usuario:</label>
+            <input type="text" id="code" name="code" required>
+
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="typeuser">Tipo de usuario:</label>
+                <div class="radio-group">
+                  <input type="radio" id="alumno" name="p_tipoUser" value="alumno">
+                  <label for="alumno">Alumno</label>
+
+                  <input type="radio" id="dependencia" name="p_tipoUser" value="dependencia">
+                  <label for="dependencia">Dependencia</label>
+                </div>
+             </label>    
+
+            <button type="submit" name="crear">Crear</button>
         </form>
+    </div>
         
-      </div>
-    </body>
+    <?php
+        include("../coordinador/config/ingresarusaurio.php")
+    ?>
 
-
-        
-      
-  </body>
+</body>
 </html>

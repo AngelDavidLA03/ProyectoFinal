@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="solicitudes.css">
 
     <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php/*
+    <?php
           session_start();
 
           // Se comprueba si el Coordinador ha iniciado sesion
@@ -20,7 +20,7 @@
               header("location: ../../login/login.html?redirect=true");
               session_destroy();
               exit;
-          } */
+          } 
     ?>
 
     <header>
