@@ -11,7 +11,7 @@
         // Se comprueba si el Alumno ha iniciado sesion
         if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Alumno"))
         {
-            header("location: ../login/login.html?redirect=true");
+            header("location: ../../login/login.html?redirect=true");
             session_destroy();
             exit;
         } 

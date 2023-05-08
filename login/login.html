@@ -9,13 +9,13 @@
 </head>
 <body>
   <div class="loginbox">
-    <img src="../img/logo.png" alt="" class="avatar">
+    <img src="img/logo.png" alt="" class="avatar">
     <h1>Iniciar Sesión</h1>
     <br>
     <br>
     <form action="../functionsDB/grantAccess.php" method="post">
-      <p>Usuario</p>
-      <input name="user" type="number" placeholder="" required="true">
+      <p>Correo electronico</p>
+      <input name="user" type="text" placeholder="" required="true">
       <p>Contraseña</p>
       <input name="pass" type="password" placeholder="" required="true">
 
@@ -43,7 +43,7 @@
       else if(red === "true")
       {
         // Muestra el mensaje de alerta dado cuando se regresa al login despues de un redireccionamiento
-        alert("Inicie sesión para acceder a este apartado.")
+        alert("Inicie sesión con una cuenta de este tipo\npara acceder a este apartado.")
       }
       
     </script>

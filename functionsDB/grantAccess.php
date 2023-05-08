@@ -52,10 +52,6 @@ if($exsite == 1)
     {
         header("location: ../coordinador/coordinador.php");
     }
-    else
-    {
-        header("location: ../login/login.html?failed=true"); //Carga la pagina y vuelve a solicitar los datos
-    }
 }
 else
 {

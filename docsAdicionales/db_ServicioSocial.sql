@@ -12,20 +12,20 @@ CREATE DATABASE db_servicioSocial;
 
 /* TABLA USUARIO */
 CREATE TABLE usuario (
-	codUser VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Vincular de los codigos ya generados',
-	username VARCHAR(5) NOT NULL COMMENT 'Generar automaticamente y no sera posible modificarlo',
-	pass VARCHAR(10) NOT NULL COMMENT 'Sera igual al codigo secundario del tipo de usuario',
+	codUser VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Vincular de los codigos ya generados',
+	email VARCHAR(128) NOT NULL,
+	pass VARCHAR(10) NOT NULL,
 	tipoUser VARCHAR(11) NOT NULL COMMENT 'Solo permitir valores como Dependencia, Alumno y Coordinador'
 	) ENGINE=INNODB;
 	
-INSERT INTO usuario (`codUser`, `username`, `pass`, `tipoUser`) VALUES ('2366ALU000', '00000', '1234', 'Alumno');
-INSERT INTO usuario (`codUser`, `username`, `pass`, `tipoUser`) VALUES ('2366COR000', '00000', '567', 'Coordinador');
-INSERT INTO usuario (`codUser`, `username`, `pass`, `tipoUser`) VALUES ('2366DEP000', '00000', '890', 'Dependencia');
+INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366ALU0000', 'alumno@tecnm.mx', '1234', 'Alumno');
+INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366COR0000', 'coord@tecnm.mx', '567', 'Coordinador');
+INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366DEP0000', 'depend@tecnm.mx', '890', 'Dependencia');
 
 
 /* TABLA DEPENDENCIA */
 CREATE TABLE dependencia(
-	codUserDepend VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (DEP), y numeros siguiendo el orden del 001 hasta el 999',
+	codUserDepend VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (DEP), y numeros siguiendo el orden del 0001 hasta el 9999',
 	idDepend VARCHAR(7) NOT NULL COMMENT 'Generar automaticamente con el año de generacion del documento de convenio, el separador "-" y el numero de convenio arrojado por el documento de convenio',
 	nomDepend VARCHAR(32) NOT NULL COMMENT 'Introducir el nombre de la dependencia (abreviado o completo dependiendo el caso) en un maximo de 32 caracteres',
 	RFC VARCHAR(13) NOT NULL,
@@ -33,7 +33,6 @@ CREATE TABLE dependencia(
 	numTrabajadores INT(2) NOT NULL,
 	enfoqueDepend VARCHAR(24) NOT NULL COMMENT 'Introducir a que se dedica la empresa en un maximo de 24 caracteres',
 	/* CONTACTO */
-	emailDepend VARCHAR(128) NOT NULL,
 	numTelfDepend VARCHAR(18) NOT NULL,
 	/* --------- */
 	/* DIRECCION */
@@ -52,21 +51,21 @@ CREATE TABLE dependencia(
 
 /* SUBTABLA PUBLICA */
 CREATE TABLE publica (
-	codUserDependPublic VARCHAR(10) PRIMARY KEY NOT NULL,
+	codUserDependPublic VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `codUserDependPublic` (`codUserDependPublic`) USING BTREE,
 	CONSTRAINT `ESPEC_codUserDependPublic` FOREIGN KEY (`codUserDependPublic`) REFERENCES `db_servicioSocial`.`dependencia` (`codUserDepend`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 /* SUBTABLA SOCIAL */
 CREATE TABLE social (
-	codUserDependSoc VARCHAR(10) PRIMARY KEY NOT NULL,
+	codUserDependSoc VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `codUserDependSoc` (`codUserDependSoc`) USING BTREE,
 	CONSTRAINT `ESPEC_codUserDependSoc` FOREIGN KEY (`codUserDependSoc`) REFERENCES `db_servicioSocial`.`dependencia` (`codUserDepend`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=INNODB;
 
 /* SUBTABLA PRIVADA */
 CREATE TABLE privada (
-	codUserDependPriv VARCHAR(10) PRIMARY KEY NOT NULL,
+	codUserDependPriv VARCHAR(11) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `codUserDependPriv` (`codUserDependPriv`) USING BTREE,
 	CONSTRAINT `ESPEC_codUserDependPriv` FOREIGN KEY (`codUserDependPriv`) REFERENCES `db_servicioSocial`.`dependencia` (`codUserDepend`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=INNODB;
@@ -88,9 +87,9 @@ INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (4, 'Rechazada');
 CREATE TABLE directorGeneral (
 	idDirector VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Formado por letra inicial de su nombre(s), apellidos y fecha de registro',
 	/* NOMBRE */
-	nomDirector VARCHAR(24) NOT NULL,
-	apDirector VARCHAR(16) NOT NULL,
-	amDirector VARCHAR(16) NOT NULL,
+	nomDirector VARCHAR(48) NOT NULL,
+	apDirector VARCHAR(24) NOT NULL,
+	amDirector VARCHAR(24) NOT NULL,
 	/* ------ */
 	edadDirector INT(2) NOT NULL,
 	curpDirector VARCHAR(18) NOT NULL,
@@ -109,22 +108,21 @@ CREATE TABLE area (
 
 /* TABLA ALUMNO */
 CREATE TABLE alumno (
-	codUserAlumn VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (ALU), y numeros siguiendo el orden del 001 hasta el 999',
+	codUserAlumn VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (ALU), y numeros siguiendo el orden del 0001 hasta el 9999',
 	matricula VARCHAR(10) NOT NULL COMMENT 'Modificar la longitud segun si es requerido por la institucion',
 	/* NOMBRE */
-	nomAlumn VARCHAR(24) NOT NULL,
-	apAlumn VARCHAR(16) NOT NULL,
-	amAlumn VARCHAR(16) NOT NULL,
+	nomAlumn VARCHAR(48) NOT NULL,
+	apAlumn VARCHAR(24) NOT NULL,
+	amAlumn VARCHAR(24) NOT NULL,
 	/* ------ */
 	curpAlumn VARCHAR(18) NOT NULL,
 	edadAlumn INT(2) NOT NULL,
 	generoAlumn VARCHAR(1) NOT NULL COMMENT 'Solo permitir valores como M (Masculino), F (Femenino) y S (Sin Especificar)',
-	semestre INT(1) NOT NULL COMMENT 'Colocar el numero de semestre',
+	semestre INT(2) NOT NULL COMMENT 'Colocar el numero de semestre',
 	especialidad VARCHAR(5) NOT NULL COMMENT 'Solo permitir el nombre de la especialidad abreviado',
 	creditosAcum INT(3) NOT NULL,
 	localidadAlum VARCHAR(15) NOT NULL,
 	/* CONTACTO */
-	emailAlumn VARCHAR(128) NOT NULL,
 	numTelfAlumn VARCHAR(18) NOT NULL,
 	/* --------- */
 	foto LONGBLOB NULL COMMENT 'Foto del alumno'
@@ -132,15 +130,14 @@ CREATE TABLE alumno (
 
 /* TABLA COORDINADOR */
 CREATE TABLE coordinador (
-	codUserCoord VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (COR), y numeros siguiendo el orden del 001 hasta el 999',
+	codUserCoord VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (COR), y numeros siguiendo el orden del 0001 hasta el 9999',
 	idCoord VARCHAR(10) NOT NULL COMMENT 'Generar automaticamente con el año de registro, codigo de la escuela, letra inicial de su nombre(s) y apellidos',
 	/* NOMBRE */
-	nomCoord VARCHAR(24) NOT NULL,
-	apCoord VARCHAR(16) NOT NULL,
-	amCoord VARCHAR(16) NOT NULL,
+	nomCoord VARCHAR(48) NOT NULL,
+	apCoord VARCHAR(24) NOT NULL,
+	amCoord VARCHAR(24) NOT NULL,
 	/* ------ */
 	/* CONTACTO */
-	emailCoord VARCHAR(128) NOT NULL,
 	numTelfCoord VARCHAR(18) NOT NULL
 	/* --------- */
 ) ENGINE=INNODB;
@@ -148,6 +145,7 @@ CREATE TABLE coordinador (
 /* TABLA SERVICIO SOCIAL */
 CREATE TABLE servicioSocial (
 	idServicio VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, letra inicial del nombre(s) y apellidos del director general y especialidad solicitada',
+	nomServic VARCHAR(54) NOT NULL COMMENT 'Nombre descriptivo propio del servicio social',
 	actividades VARCHAR(256) NOT NULL COMMENT 'Introducir las actividades que se realizaran durante el servicio social en un maximo de 256 caracteres',
 	/* HORARIO */
 	horaInicio TIME NOT NULL,
@@ -198,7 +196,7 @@ CREATE TABLE reporteActividades (
 	idDocumentReportAct VARCHAR(8) PRIMARY KEY NOT NULL,
 	UNIQUE INDEX `idDocumentReportAct` (`idDocumentReportAct`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentReportAct` FOREIGN KEY (`idDocumentReportAct`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
-) COMMENT 'ABREVIACION = NRE',
+) COMMENT 'ABREVIACION = RAC',
 ENGINE=INNODB;
 
 /* SUBTABLA DECRETOS */
@@ -356,16 +354,6 @@ CREATE TABLE Poseer (
 ALTER TABLE Poseer ADD CONSTRAINT FK_codUserDepend_Poseer FOREIGN KEY (codUserDepend) REFERENCES dependencia(codUserDepend) ON DELETE CASCADE ON UPDATE CASCADE; 
 ALTER TABLE Poseer ADD CONSTRAINT FK_idArea_Poseer FOREIGN KEY (idArea) REFERENCES area(idArea) ON DELETE CASCADE ON UPDATE CASCADE;
 
-/* RELACION REQUERIR (SERVICIO SOCIAL M - AREA M) */
-CREATE TABLE Requerir (
-	idArea VARCHAR(7) NOT NULL,
-	idServicio VARCHAR(11) NOT NULL,
-	especialidadRec VARCHAR(5) NULL
-) ENGINE=INNODB;
-
-ALTER TABLE Requerir ADD CONSTRAINT FK_idArea_Req FOREIGN KEY (idArea) REFERENCES area(idArea) ON DELETE CASCADE ON UPDATE CASCADE; 
-ALTER TABLE Requerir ADD CONSTRAINT FK_idServicio_Req FOREIGN KEY (idServicio) REFERENCES servicioSocial(idServicio) ON DELETE CASCADE ON UPDATE CASCADE;
-
 /* RELACION REALIZAR (ALUMNO M - SERVICIO SOCIAL 1) */
 CREATE TABLE Realizar (
 	codUserAlumn VARCHAR(10) NOT NULL UNIQUE,
@@ -394,11 +382,11 @@ CREATE TABLE Revisar (
 ALTER TABLE Revisar ADD CONSTRAINT FK_codUserCoord_Rev FOREIGN KEY (codUserCoord) REFERENCES coordinador(codUserCoord) ON DELETE CASCADE ON UPDATE CASCADE; 
 ALTER TABLE Revisar ADD CONSTRAINT FK_idDocument_Rev FOREIGN KEY (idDocument) REFERENCES documento(idDocument) ON DELETE CASCADE ON UPDATE CASCADE;
 
-/* ------------------------------- PROCEDIMIENTOS PARA LA BASE DE DATOS ------------------------------- */
+/* ------------------------------------------------------- PROCEDIMIENTOS PARA LA BASE DE DATOS ------------------------------------------------------- */
 
 /* PROCEDIMIENTO UTILIZADO PARA CONTROLAR EL ACCESO AL SISTEMA */
 CREATE DEFINER=`root`@`localhost` PROCEDURE `loginAccess`(
-	IN `usernameL` VARCHAR(5),
+	IN `emailL` VARCHAR(128),
 	IN `passwordL` VARCHAR(10)
 )
 LANGUAGE SQL
@@ -408,35 +396,277 @@ SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO UTILIZADO PARA CONTROLAR EL ACCESO AL SISTEMA'
 SELECT COUNT(codUser) AS isExist, tipoUser, codUser
 FROM usuario
-WHERE (usernameL LIKE username) AND (passwordL LIKE pass);
+WHERE (emailL LIKE email) AND (passwordL LIKE pass);
 
-/* PROCEDIMIENTO PARA LA CARGA DE ARCHIVOS */
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdocuments`(
-	IN `` ,
-	IN `` ,
-	IN `fechaEntregaS` DATE,
-	IN `documentS` LONGBLOB,
-	IN `tipoDocumentS` VARCHAR(3)
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CONVENIO*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcnv`(
+	IN `idDocument` VARCHAR(8),
+	IN `num` INT(4)
+)
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
-COMMENT 'PROCEDIMIENTO PARA LA CREACION Y ASIGNACION DEL DOCUMENTO EN LA BASE DE DATOS'
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CONVENIO'
+INSERT INTO convenio(`idDocumentConv`,`numConv`)
+VALUES (idDocument,num);
 
-SET `digitsYear`, `lastValue`
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE PRESENTACION*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcpe`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE PRESENTACION'
+INSERT INTO cartapresentacion(`idDocumentPresent`,`matriculaPresent`)
+VALUES (idDocument,matricula);
 
-SELECT RIGHT(CAST((idDocument) AS CHAR(8)),3) INTO lastValue
-FROM documento
-WHERE (idDocument LIKE '%CVN%')
-ORDER BY idDocument DESC
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CONSTANCIA*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcon`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` INT(4)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CONSTANCIA'
+INSERT INTO constancia(`idDocumentConst`,`matriculaConst`)
+VALUES (idDocument,matricula);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE ACTIVIDADES*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVErac`(
+	IN `idDocument` VARCHAR(8)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE ACTIVIDADES'
+INSERT INTO reporteactividades(`idDocumentReportAct`)
+VALUES (idDocument);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - DECRETOS*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdec`(
+	IN `idDocument` VARCHAR(8)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - DECRETOS'
+INSERT INTO decretos(`idDocumentDec`)
+VALUES (idDocument);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - NOMBRAMIENTO DE REPRESENTANTE*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEnre`(
+	IN `idDocument` VARCHAR(8)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - NOMBRAMIENTO DE REPRESENTANTE'
+INSERT INTO nombramientorepresentante(`idDocumentNomRep`)
+VALUES (idDocument);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - IDENTIFICACION DE REPRESENTANTE*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEine`(
+	IN `idDocument` VARCHAR(8),
+	IN `curp` VARCHAR(18)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - IDENTIFICACION DE REPRESENTANTE'
+INSERT INTO identificacionrepresentante(`idDocumentINE`,`documentCURP`)
+VALUES (idDocument,curp);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - COMPROBANTE DE DOMICILIO*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdom`(
+	IN `idDocument` VARCHAR(8)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - COMPROBANTE DE DOMICILIO'
+INSERT INTO comprobantedomicilio(`idDocumentDomic`)
+VALUES (idDocument);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REGISTRO FEDERAL DEL CONTRIBUYENTE*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVErfc`(
+	IN `idDocument` VARCHAR(8),
+	IN `rfc` VARCHAR(13)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REGISTRO FEDERAL DEL CONTRIBUYENTE'
+INSERT INTO regfedcont(`idDocumentRFC`,`documentRFC`)
+VALUES (idDocument,rfc);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE ACEPTACION*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcac`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE ACEPTACION'
+INSERT INTO cartaaceptacion(`idDocumentAcept`,`matriculaAcept`)
+VALUES (idDocument,matricula);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - LISTA DE ACTIVIDADES*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVElac`(
+	IN `idDocument` VARCHAR(8),
+	IN `acts` VARCHAR(128)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - LISTA DE ACTIVIDADES'
+INSERT INTO listaactividades(`idDocumentAct`,`listAct`)
+VALUES (idDocument,acts);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - HONORARIOS*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEhon`(
+	IN `idDocument` VARCHAR(8),
+	IN `costo` DECIMAL(6,2),
+	IN `asunto` VARCHAR(24),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - HONORARIOS'
+INSERT INTO honorarios(`idDocumentHon`,`monto`,`motivo`,`matriculaHon`)
+VALUES (idDocument,costo,asunto,matricula);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE ALUMNOS*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEral`(
+	IN `idDocument` VARCHAR(8),
+	IN `motivo` VARCHAR(24)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE ALUMNOS'
+INSERT INTO reportalumnos(`idDocumentReportAlumn`,`documentMotivoAlumn`)
+VALUES (idDocument,motivo);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE BAJA*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcba`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE BAJA'
+INSERT INTO cartabaja(`idDocumentBajaAlumn`,`matriculaBaja`)
+VALUES (idDocument,matricula);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE LIBERACION*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcli`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE LIBERACION'
+INSERT INTO cartaliberacion(`idDocumentLib`,`matriculaLib`)
+VALUES (idDocument,matricula);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE DEPENDENCIAS*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVErde`(
+	IN `idDocument` VARCHAR(8),
+	IN `motivo` VARCHAR(24)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE DEPENDENCIAS'
+INSERT INTO reportdependencias(`idDocumentReportDep`,`documentMotivoDep`)
+VALUES (idDocument,motivo);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE FINALIZACION*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcfi`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE FINALIZACION'
+INSERT INTO cartafinalizacion(`idDocumentFin`,`matriculaFin`)
+VALUES (idDocument,matricula);
+
+/* PROCEDIMIENTO PARA LA CARGA DE ARCHIVOS */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdocuments`(
+	IN `documentS` LONGBLOB,
+	IN `tipoDocumentS` VARCHAR(3)
+)
+COMMENT 'PROCEDIMIENTO PARA LA CREACION DEL DOCUMENTO EN LA BASE DE DATOS'
+BEGIN
+	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL TIPO DE DOCUMENTO
+	SELECT @lastValue:= RIGHT(CAST((idDocument) AS VARCHAR(8)),3) INTO @lastValue
+	FROM documento
+	WHERE (idDocument LIKE CONCAT('%',tipoDocumentS,'%'))
+	ORDER BY idDocument DESC
+	LIMIT 1;
+	
+	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
+	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
+	
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
+	-- SE GENERA EL ID DEPENDIENDO DE LA CANTIDAD DE DIGITOS CON EL QUE CUENTA EL DIGITO
+	SELECT @id:= CONCAT(@numberYear,tipoDocumentS,
+	(CASE @digits
+		WHEN 1 THEN CONCAT('00',(@lastValue + 1))
+		WHEN 2 THEN CONCAT('0',(@lastValue + 1))
+		WHEN 3 THEN (@lastValue + 1)
+		ELSE NULL
+	END)) INTO @id;
+	
+	-- SE INTRODUCEN LOS VALORES DENTRO DE LA TABLA
+	INSERT INTO documento(`idDocument`,`fechaEntrega`,`document`,`tipoDocument`) 
+	VALUES (@id,DATE(NOW()),documentS,tipoDocumentS);
+END //
+DELIMITER ;
+
+/* PROCEDIMIENTO PARA OBTENER LOS VALORES DE LOS DOCUMENTOS EN GENERAL */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `LOADdocuments`(
+	IN `tipoDocumentL` VARCHAR(3)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA OBTENER LOS VALORES DE LOS DOCUMENTOS EN GENERAL'
+	SELECT *
+	FROM documento
+	WHERE (tipoDocument LIKE tipoDocumentL);
 
 
-SELECT RIGHT(CAST(YEAR('20230101') AS CHAR(4)),2) INTO digitsYear
 
-SELECT lastValue, digitsYear;
-
-documento
-INSERT INTO documento(`idDocument`,`fechaEntrega`,`document`,`tipoDocument`) 
-VALUES (),``,@tipoDocumentS,);
 
 
