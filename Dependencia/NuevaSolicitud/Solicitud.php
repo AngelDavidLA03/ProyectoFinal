@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
-	<title>Nueva convocatoria - Servicio Social</title>
+	<title>Solicitud Nueval</title>
     <link rel="stylesheet" type="text/css" href="stylesolicitud.css">
 
     <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php
+    <?php/*
         session_start();
 
         // Se comprueba si la Dependencia ha iniciado sesion
@@ -15,18 +15,12 @@
             header("location: ../../login/login.html?redirect=true");
             session_destroy();
             exit;
-        } 
+        } */
     ?>
-
-    <style>
-      /* Aplica text-transform: uppercase al campo de entrada de texto */
-      input[type="text"] {
-        text-transform: uppercase;
-      }</style>
 </head>
 <body>
 	<header>
-		<div class="container">
+		<div class="container2">
 			<nav>
 				<ul>
                     <li><a href="../cuenta/services.php">Cuenta</a></li>
@@ -37,68 +31,63 @@
                 </ul>
             </nav>
         </div>
+        
     </header>
-
-    <div class="container">
-	    <section>
-             
-        <div class="card">
-  <div class="card-header">
-    <h2>Nueva Solicitud</h2>
-  </div>
-  <div class="card-body">
-    <form>
-      <div class="form-group">
-        <label for="nombre-dependencia">Cargo:</label>
-        <input type="text" id="nombre-dependencia" name="nombre-dependencia" style="text-transform: uppercase;" required>
-      </div>
-      <div class="form-group">
-        <label for="nombre-representante">Nombre Representante:</label>
-        <input type="text" id="nombre-representante" name="nombre-representante" style="text-transform: uppercase;" required>
-      </div>
-      <div class="form-group">
-        <label for="rfc-dependencia">RFC Dependencia:</label>
-        <input type="text" id="rfc-dependencia" name="rfc-dependencia" style="text-transform: uppercase;" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" style="text-transform: uppercase;" required>
-      </div>
-      <div class="form-group">
-        <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" style="text-transform: uppercase;" required>
-      </div>
-      
-    </form>
-  </div>
-  <div class="card-footer">
-    <div class="button-container">
-      <!-- aquí puedes agregar tus botones -->
+    </header>
+ <div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Nueva solicitud</h2>
+    </div>
+    <div class="card-body">
+      <form action="insertar.php" method="POST">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="idServicio">Titulo:</label>
+              <input type="text" id="idServicio" name="idServicio" required>
+            </div>
+            <div class="form-group">
+              <label for="horaInicio">Hora de inicio:</label>
+              <input type="time" id="horaInicio" name="horaInicio" required>
+            </div>
+            <div class="form-group">
+              <label for="diasPorSem">Días por semana:</label>
+              <input type="number" id="diasPorSem" name="diasPorSem" required>
+            </div>
+            <div class="form-group">
+              <label for="fechaInicio">Fecha de inicio:</label>
+              <input type="date" id="fechaInicio" name="fechaInicio" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="actividades">Actividades:</label>
+              <input type="text" id="actividades" name="actividades" style="font-size: 20px;" required>
+            </div>
+            <div class="form-group">
+              <label for="horaFin">Hora de fin:</label>
+              <input type="time" id="horaFin" name="horaFin" required>
+            </div>
+            <div class="form-group">
+              <label for="fechaFin">Fecha de fin:</label>
+              <input type="date" id="fechaFin" name="fechaFin" required>
+            </div>
+          </div>
+        </div>
+        <button type="submit">Aceptar</button>
+      </form>
     </div>
   </div>
 </div>
 
 
-	        <div class="card">
-	            <h2>Fecha y contacto:</h2>
+  </body>
 
-	            <form action="#" method="post">
-	                <label for="fecha">Fecha de inicio:</label>
-	                <input type="date" id="fecha" name="fecha" required>
+</html>
 
-                    
-                    
-                        <form action="#" method="post">
-                            <label for="fecha">Fecha de inicio:</label>
-                            <input type="date" id="fecha" name="fecha" required>
-                    
-                            <label for="duracion">Duración en semanas:</label>
-                            <input type="number" id="duracion" name="duracion" required>
-                    
-                            <label for="contacto">Correo electrónico de contacto:</label>
-                            <input type="email" id="contacto" name="contacto" required>
-                    
-                            <button type="submit">Publicar convocatoria</button>
-                        </form>
-                    </div>
-                    
+
+
+
+
+
