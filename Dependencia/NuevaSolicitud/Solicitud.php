@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="stylesolicitud.css">
 
     <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php/*
+    <?php
         session_start();
 
         // Se comprueba si la Dependencia ha iniciado sesion
@@ -15,7 +15,7 @@
             header("location: ../../login/login.html?redirect=true");
             session_destroy();
             exit;
-        } */
+        } 
     ?>
 </head>
 <body>
@@ -39,13 +39,14 @@
     <div class="card-header">
       <h2>Nueva solicitud</h2>
     </div>
+    <!-- AQUI ESMPIEZA EL DESMADRE DE LA COSA ESA-->
     <div class="card-body">
       <form action="insertar.php" method="POST">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="idServicio">Titulo:</label>
-              <input type="text" id="idServicio" name="idServicio" required>
+              <label for="Titulo">Titulo:</label>
+              <input type="text" id="Titulo" name="Titulo" required>
             </div>
             <div class="form-group">
               <label for="horaInicio">Hora de inicio:</label>
