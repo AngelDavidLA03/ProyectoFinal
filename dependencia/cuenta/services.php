@@ -95,7 +95,7 @@
             <div class="item">
               <div class="image-container">
                 <label for="doc1">
-                  <img src="./cuenta/images/decreto.jpg" alt="imagen1" />
+                  <img src="./images/decreto.jpg" alt="imagen1" />
                 </label>
                 <p>Copia del decreto, ley, acuerdo o la normativa que acredita su creación.</p>
                 <input type="file" id="doc1" name="archivo1" accept=".pdf" required/>
@@ -105,7 +105,7 @@
             <div class="item">
               <div class="image-container">
                 <label for="doc2">
-                  <img src="./cuenta/images/representante.jpg" alt="imagen2" />
+                  <img src=".images/representante.jpg" alt="imagen2" />
                 </label>
                 <p>Copia del nombramiento del representante de la dependencia</p>
                 <input type="file" id="doc2" name="archivo2" accept=".pdf" required/>
@@ -115,7 +115,7 @@
             <div class="item">
               <div class="image-container">
                 <label for="doc3">
-                  <img src="./cuenta/images/identificacionoficial.jpg" alt="imagen3" />
+                  <img src="./images/identificacionoficial.jpg" alt="imagen3" />
                 </label>
                 <p>Copia de identificación oficial del representante</p>
                 <input type="file" id="doc3" name="archivo3" accept=".pdf,.jpg,.jpeg" required/>
@@ -125,7 +125,7 @@
             <div class="item">
               <div class="image-container">
                 <label for="doc4">
-                  <img src="./cuenta/images/comprobante.jpg" alt="imagen4" />
+                  <img src="./images/comprobante.jpg" alt="imagen4" />
                 </label>
                 <p>Comprobante de domicilio de la dependencia</p>
                 <input type="file" id="doc4" name="archivo4" accept=".pdf,.jpg,.jpeg" required/>
@@ -135,7 +135,7 @@
             <div class="item">
               <div class="image-container">
                 <label for="doc5">
-                  <img src="./cuenta/images/RFC.png" alt="imagen5" />
+                  <img src="./images/RFC.png" alt="imagen5" />
                 </label>
                 <p>Copia del registro federal de contribuyentes (RFC) de la dependencia</p>
                 <input type="file" id="doc5" name="archivo5" accept=".pdf" required/>
