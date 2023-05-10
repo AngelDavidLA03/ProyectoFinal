@@ -18,20 +18,20 @@ CREATE TABLE usuario (
 	tipoUser VARCHAR(11) NOT NULL COMMENT 'Solo permitir valores como Dependencia, Alumno y Coordinador'
 	) ENGINE=INNODB;
 	
-INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366ALU0000', 'alumno@tecnm.mx', '1234', 'Alumno');
-INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366COR0000', 'coord@tecnm.mx', '567', 'Coordinador');
-INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366DEP0000', 'depend@tecnm.mx', '890', 'Dependencia');
+INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366ALU0000', 'alumno@tecnm.mx', '1234', 'ALUMNO');
+INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366COR0000', 'coord@tecnm.mx', '567', 'COORDINADOR');
+INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366DEP0000', 'depend@tecnm.mx', '890', 'DEPENDENCIA');
 
 
 /* TABLA DEPENDENCIA */
 CREATE TABLE dependencia(
 	codUserDepend VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (DEP), y numeros siguiendo el orden del 0001 hasta el 9999',
-	idDepend VARCHAR(7) NOT NULL COMMENT 'Generar automaticamente con el año de generacion del documento de convenio, el separador "-" y el numero de convenio arrojado por el documento de convenio',
-	nomDepend VARCHAR(32) NOT NULL COMMENT 'Introducir el nombre de la dependencia (abreviado o completo dependiendo el caso) en un maximo de 32 caracteres',
+	idDepend VARCHAR(7) NULL COMMENT 'Generar automaticamente con el año de generacion del documento de convenio, el separador "-" y el numero de convenio arrojado por el documento de convenio',
+	nomDepend VARCHAR(54) NOT NULL COMMENT 'Introducir el nombre de la dependencia (abreviado o completo dependiendo el caso) en un maximo de 32 caracteres',
 	RFC VARCHAR(13) NOT NULL,
-	califDepend VARCHAR(9) NOT NULL COMMENT 'Solo permitir valores como Terrible, Mala, Regular, Buena y Excelente',
+	califDepend VARCHAR(9) NULL COMMENT 'Solo permitir valores como Terrible, Mala, Regular, Buena y Excelente',
 	numTrabajadores INT(2) NOT NULL,
-	enfoqueDepend VARCHAR(24) NOT NULL COMMENT 'Introducir a que se dedica la empresa en un maximo de 24 caracteres',
+	enfoqueDepend VARCHAR(54) NOT NULL COMMENT 'Introducir a que se dedica la empresa en un maximo de 24 caracteres',
 	/* CONTACTO */
 	numTelfDepend VARCHAR(18) NOT NULL,
 	/* --------- */
@@ -85,7 +85,7 @@ INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (4, 'Rechazada');
 
 /* TABLA DIRECTOR GENERAL */
 CREATE TABLE directorGeneral (
-	idDirector VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Formado por letra inicial de su nombre(s), apellidos y fecha de registro',
+	idDirector VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Formado por año de registro, "-" de separador, iniciales de nombre(s) y apellidos, "-" de separador, e identificador del 00 al 99',
 	/* NOMBRE */
 	nomDirector VARCHAR(48) NOT NULL,
 	apDirector VARCHAR(24) NOT NULL,
@@ -827,3 +827,168 @@ BEGIN
 	
 END //
 DELIMITER ;
+
+/* PROCEDIMIENTO PARA LA INSERCION TEMPORAL DEL REGISTRO DE DEPENDENCIA EN LA BASE DE DATOS */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDependTemp`(
+	IN `codUser` VARCHAR(11),
+	IN	`nom` VARCHAR(32),
+	IN	`regfed` VARCHAR(13),
+	IN	`trabajadores` INT(2),
+	IN	`enfoque` VARCHAR(24),
+	IN	`numTelf` VARCHAR(18),
+	IN	`calle` VARCHAR(21),
+	IN	`numExt` INT(3),
+	IN	`numInt` INT(3),
+	IN	`colonia` VARCHAR(15),
+	IN	`cp` INT(5),
+	IN	`ciudad` VARCHAR(20),
+	IN	`ef` VARCHAR(20),
+	IN	`imagen` LONGBLOB,
+	IN	`tipo` VARCHAR(7)
+)
+COMMENT 'PROCEDIMIENTO PARA LA INSERCION TEMPORAL DEL REGISTRO DE DEPENDENCIA EN LA BASE DE DATOS'
+	INSERT INTO dependencia(codUserDepend,nomDepend,RFC,numTrabajadores,enfoqueDepend,numTelfDepend,calleDepend,numExtDepend,numIntDepend,coloniaDepend,cpDepend,ciudadDepend,efDepend,logo,tipoDepend)
+	VALUES(codUser,nom,regfed,trabajadores,enfoque,numTelf,calle,numExt,numInt,colonia,cp,ciudad,ef,imagen,tipo);
+
+/* PROCEDIMIENTO PARA LA INSERCION DEL REGISTRO DE DIRECTOR GENERAL EN LA BASE DE DATOS */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDirectorGen`(
+	IN `codUser` VARCHAR(11),
+ 	IN `nom` VARCHAR(48),
+	IN	`ap` VARCHAR(24),
+	IN	`am` VARCHAR(24),
+	IN	`edad` INT(2),
+	IN	`curp` VARCHAR(18),
+	IN	`email` VARCHAR(128),
+	IN	`telf` VARCHAR(18)
+)
+COMMENT 'PROCEDIMIENTO PARA LA INSERCION DEL REGISTRO DE DIRECTOR GENERAL EN LA BASE DE DATOS | PARA FUNCIONAR, HABER USADO ANTES EL PROCEDURE DE insertDependTemp'
+BEGIN
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
+	-- GENERACION DE LAS INICIALES DEL NOMBRE
+	SELECT @initials:= CONCAT_WS('', 
+   CONCAT(LEFT(nom, 1), ''),
+   CONCAT(LEFT(SUBSTRING_INDEX(SUBSTRING_INDEX(nom, ' ', 2),' ', -1),1), ''),
+   CONCAT(LEFT(ap, 1), ''),
+   CONCAT(LEFT(am, 1), '')
+	) INTO @initials;
+	
+	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
+	SELECT @lastValue:=
+    (CASE 
+        WHEN MAX(directorgeneral.idDirector) IS NOT NULL 
+        THEN RIGHT(CAST(MAX(directorgeneral.idDirector) AS VARCHAR(10)), 2)
+        ELSE '00' 
+    END) INTO @lastValue
+	FROM directorgeneral
+	WHERE directorgeneral.idDirector LIKE CONCAT(@numberYear,'-',UPPER(@initials),'-','%')
+	ORDER BY directorgeneral.idDirector DESC
+	LIMIT 1;
+
+	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
+	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
+						
+	-- SE GENERA EL NUEVO NUMERO GENERADO
+	SELECT @newDigits:= 
+	(CASE @digits
+		WHEN 1 THEN CONCAT('0',(@lastValue + 1))
+		WHEN 2 THEN (@lastValue + 1)
+		ELSE NULL
+	END) INTO @newDigits;		
+	
+	-- SE GENERA EL NUEVO ID
+	SELECT @id:= CONCAT(@numberYear,'-',UPPER(@initials),'-',@newDigits) INTO @id;
+			
+	-- INSERCION DEL REGISTRO DEL DIRECTOR GENERAL
+	INSERT INTO `directorgeneral` (`idDirector`, `nomDirector`, `apDirector`, `amDirector`, `edadDirector`, `curpDirector`, `emailDirector`, `numTelfDirector`)
+	VALUES(@id,nom,ap,am,edad,curp,email,telf);
+	
+	-- INSERCION DEL REGISTRO EN LA ADMINISTRACION DE LA DEPENDENCIA
+	INSERT INTO administrar(codUserDepend,idDirector)
+	VALUES(codUser,@id);
+END //
+DELIMITER ;
+
+/* PROCEDIMIENTO PARA LA ACEPTACION DEL REGISTRO DE DEPENDENCIA EN LA BASE DE DATOS */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `acceptDepend`(
+	IN `codUser` VARCHAR(11),
+	IN `codigoConv` INT(4)
+)	
+COMMENT 'PROCEDIMIENTO PARA LA ACEPTACION DEL REGISTRO DE DEPENDENCIA EN LA BASE DE DATOS'
+BEGIN
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO DE CREACION DEL DOCUMENTO
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(documento.fechaEntrega)) AS VARCHAR(4)),2) INTO @numberYear
+	FROM documento INNER JOIN convenio ON documento.idDocument = convenio.idDocumentConv
+	WHERE ((convenio.codUserDependConv = codUser) AND (convenio.numConv = codigoConv));
+	
+	-- SE CONSIGUE EL NUMERO DE CONVENIO
+	SELECT @numero:= convenio.numConv INTO @numero
+	FROM convenio
+	WHERE ((codUserDependConv = codUser) AND (numConv = codigoConv));
+	
+	-- SE GENERA EL NUEVO ID DE LA DEPENDENCIA
+	SELECT @newID:= CONCAT(@numberYear,'-',@numero) INTO @newID;
+	
+	-- SE ACTUALIZA EL REGISTRO DE LA DEPENDENCIA
+	UPDATE dependencia
+	SET dependencia.idDepend = @newID, dependencia.califDepend = 'REGULAR'
+	WHERE dependencia.codUserDepend = codUser;
+END //
+DELIMITER ;
+
+/* PROCEDIMIENTO PARA EL RECHAZO DEL REGISTRO DE DEPENDENCIA EN LA BASE DE DATOS */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `rejectDepend`(
+	IN `codUser` VARCHAR(11)
+)	
+COMMENT 'PROCEDIMIENTO PARA EL RECHAZO DEL REGISTRO DE DEPENDENCIA EN LA BASE DE DATOS'
+BEGIN
+	-- SE OBTIENE EL ID DEL DIRECTOR GENERAL
+	SELECT @dirGen:= administrar.idDirector INTO @dirGen
+	FROM administrar
+	WHERE administrar.codUserDepend = codUser;
+
+	-- SE ELIMINAN LOS REGISTROS DE LA PARTE DE ADMINISTRACION DE LA DEPENDENCIA
+	DELETE FROM administrar
+	WHERE ((administrar.codUserDepend = codUser) AND (administrar.idDirector = @dirGen));
+	
+	-- SE ELIMINAN LOS REGISTROS DE LA PARTE DEL DIRECTOR GENERAL
+	DELETE FROM directorgeneral
+	WHERE directorgeneral.idDirector = @dirGen;
+	
+	-- SE ELIMINAN LOS REGISTROS PROPIOS DE LA DEPENDENCIA
+	DELETE FROM dependencia
+	WHERE ((dependencia.codUserDepend = codUser) AND (dependencia.idDepend IS NULL));
+END //
+DELIMITER ;
+	
+/* PROCEDIMIENTO PARA CAMBIAR LA FOTO DE PERFIL DEL ALUMNO */
+CREATE DEFINER=`root`@`localhost` PROCEDURE `changeFotoAlumno`(
+ 	IN `codUser` VARCHAR(11),
+ 	IN `image` LONGBLOB
+
+)
+COMMENT 'PROCEDIMIENTO PARA CAMBIAR LA FOTO DE PERFIL DEL ALUMNO'
+	UPDATE alumno
+	SET alumno.foto = image
+	WHERE (alumno.codUserAlumn = codUser);
+
+
+
+
+
+
+SELECT matricula
+FROM alumno
+WHERE foto IS NULL
+
+
+
+
+
+
+
+
