@@ -35,7 +35,7 @@ https://templatemo.com/tm-545-finance-business
         session_start();
 
         // Se comprueba si la Dependencia ha iniciado sesion
-        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "DEPENDENCIA"))
         {
             header("location: ../../login/login.html?redirect=true");
             session_destroy();

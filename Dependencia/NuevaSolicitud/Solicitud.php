@@ -10,7 +10,7 @@
         session_start();
 
         // Se comprueba si la Dependencia ha iniciado sesion
-        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "Dependencia"))
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "DEPENDENCIA"))
         {
             header("location: ../../login/login.html?redirect=true");
             session_destroy();
@@ -41,7 +41,7 @@
     </div>
     <!-- AQUI ESMPIEZA EL DESMADRE DE LA COSA ESA-->
     <div class="card-body">
-      <form action="insertar.php" method="POST">
+      <form action="../../functionsDB/nuevoServicio.php" method="POST">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -82,6 +82,19 @@
   </div>
 </div>
 
+<script language="javascript">
+      
+      // Se obtiene el parametro enviado desde el PHP y se comprueba de que coincida con el argumento dado
+		  const urlParams = new URLSearchParams(window.location.search);
+		  const red = urlParams.get('requery');
+
+      // Se analiza si uno de los parametros es verdadero
+      if (red === "true")
+      {
+        // Muestra el mensaje de alerta dado cuando el login falla
+        alert("Nueva solicitud de servicio social generada exitosamente.")
+      }   
+    </script>
 
   </body>
 

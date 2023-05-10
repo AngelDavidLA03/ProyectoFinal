@@ -116,7 +116,7 @@ CREATE TABLE alumno (
 	amAlumn VARCHAR(24) NOT NULL,
 	/* ------ */
 	curpAlumn VARCHAR(18) NOT NULL,
-	edadAlumn INT(2) NOT NULL,
+	fechaNac DATE NOT NULL,
 	generoAlumn VARCHAR(1) NOT NULL COMMENT 'Solo permitir valores como M (Masculino), F (Femenino) y S (Sin Especificar)',
 	semestre INT(2) NOT NULL COMMENT 'Colocar el numero de semestre',
 	especialidad VARCHAR(5) NOT NULL COMMENT 'Solo permitir el nombre de la especialidad abreviado',
@@ -333,6 +333,10 @@ CREATE TABLE Administrar (
 
 ALTER TABLE Administrar ADD CONSTRAINT FK_codUserDepend_Admin FOREIGN KEY (codUserDepend) REFERENCES dependencia(codUserDepend) ON DELETE CASCADE ON UPDATE CASCADE; 
 ALTER TABLE Administrar ADD CONSTRAINT FK_idDirector_Admin FOREIGN KEY (idDirector) REFERENCES directorGeneral(idDirector) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO `dependencia` (`codUserDepend`, `idDepend`, `nomDepend`, `RFC`, `califDepend`, `numTrabajadores`, `enfoqueDepend`, `numTelfDepend`, `calleDepend`, `numExtDepend`, `numIntDepend`, `coloniaDepend`, `cpDepend`, `ciudadDepend`, `efDepend`, `logo`, `tipoDepend`) VALUES ('2366DEP0000', '00000', 'a', 'a', 'a', 1, 'a', '1', 'a', 1, 1, 'a', 1, 'a', 'a', NULL, 's');
+INSERT INTO `directorgeneral` (`idDirector`, `nomDirector`, `apDirector`, `amDirector`, `edadDirector`, `curpDirector`, `emailDirector`, `numTelfDirector`) VALUES ('XXXX23', 'Xa Xa', 'Xasd', 'Xafs', 1, 'x', 'x', '1');
+INSERT INTO `administrar` (`codUserDepend`, `idDirector`) VALUES ('2366DEP0000', 'XXXX23');
 
 /* RELACION SOLICITAR (DEPENDENCIA 1 - SERVICIO SOCIAL M) */
 CREATE TABLE Solicitar (
@@ -812,7 +816,7 @@ BEGIN
 	
 	-- SE GENERA EL NUEVO ID
 	SELECT @id:= CONCAT(@numberYear,@initials,@newDigits,'-',UPPER(LEFT(CAST(MONTHNAME(fi) AS VARCHAR(12)),3)),'-',UPPER(LEFT(CAST(MONTHNAME(ff) AS VARCHAR(12)),3))) INTO @id;
-			
+	
 	-- SE INTRODUCEN LOS VALORES DENTRO DE LA TABLA
 	INSERT INTO serviciosocial(`idServicio`,`nomServic`,`actividades`,`horaInicio`,`diasPorSem`,`horaFin`,`fechaInicio`,`fechaFin`,`fechaCreacion`) 
 	VALUES (@id,nom,acts,hi,dias,hf,fi,ff,DATE(NOW()));
@@ -823,5 +827,3 @@ BEGIN
 	
 END //
 DELIMITER ;
-
-

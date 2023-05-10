@@ -39,16 +39,16 @@ if($exsite == 1)
     // Se obtiene el directorio de la raiz
     
 
-    if($usuario == "Dependencia")
+    if($usuario == "DEPENDENCIA")
     {   
         
         header("location: ../dependencia/cuenta/services.php");
     }
-    else if($usuario == "Alumno")
+    else if($usuario == "ALUMNO")
     {   
-        header("location: ../test/Alumno/Index.php");
+        header("location: ../Alumno/estudiante.html");
     } 
-    else if($usuario == "Coordinador")
+    else if($usuario == "COORDINADOR")
     {
         header("location: ../coordinador/coordinador.php");
     }
