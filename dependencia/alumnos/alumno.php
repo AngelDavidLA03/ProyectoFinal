@@ -43,7 +43,7 @@
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
+    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
