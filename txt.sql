@@ -1,0 +1,58 @@
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE ACTIVIDADES*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVErac`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` INT(4)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REPORTE DE ACTIVIDADES'
+INSERT INTO reporteactividades(`idDocumentReportAct`,`matriculaReportAct`)
+VALUES (idDocument,matricula);
+
+
+
+/* PROCEDIMIENTO PARA LA CARGA DE ARCHIVOS */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdocuments`(
+	IN `documentS` LONGBLOB,
+	IN `tipoDocumentS` VARCHAR(3)
+)
+COMMENT 'PROCEDIMIENTO PARA LA CREACION DEL DOCUMENTO EN LA BASE DE DATOS'
+BEGIN
+	
+	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL TIPO DE DOCUMENTO
+	SELECT @lastValue:= 
+	(CASE 
+        WHEN MAX(documento.idDocumento) IS NOT NULL 
+        THEN RIGHT(CAST((idDocument) AS VARCHAR(8)),3) 
+        ELSE '0000' 
+   END)
+	INTO @lastValue
+	FROM documento
+	WHERE (idDocument LIKE CONCAT('%',tipoDocumentS,'%'))
+	ORDER BY idDocument DESC
+	LIMIT 1;
+	
+	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
+	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
+	
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
+	-- SE GENERA EL ID DEPENDIENDO DE LA CANTIDAD DE DIGITOS CON EL QUE CUENTA EL DIGITO
+	SELECT @id:= CONCAT(@numberYear,tipoDocumentS,
+	(CASE @digits
+		WHEN 1 THEN CONCAT('00',(@lastValue + 1))
+		WHEN 2 THEN CONCAT('0',(@lastValue + 1))
+		WHEN 3 THEN (@lastValue + 1)
+		ELSE NULL
+	END)) INTO @id;
+	
+	-- SE INTRODUCEN LOS VALORES DENTRO DE LA TABLA
+	INSERT INTO documento(`idDocument`,`fechaEntrega`,`document`,`tipoDocument`) 
+	VALUES (@id,DATE(NOW()),documentS,tipoDocumentS);
+END //
+DELIMITER ;

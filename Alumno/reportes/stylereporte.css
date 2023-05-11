@@ -55,7 +55,7 @@ body {
     
     .container {
       max-width: 600px;
-      margin: 150px auto 0; /* Ajuste de margen superior */
+      margin: 250px auto 0; /* Ajuste de margen superior */
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 5px;

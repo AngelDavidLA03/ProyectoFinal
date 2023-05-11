@@ -67,8 +67,8 @@
               <input type="text" id="actividades" name="actividades" style="font-size: 20px;" required>
             </div>
             <div class="form-group">
-              <label for="horaFin">Hora de fin:</label>
-              <input type="time" id="horaFin" name="horaFin" required>
+              <label for="fechaInicio">Hora de inicio:</label>
+              <input type="time" id="fechaInicio" name="fechaInicio" required>
             </div>
             <div class="form-group">
               <label for="fechaFin">Fecha de fin:</label>

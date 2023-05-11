@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Reporte de Servicio Social</title>
+  <title>Reporte</title>
   <link rel="stylesheet" href="stylereporte.css">
-
-  <body>
+</head>
+<body>
   <div class="header">
     <h2 class="centered-heading">PORTAL</h2>
     <div class="user-menu">
@@ -16,41 +16,47 @@
       </ul>
     </div>
   </div>
-</div>
-</head>
-<body> <div class="container">
+  <div class="container">
     <h1>Reporte de Servicio Social</h1>
-    <a class="download-btn" href="ruta_del_archivo" download>Descargar documento aquí</a>
-    
+    <a class="download-btn" href="Reporte Servicio Social.doc" download>Descargar documento aquí</a>
     <div class="team-block">
-      <label for="fileInput">Seleccionar archivo:</label>
-      <label class="custom-file-input" for="fileInput">Explorar archivos</label>
-      <input type="file" id="fileInput">
-      <span class="file-name"></span>
-      <button onclick="uploadFile()">Subir</button>
-    </div>
-  </div>
-
+  <label for="fileInput">Seleccionar archivo:</label>
+  <label class="custom-file-input" for="fileInput">Explorar archivos</label>
+  <input type="file" id="fileInput">
+  <span class="file-name"></span>
+  <button onclick="uploadFile()">Subir</button>
+</div>
+</div>
   <script>
     var fileInput = document.getElementById('fileInput');
     var fileNameContainer = document.querySelector('.file-name');
-    
+
     fileInput.addEventListener('change', function() {
       fileNameContainer.textContent = this.files[0].name;
     });
-    
+
     function uploadFile() {
       var file = fileInput.files[0];
-      // Aquí puedes realizar las acciones necesarias para subir el archivo
-    }
-  </script>
-</body>
-</html>
-  <script>
-    function uploadFile() {
-      var fileInput = document.getElementById('fileInput');
-      var file = fileInput.files[0];
-      // Aquí puedes realizar las acciones necesarias para subir el archivo
+
+      var formData = new FormData();
+      formData.append('file', file);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'subirreporte.php', true);
+
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          console.log('Archivo subido exitosamente');
+        } else {
+          console.error('Error al subir el archivo:', xhr.status);
+        }
+      };
+
+      xhr.onerror = function() {
+        console.error('Error de conexión al subir el archivo');
+      };
+
+      xhr.send(formData);
     }
   </script>
 </body>

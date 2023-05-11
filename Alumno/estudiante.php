@@ -12,15 +12,64 @@
   <div class="header">
     <h2 class="centered-heading">PORTAL</h2>
     <div class="user-menu">
-      <a href="#" class="user-icon"><img src="https://via.placeholder.com/150" alt="User"></a>
+      <a href="#" class="user-icon"><img src="reporte.png" alt="User"></a>
       <ul class="dropdown-menu">
-        <li><a href="#" class="menu-option">Perfil</a></li>
-        <li><a href="#" class="menu-option">Configuración</a></li>
+        <li><a href="#" class="menu-option">Actualizar foto</a></li>
         <li><a href="..//login/login.html" class="menu-option">Cerrar sesión</a></li>
       </ul>
     </div>
   </div>
   
+<!-- Modal -->
+<div id="upload-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+      <input type="file" name="photo" id="photo-input">
+      <input type="submit" value="Guardar">
+    </form>
+  </div>
+</div>
+
+<style>
+  /* Estilos para el modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+
+
+
 <!--    Cuadros  -->
 <div class="container-2">
  <br>
@@ -45,7 +94,7 @@
                                                         hospitales o instituciones educativas en tu área.
                                                </p>
                       
-                      <a href="#" class="text-link-arrow w-inline-block">
+                      <a href="../Alumno/ServicioSocial/Seleccionarservicio.php" class="text-link-arrow w-inline-block">
                           <div>Ir </div>
                           <div class="arrow-embed w-embed">
                               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +114,7 @@
                                                <br>&#11044 Carta de presentacion
                                                <br>&#11044 Constancia de estudios
                                                <br>&#11044 Carta de presentacion</p></p>
-                      <a href="#" class="text-link-arrow w-inline-block">
+                      <a href="..//Alumno/Documentacion/documentacion.php" class="text-link-arrow w-inline-block">
                           <div>Ir</div>
                           <div class="arrow-embed w-embed">
                               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

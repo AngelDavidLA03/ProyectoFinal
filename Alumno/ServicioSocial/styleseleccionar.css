@@ -1,0 +1,117 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  .header {
+    background-color: rgba(0, 51, 102, 0.8);
+    color: #fff;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+  }
+  .user-menu {
+    position: relative;
+  }
+  .user-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    
+  }
+  .user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .dropdown-menu li {
+    margin-bottom: 10px;
+  }
+  .user-icon:hover + .dropdown-menu,
+  .dropdown-menu:hover {
+    display: block;
+  }
+
+  /*CUADROS*/
+
+.teams-block {
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .service-card {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(245, 236, 236, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: calc(33.33% - 20px);
+    float: left;
+    margin-right: 20px;
+    box-sizing: border-box;
+    border: 1px solid #14c022; /* Agregamos el borde */
+    margin-top: 80px;
+}
+  
+  .service-card h3 {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .service-card p {
+    margin-bottom: 5px;
+  }
+  
+  .service-card span {
+    font-weight: bold;
+  }
+  
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .service-card {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+  
+  /*botooon*/
+
+
+  .postularme-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 120px;
+    margin-top: 10px;
+  }
+  
+  .postularme-btn:hover {
+    background-color: #45a049;
+  }
+ 
+  
