@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="stylegaleriaconvocatoria.css">
 
     <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php
+    <?php/*
         session_start();
 
         // Se comprueba si la Dependencia ha iniciado sesion
@@ -14,7 +14,7 @@
             header("location: ../../login/login.html?redirect=true");
             session_destroy();
             exit;
-        }
+        }*/
     ?>
 
   </head>
@@ -33,15 +33,11 @@
       </div>
     </header>
     <div class="card">
-      <label for="convocatorias">Convocatorias disponibles:</label>
-      <select id="convocatorias" class="convocatorias">
-        <option value="1">Convocatoria 1</option>
-        <option value="2">Convocatoria 2</option>
-        <option value="3">Convocatoria 3</option>
-        <option value="4">Convocatoria 4</option>
-        <option value="5">Convocatoria 5</option>
-      </select>
-    </div>
+  <label for="convocatorias">Convocatorias disponibles:</label>
+  <select id="convocatorias" class="convocatorias">
+    <?php include 'obtenerconvocatorias.php'; ?>
+  </select>
+</div>
     <div class="card" id="Solicitud">
       <h2>Solicitud</h2>
       <p id="Solicitud"></p>
