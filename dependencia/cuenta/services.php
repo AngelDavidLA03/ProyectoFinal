@@ -15,9 +15,18 @@
     <title>Cuenta</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     
-    <!-- otros enlaces a archivos CSS y JS -->
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+    <?php
+        session_start();
 
-
+        // Se comprueba si la Dependencia ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "DEPENDENCIA"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        }
+    ?>
   </head>
 
 
@@ -36,7 +45,7 @@
         <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
         <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
         <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
-        <li><a href="../login/login.html">Cerrar Sesión</a></li>
+        <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
       </ul>
      </nav>
    </div>

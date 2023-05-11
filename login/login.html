@@ -24,7 +24,7 @@
       <div class="adviceText">
       <b>¿Olvidaste la contraseña?</b>
       <br>
-      <b>Revisa tu correo electronico</b>
+      <a href="resetPassword.html">Restablece tu contraseña aquí</a><br>
       </div>
     </form>
     <script language="javascript">
@@ -33,6 +33,8 @@
 		  const urlParams = new URLSearchParams(window.location.search);
 		  const fail = urlParams.get('failed');
       const red = urlParams.get('redirect');
+      const em = urlParams.get('email');
+      const pc = urlParams.get('passChange');
 
       // Se analiza si uno de los parametros es verdadero
       if (fail === "true")
@@ -44,6 +46,16 @@
       {
         // Muestra el mensaje de alerta dado cuando se regresa al login despues de un redireccionamiento
         alert("Inicie sesión con una cuenta de este tipo\npara acceder a este apartado.")
+      }
+      else if(em === "true")
+      {
+        // Muestra el mensaje de alerta dado cuando se regresa al login despues de un redireccionamiento
+        alert("Este atento de su correo electronico\npara poder restablecer la contraseña.\nSi no lo encuentra, busque en correo no deseado o spam\no es posible que el correo no este en nuestro sistema.")
+      }
+      else if(pc === "true")
+      {
+        // Muestra el mensaje de alerta dado cuando se regresa al login despues de un redireccionamiento
+        alert("Contraseña cambiada exitosamente.")
       }
       
     </script>

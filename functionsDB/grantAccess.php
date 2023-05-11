@@ -41,12 +41,11 @@ if($exsite == 1)
 
     if($usuario == "DEPENDENCIA")
     {   
-        
         header("location: ../dependencia/cuenta/services.php");
     }
     else if($usuario == "ALUMNO")
     {   
-        header("location: ../Alumno/estudiante.html");
+        header("location: ../Alumno/estudiante.php");
     } 
     else if($usuario == "COORDINADOR")
     {
