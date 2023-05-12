@@ -15,22 +15,7 @@
     <title>Cuenta</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     
-    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-    <?php
-        session_start();
-
-        // Se comprueba si la Dependencia ha iniciado sesion
-        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "DEPENDENCIA"))
-        {
-            header("location: ../../login/login.html?redirect=true");
-            session_destroy();
-            exit;
-        }
-    ?>
-  </head>
-
-
-
+    <!-- otros enlaces a archivos CSS y JS -->
 
 
 <body>
@@ -45,7 +30,7 @@
         <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
         <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
         <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
-        <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
+        <li><a href="../login/login.html">Cerrar Sesión</a></li>
       </ul>
      </nav>
    </div>
@@ -64,27 +49,55 @@
 
   <div class="content">
 
-    <div id="tab1" class="tab-content" style="display: none;">
+      <div id="tab1" class="tab-content" style="display: none;">
       <div class="card">
         <div class="title-container">
           <h2 color="white">Datos Dependencia</h2>
         </div>
         <div class="content-container">
           <form>
+
+            <label>Código Usuario:</label>
+            <input type="text" name="codigouser" style="text-transform: uppercase;" required>
+          
             <label>Nombre Dependencia:</label>
-            <input type="text" name="street" style="text-transform: uppercase;" required>
+            <input type="text" name="nomdep" style="text-transform: uppercase;" required>
 
-            <label>Nombre Representante:</label>
-            <input type="text" name="outdoor-number" style="text-transform: uppercase;" required>
+            <label>RFC:</label>
+            <input type="text" name="rfc" style="text-transform: uppercase;" required>
 
-            <label>RFC Dependencia:</label>
-            <input type="text" name="cologne" style="text-transform: uppercase;" required>
+            <label>Cantidad de Trabajadores:</label>
+            <input type="text" name="canttrab" style="text-transform: uppercase;" required>
 
-            <label>Email:</label>
-            <input type="text" name="postal-code" style="text-transform: uppercase;" required>
+            <label>Giro:</label>
+            <input type="text" name="giro" style="text-transform: uppercase;" required>
 
             <label>Teléfono:</label>
-            <input type="text" name="municipality" style="text-transform: uppercase;" required>
+            <input type="text" name="tel" style="text-transform: uppercase;" required>
+
+            <label>Calle:</label>
+            <input type="text" name="calle" style="text-transform: uppercase;" required>
+
+            <label>Numero Exterior:</label>
+            <input type="text" name="numext" style="text-transform: uppercase;" required>
+
+            <label>Numero Interior:</label>
+            <input type="text" name="numint" style="text-transform: uppercase;" required>
+
+            <label>Colonia:</label>
+            <input type="text" name="colonia" style="text-transform: uppercase;" required>
+
+            <label>Código Postal:</label>
+            <input type="text" name="cp" style="text-transform: uppercase;" required>
+
+            <label>Ciudad:</label>
+            <input type="text" name="ciudad" style="text-transform: uppercase;" required>
+
+            <label>Entidad Federativa:</label>
+            <input type="text" name="entfed" style="text-transform: uppercase;" required>
+
+            <label>Tipo:</label>
+            <input type="text" name="tipo" style="text-transform: uppercase;" required>
 
             <div class="button-container">
               <button type="submit">Guardar</button>
@@ -93,6 +106,17 @@
           </form>
         </div>
       </div>
+
+          <div class="profile-image-container">
+            <div class="profile-image-wrapper">
+              <img src="./tecnm.png" alt="Profile Image" class="profile-image">
+            </div>
+            <div class="profile-image-actions">
+              <input type="file" id="profile-image-input" accept="image/*" onchange="previewProfileImage(event)">
+              <label for="profile-image-input" class="profile-image-label"><i class="fas fa-camera"></i></label>
+            </div>
+          </div>
+
     </div>
 
 
