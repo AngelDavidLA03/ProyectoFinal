@@ -58,7 +58,7 @@ nav a:hover {
         font-family: Arial, sans-serif;
       }
       .container {
-        max-width: 800px;
+        max-width: 900px;
         margin: 40px auto 0; /* Agregamos 40px de margen superior */
         padding: 20px;
         background-color: #fff;
