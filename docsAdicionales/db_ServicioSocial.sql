@@ -394,6 +394,7 @@ SELECT COUNT(codUser) AS isExist, tipoUser, codUser
 FROM usuario
 WHERE (emailL LIKE email) AND (passwordL LIKE pass);
 
+
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CONVENIO*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcnv`(
 	IN `idDocument` VARCHAR(8),
@@ -661,6 +662,9 @@ BEGIN
 	-- SE INTRODUCEN LOS VALORES DENTRO DE LA TABLA
 	INSERT INTO documento(`idDocument`,`fechaEntrega`,`document`,`tipoDocument`) 
 	VALUES (@id,DATE(NOW()),documentS,tipoDocumentS);
+
+	-- DEVUELVE EL ID GENERADO PARA SER USADO EN OTRO PROCEDURE
+	SELECT @id;
 END //
 DELIMITER ;
 
