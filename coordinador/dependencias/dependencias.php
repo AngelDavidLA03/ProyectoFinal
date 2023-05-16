@@ -16,15 +16,12 @@
 
   <!-- Enlace al archivo JS de Bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-
   </head>
 
 
-
-  <body>
-
+<body>
 <!-- Menú superior-->
-      <header>
+    <header>
         <div class="container">
           <nav>
             <ul>
@@ -36,14 +33,23 @@
                     </ul>
                 </nav>
             </div>
-        </header>
+      </header>
 
- 
+<!-- Boton para capturar id -->
+    <div style="margin-top: 100px;">
+      <form method="GET" action="">
+        <label for="idDepend">Ingrese el valor de idDepend:</label>
+        <input type="text" name="idDepend" id="idDepend">
+        <input type="submit" value="Enviar">
+      </form>
+    </div>
+
+
 <!-- Carrusel de imagenes -->
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -64,22 +70,46 @@
       echo '<p class="alumno-carrera">' . $fila["tipoDepend"] . '</p>';
       echo '<button class="btn-modal" data-alumno-id="' . $fila["idDepend"] . '">Ver detalles</button>';
       echo '</div>'; // Cierre de "alumno-info"
-
       echo '</div>'; // Cierre de "carousel-item"
     }
-    echo '</div>'; // Cierre de "carousel"
+    echo '</div>'; // Cierre de "carrousel"
 
-    // Generar el menú desplegable para filtrar por carrera
-    echo '<div class="carousel-controls">';
-    echo '<select id="carrera-filtro">';
-    echo '<option value="todos">Todos</option>';
-    $resultado_carreras = mysqli_query($conn, "SELECT DISTINCT tipoDepend FROM dependencia");
-    while ($fila_carrera = mysqli_fetch_assoc($resultado_carreras)) {
-      echo '<option value="' . $fila_carrera["tipoDepend"] . '">' . $fila_carrera["tipoDepend"] . '</option>';
+
+
+    
+    // Generar el menú desplegable para filtrar por idDepend
+
+    // Obtener el valor de idDepend enviado por el usuario
+    $idDepend = isset($_GET['idDepend']) ? $_GET['idDepend'] : '';
+
+    // Conectar a la base de datos
+    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
+
+    // Verificar si hubo un error al conectar
+    if (mysqli_connect_errno()) {
+      die("Error al conectar a la base de datos: " . mysqli_connect_error());
     }
-    echo '</select>';
-    echo '</div>'; // Cierre de "carousel-controls"
 
+    // Preparar la consulta SQL para obtener los datos de la dependencia con el idDepend seleccionado
+    $sql = "SELECT * FROM dependencia WHERE idDepend = $idDepend";
+
+    // Ejecutar la consulta SQL y guardar los resultados en una variable
+    $resultado = mysqli_query($conn, $sql);
+
+    // Generar el código HTML y CSS del carrusel
+    echo '<div class="carousel-container">';
+    echo '<div class="carousel">';
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+      echo '<div class="carousel-item" data-carrera="' . $fila["tipoDepend"] . '">';
+      echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["logo"]) . '" alt="' . $fila["idDepend"] . '">';
+      echo '<div class="alumno-info">';
+      echo '<p class="alumno-nombre">' . $fila["idDepend"] . '</p>';
+      echo '<p class="alumno-carrera">' . $fila["tipoDepend"] . '</p>';
+      echo '<button class="btn-modal" data-alumno-id="' . $fila["idDepend"] . '">Ver detalles</button>';
+      echo '</div>'; // Cierre de "alumno-info"
+      echo '</div>'; // Cierre de "carousel-item"
+    }
+    echo '</div>'; // Cierre de "carousel-controls"
     echo '</div>'; // Cierre de "carousel-container"
 
     // Cerrar la conexión a la base de datos
@@ -87,7 +117,8 @@
 
     ?>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Scripts para dar funcionalidad al carrusel -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <script>
     $(document).ready(function(){
@@ -124,7 +155,8 @@
                         ]
                         });
 
-                        // Filtrar los elementos del carrusel al seleccionar una carrera
+                        /*
+                        // Filtrar los elementos del carrusel al ingresar un id con checklist, por el momento no se utiliza
                         $("#carrera-filtro").change(function() {
                             var carrera = $(this).val();
                             if (carrera === "todos") {
@@ -134,7 +166,7 @@
                                 $(".carousel-item .alumno-carrera:contains('" + carrera + "')").parent().show();
                             }
                         });
-
+                        */
                         });
     </script>
 
@@ -165,7 +197,7 @@
     </script>
 
 
-    <!-- Ventana modal -->
+    <!-- Ventana modal tablas -->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
