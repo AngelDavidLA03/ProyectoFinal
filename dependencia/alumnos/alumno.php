@@ -32,7 +32,7 @@
                     <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
                     <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
                      <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
-                     <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
+                     <li><a href="../../login/login.html">Cerrar Sesión</a></li>
                 </ul>
               </nav>
             </div>
