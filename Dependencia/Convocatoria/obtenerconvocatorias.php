@@ -1,4 +1,6 @@
 <?php
+session_start();
+/**/
 // Conexión a la base de datos
 $servername = "localhost:5555";
 $username = "root";
@@ -27,12 +29,28 @@ if ($result->num_rows > 0) {
     $horaFin = $row["horaFin"];
     $fechaInicio = $row["fechaInicio"];
     $fechaFin = $row["fechaFin"];
-    
+
+    $_SESSION['idServicio'] = $idServicio;
+  $_SESSION['nomServic'] = $nomServic;
+  $_SESSION['actividades'] = $actividades;
+  $_SESSION['horaInicio'] = $horaInicio;
+  $_SESSION['diasPorSem'] = $diasPorSem;
+  $_SESSION['horaFin'] = $horaFin;
+  $_SESSION['fechaInicio'] = $fechaInicio;
+  $_SESSION['fechaFin'] = $fechaFin;
+  
     echo '<option value="' . $idServicio . '">';
     echo $nomServic . '<br>';
     echo '</option>';
+    
   }
+  
 }
+
+
+
+
+  
 
 // Cerrar la conexión
 $conn->close();

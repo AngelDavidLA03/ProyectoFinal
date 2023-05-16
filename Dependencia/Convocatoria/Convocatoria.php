@@ -36,20 +36,19 @@
   <label for="convocatorias">Convocatorias disponibles:</label>
   <select id="convocatorias" class="convocatorias">
     
-  <?php include 'obtenerconvocatorias.php'; ?>
+  <?php include 'obtenerconvocatorias.php'; /**/?>
 
 </select>
   
 </div>
     <div class="card" id="Solicitud">
       <h2>Detalles</h2>
+      <?php    include 'detalles.php';  ?>
 
-      <div id="detalles-convocatoria"></div>  
-    
-    
-    
-    
+      <div id="detalles-convocatoria"></div> 
     </div>
+
+
      <div class="card" id="alumnos-card">
       <h2>Solicitud de alumnos</h2>
       <ul class="alumnos" id="alumnos-list">
