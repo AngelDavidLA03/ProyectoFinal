@@ -25,15 +25,16 @@
         <div class="container">
           <nav>
             <ul>
-                      <li><a href="../cuenta/services.php">Cuenta</a></li>
-                      <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
-                      <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
-                      <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
-                      <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
-                    </ul>
-                </nav>
-            </div>
-      </header>
+                <li><a href="../coordinador.php">Crear cuenta</a></li>
+                <li><a href="../documentos/documentos.php">Subir documentos</a></li>
+                <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
+                <li><a href="../dependencias/dependencias.php">Dependencias</a></li>
+                <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
+                <li><a href="../../login/login.html">Cerrar sesión</a></li>
+            </ul>
+          </nav>
+       </div>
+    </header>
 
 <!-- Boton para capturar id -->
     <div style="margin-top: 100px;">
