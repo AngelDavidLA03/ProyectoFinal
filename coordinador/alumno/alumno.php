@@ -24,26 +24,35 @@
   <body>
 
 <!-- Menú superior-->
-      <header>
-        <div class="container">
-          <nav>
-            <ul>
-                      <li><a href="../cuenta/services.php">Cuenta</a></li>
-                      <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
-                      <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
-                      <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
-                      <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
-                    </ul>
-                </nav>
+        <header>
+            <div class="container">
+              <nav>
+                <ul>
+                   <li><a href="../cuenta/services.php">Cuenta</a></li>
+                    <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
+                    <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
+                     <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+                     <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
+                </ul>
+              </nav>
             </div>
         </header>
+
+<!-- Boton para capturar id -->
+        <div style="margin-top: 100px;">
+          <form method="GET" action="">
+            <label for="matricula">Ingrese el id del Alumno:</label>
+            <input type="text" name="matricula" id="matricula">
+            <input type="submit" value="Enviar">
+          </form>
+        </div>
 
  
 <!-- Carrusel de imagenes -->
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+    $conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -69,23 +78,48 @@
     }
     echo '</div>'; // Cierre de "carousel"
 
-    // Generar el menú desplegable para filtrar por carrera
-    echo '<div class="carousel-controls">';
-    echo '<select id="carrera-filtro">';
-    echo '<option value="todos">Todos</option>';
-    $resultado_carreras = mysqli_query($conn, "SELECT DISTINCT especialidad FROM alumno");
-    while ($fila_carrera = mysqli_fetch_assoc($resultado_carreras)) {
-      echo '<option value="' . $fila_carrera["especialidad"] . '">' . $fila_carrera["especialidad"] . '</option>';
+
+
+    //Generar el apartado para que el usuario ingrese el id del alumno y filtrarlo
+
+    // Obtener el valor de matricula enviado por el usuario
+    $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
+
+    // Conectar a la base de datos
+    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
+
+    // Verificar si hubo un error al conectar
+    if (mysqli_connect_errno()) {
+      die("Error al conectar a la base de datos: " . mysqli_connect_error());
     }
-    echo '</select>';
-    echo '</div>'; // Cierre de "carousel-controls"
 
-    echo '</div>'; // Cierre de "carousel-container"
+    //Consulta SQL para obtener los datos del alumno con la matricula seleccionada
+    $sql = "SELECT * FROM alumno WHERE matricula = $matricula";
 
-    // Cerrar la conexión a la base de datos
-    mysqli_close($conn);
 
+    // Ejecutar la consulta SQL y guardar los resultados en una variable
+    $resultado = mysqli_query($conn, $sql);
+
+     // Generar el código HTML y CSS del carrusel
+     echo '<div class="carousel-container">';
+     echo '<div class="carousel">';
+     while ($fila = mysqli_fetch_assoc($resultado)) {
+       echo '<div class="carousel-item" data-carrera="' . $fila["especialidad"] . '">';
+       echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["foto"]) . '" alt="' . $fila["matricula"] . '">';
+       echo '<div class="alumno-info">';
+       echo '<p class="alumno-nombre">' . $fila["matricula"] . '</p>';
+       echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
+       echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
+       echo '</div>'; // Cierre de "alumno-info"
+
+       echo '</div>'; // Cierre de "carousel-item"
+     }
+     echo '</div>'; // Cierre de "carousel"
+     // Cerrar la conexión a la base de datos
+     mysqli_close($conn);
     ?>
+
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
@@ -124,6 +158,7 @@
                         ]
                         });
 
+                        /*
                         // Filtrar los elementos del carrusel al seleccionar una carrera
                         $("#carrera-filtro").change(function() {
                             var carrera = $(this).val();
@@ -134,15 +169,16 @@
                                 $(".carousel-item .alumno-carrera:contains('" + carrera + "')").parent().show();
                             }
                         });
-
+                        */
                         });
     </script>
+
 
     <!-- Funcionalidad detalles -->
     <script> 
 
                 $(document).ready(function() {
-                // ...
+               
                 // Evento click en botón "Ver detalles" de cada alumno
                 $('.btn-modal').click(function() {
                     var alumnoId = $(this).data('alumno-id');
@@ -161,7 +197,6 @@
                     });
                 });
                 })
-
     </script>
 
 
