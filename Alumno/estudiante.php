@@ -8,7 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styleestudiante.css">
   <body onload="disableScroll()">
+  <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+  <?php
+        session_start();
 
+        // Se comprueba si el Coordinador ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "ALUMNO"))
+        {
+            header("location: ../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
 </head>
 <body>
   <div class="header">
@@ -17,7 +28,7 @@
       <a href="#" class="user-icon"><img src="reporte.png" alt="User"></a>
       <ul class="dropdown-menu">
         <li><a href="#" class="menu-option">Actualizar foto</a></li>
-        <li><a href="..//login/login.html" class="menu-option">Cerrar sesión</a></li>
+        <li><a href="../functionsDB/logout.php" class="menu-option">Cerrar sesión</a></li>
       </ul>
     </div>
   </div>
