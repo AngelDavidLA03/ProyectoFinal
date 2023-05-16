@@ -1,14 +1,15 @@
-
 <?php
 // Conectar a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "db_serviciosocial");
+$conexion = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
 
 // Obtener los parámetros de la petición AJAX
 $codUser = $_POST["codUser"];
-$codigoConv = $_POST["codigoConv"];
 
 // Ejecutar el procedimiento almacenado
-$resultado = mysqli_query($conexion, "CALL rejectDepend('$codUser')");
+$stmt = $conexion->prepare("CALL rejectDepend(?)");
+$stmt->bind_param("s",$codUser);
+
+$stmt->execute();
 
 // Cerrar la conexión a la base de datos
 mysqli_close($conexion);
