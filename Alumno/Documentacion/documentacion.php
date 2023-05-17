@@ -3,10 +3,9 @@
 <head>
   <title>Documentos</title>
   <link rel="stylesheet" href="styledocumentos.css">
-
-  <body>
+</head>
+<body>
   <div class="header">
-
     <h2 class="centered-heading">PORTAL</h2>
     <div class="user-menu">
       <a href="#" class="user-icon"><img src="https://via.placeholder.com/150" alt="User"></a>
@@ -17,13 +16,8 @@
       </ul>
     </div>
   </div>
-</head>
-<body>
-  <header>
-  </header>
 
   <div class="container">
-  
     <div class="team-block">
       <form action="guardar.php" method="post" enctype="multipart/form-data" class="upload-form">
         <h3>Subir Carta de Presentación</h3>
@@ -39,15 +33,10 @@
         <input type="submit" value="Enviar" name="submitConstancia">
       </form>
     </div>
-    
-    <div class="team-block">
-      <form action="upload_segunda_carta.php" method="post" enctype="multipart/form-data" class="upload-form">
-        <h3>Subir Segunda Carta de Presentación</h3>
-        <input type="file" name="segundaCartaToUpload" id="segundaCartaToUpload">
-        <input type="submit" value="Enviar" name="submitSegundaCarta">
-</form>
-</div>
+    </div>
 
+  <div class="submit">
+    <button onclick="window.location.href='/ProyectoFinal/Alumno/estudiante.php' ">Completar</button>
   </div>
 </body>
 </html>

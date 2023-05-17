@@ -15,8 +15,8 @@ if ($conn->connect_error) {
 
 
 // Verifica si se ha enviado un archivo
-if(isset($_FILES['cartaToUpload'])){
-    $file = $_FILES['cartaToUpload'];
+if(isset($_FILES['fileInput'])){
+    $file = $_FILES['fileInput'];
 
     // Obtiene los detalles del archivo
     $fileName = $file['name'];
@@ -30,17 +30,17 @@ if(isset($_FILES['cartaToUpload'])){
     // Verifica si no hay errores en la subida del archivo
     if($fileError === 0){
         // Genera un nombre único para el archivo utilizando el año actual
-        $generatedFileName = $matriculaPresent .++$fileName ;
+        $generatedFileName = ++$fileName .$matriculaPresent  ;
 
         // Ruta donde se guardará el archivo subido
-        $document = 'DocumentosTemp/' . $generatedFileName;
+        $document = 'DocReportes/' . $generatedFileName;
 
         // Mueve el archivo a la ubicación deseada
         move_uploaded_file($fileTmpName, $document);
 
       
 // Guarda los datos en la base de datos
-$sql = "INSERT INTO documento (idDocument, fechaEntrega, document, tipoDocument) VALUES ('$generatedFileName','$fechaEntrega', '$document', 'pdf')";
+$sql = "INSERT INTO documento (idDocument, fechaEntrega, document, tipoDocument) VALUES ('$generatedFileName','$fechaEntrega', '$document', 'doc')";
 
 if ($conn->query($sql) === TRUE) {
   echo "<script>alert('Archivo subido y guardado en la base de datos correctamente.');</script>";
@@ -50,7 +50,7 @@ if ($conn->query($sql) === TRUE) {
 
   // Cierra la conexión a la base de datos
   $conn->close();
-  header("Location: ..//Documentacion/documentacion.php"); 
+  header("Location: ..//reportes/Reportes.php"); 
 
 
 } else {

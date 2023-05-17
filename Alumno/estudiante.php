@@ -87,39 +87,16 @@
 <div class="container-2">
  <br>
   <p class="centered-subheading">Servicio Social</p>
-  <p class="centered-subheading"> El Servicio Social es obligatorio y consta de 480 horas que se deben completar 
-  durante los semestres V, VI y VII, así como en veranos. Para iniciar el servicio 
-  social en el quinto semestre, se requiere haber aprobado al menos el 57% de las 
-  materias de la currícula. Es necesario completar todas las horas antes del octavo
-  semestre y para participar en programas de movilidad académica. </p>
+  <p class="centered-subheading"> Si ya subiste tu documentacion, ya puedes seleccionar tu servicio social, recuerda mantener tus documentos actualizados </p>
 
 
 
   <div data-delay="4000" data-animation="slide" class="team-slider-wrapper w-slider" data-autoplay="false" data-easing="ease" data-hide-arrows="false" data-disable-swipe="false" data-autoplay-limit="0" data-nav-spacing="12" data-duration="500" data-infinite="true">
       <div class="w-slider-mask">
           <div class="team-slide-wrapper w-slide">
-              <div class="team-block">
-                  <img src="servicio1.png" loading="lazy" alt="" class="team-member-image-two"/>
-                  <div class="team-block-info">
-                      <h3 class="team-member-name-two">Solicitar servicio social </h3>
-                      <p class="team-member-text"> <br>  
-                                                        Comienza explorando organizaciones sin fines de lucro, centros comunitarios, 
-                                                        hospitales o instituciones educativas en tu área.
-                                               </p>
-                      
-                      <a href="../Alumno/ServicioSocial/Seleccionarservicio.php" class="text-link-arrow w-inline-block">
-                          <div>Ir </div>
-                          <div class="arrow-embed w-embed">
-                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"/>
-                              </svg>
-                          </div>
-                      </a>
-                  </div>
-              </div>
-          </div>
-          <div class="team-slide-wrapper w-slide">
-              <div class="team-block">
+
+          <!-- -->
+          <div class="team-block">
                   <img src="documentacion.jpg" loading="lazy" alt="" class="team-member-image-two"/>
                   <div class="team-block-info">
                     <h3 class="team-member-name-two">Documentacion</h3>
@@ -132,7 +109,33 @@
                           <div class="arrow-embed w-embed">
                               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"/>
-                              </svg>
+                              </svg>         <!-- -->
+
+                          </div>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="team-slide-wrapper w-slide">
+
+                    <!-- -->
+
+                    <div class="team-block">
+                  <img src="imagen1.png" loading="lazy" alt="" class="team-member-image-two"/>
+                  <div class="team-block-info">
+                      <h3 class="team-member-name-two"><br>  Solicitar servicio social </h3>
+                      <p class="team-member-text"> <br>  
+                                                        Comienza explorando organizaciones sin fines de lucro, centros comunitarios, 
+                                                        hospitales o instituciones educativas en tu área.
+                                               </p>
+                      
+                      <a href="../Alumno/ServicioSocial/Seleccionarservicio.php" class="text-link-arrow w-inline-block">
+                          <div>Ir </div>
+                          <div class="arrow-embed w-embed">
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"/>
+                              </svg>          <!-- -->
+
                           </div>
                       </a>
                   </div>

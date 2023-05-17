@@ -9,11 +9,12 @@ if (isset($_GET['idServicio'])) {
 
   // Recibir los datos del formulario
   $codUser = $_SESSION["user"];
+  $estado = 'rechazado';
 
   // Configuración de la conexión a la base de datos
-  $host = "localhost";
+  $host = "localhost:5555";
   $usuario = "root";
-  $contraseña = "AdLa20031108";
+  $contraseña = "";
   $base_de_datos = "db_serviciosocial";
 
   // Conexión a la base de datos
@@ -25,11 +26,11 @@ if (isset($_GET['idServicio'])) {
   }
 
   // Consulta INSERT
-  $consulta = "INSERT INTO `realizar` (`codUserAlumn`, `idServicio`) VALUES ('$codUser', '$idServicio')";
+  $consulta = "INSERT INTO `realizar` (`codUserAlumn`, `idServicio`, `estado`) VALUES ('2366ALU0010', '$idServicio', '$estado')";
 
   // Ejecutar la consulta
   if (mysqli_query($conexion, $consulta)) {
-      echo "La inserción se realizó correctamente.";
+      echo "La inserción se realizó correctamente."; echo $codUser;
   } else {
       echo "Error al ejecutar la inserción: " . mysqli_error($conexion);
   }

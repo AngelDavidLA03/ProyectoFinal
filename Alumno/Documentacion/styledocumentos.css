@@ -116,8 +116,7 @@ body {
 }
 
 .upload-form input[type="submit"] {
-  background-color: #4caf50;
-  color: white;
+  background-color: #4c4eaf;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -125,5 +124,5 @@ body {
 }
 
 .upload-form input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #4c4eaf;
 }

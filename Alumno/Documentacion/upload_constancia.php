@@ -15,8 +15,8 @@ if ($conn->connect_error) {
 
 
 // Verifica si se ha enviado un archivo
-if(isset($_FILES['cartaToUpload'])){
-    $file = $_FILES['cartaToUpload'];
+if(isset($_FILES['constanciaToUpload'])){
+    $file = $_FILES['constanciaToUpload'];
 
     // Obtiene los detalles del archivo
     $fileName = $file['name'];
