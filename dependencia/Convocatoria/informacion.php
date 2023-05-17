@@ -39,7 +39,8 @@ if ($result->num_rows > 0)
         $imageData = base64_encode($foto);
 
 
-        echo '<img src="data:image/jpeg;base64,' . base64_encode($foto) . '" alt="' . $mat . '">';
+        //echo '<img src="data:image/jpeg;base64,' . base64_encode($foto) . '" alt="' . $mat . '">';
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($foto) . '" alt="' . $mat . '" style="max-width: 300px;">';
         echo $mat . "<br>";
         echo "Nombre: " . $nom . "<br>";
         echo "Edad: " . $edad . "<br>";

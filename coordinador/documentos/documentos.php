@@ -46,77 +46,63 @@
 
 
     
+    
     <div class="container">
-    <h1>Subir documentos</h1>
-      
-    <div class="grid-x">
-      <div class="large-12 columns">
-        <div class="owl-carousel owl-theme">
+  <h1>Formatos Documentos Alumnos</h1>
 
-          <div class="item">
-            <label for="doc1">
-              <img src="./images/cartapresentacion.jpg" alt="imagen1">
-              <p>Formato Carta Presentación</p>
-            </label>
-            <input type="file" id="doc1" name="archivo1"/>
-          </div>
+  <div class="grid-x">
+    <div class="large-12 columns">
+      <div class="image-gallery">
 
-          <div class="item">
-            <label for="doc2">
-              <img src="./images/reporte.jpg" alt="imagen2">
-              <p>Formato Reporte de Actividades/Avance</p>
-            </label>
-            <input type="file" id="doc2" name="archivo2"/>
-          </div>
+        <div class="item">
+          <label for="doc1">
+            <img src="./images/cartapresentacion.jpg" alt="imagen1">
+            <p>Carta Presentación</p>
+          </label>
+          <input type="file" id="doc1" name="archivo1"/>
+        </div>
 
-          <div class="item">
-            <label for="doc3">
-              <img src="./images/cartaliberacion.jpg" alt="imagen3">
-              <p>Carta Liberación Servicio Social</p>
-            </label>
-            <input type="file" id="doc3" name="archivo3" />
-          </div>
-      
+        <div class="item">
+          <label for="doc2">
+            <img src="./images/reporte.jpg" alt="imagen2">
+            <p> Reporte de Actividades/Avance</p>
+          </label>
+          <input type="file" id="doc2" name="archivo2"/>
+        </div>
+
+        <div class="item">
+          <label for="doc3">
+            <img src="./images/cartaliberacion.jpg" alt="imagen3">
+            <p>Liberación Servicio Social</p>
+          </label>
+          <input type="file" id="doc3" name="archivo3" />
+        </div>
+
       </div>
     </div>
-    </div>
+  </div>
+</div>
 
-    <div class="btn-container">
-    <button type="submit">Subir</button> 
-    </div>
-  
-
-    <!-- Hacer conexión con la base de datos -->
-    <?php
-        include("../config/subirdocumentos.php")
-    ?>
+<div class="btn-container">
+  <button type="submit">Subir</button> 
+</div>
 
 
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
-    <script>
-    $('.owl-carousel').owlCarousel({
-      loop:true,
-      margin:10,
-      nav:true,
-      dots:true,
-      responsive:{
-        0:{
-          items:1
-        },
-        600:{
-          items:2
-        },
-        1000:{
-          items:3
-        }
-      }
+<!-- Hacer conexión con la base de datos -->
+<?php
+  include("../config/subirdocumentos.php")
+?>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('.image-gallery').on('click', 'input[type="file"]', function() {
+      $(this).trigger('click');
     });
-    </script>
-    
-    </div>
+  });
+</script>
+</div>
 
       
   </body>
