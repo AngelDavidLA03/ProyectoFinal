@@ -21,7 +21,7 @@ $sql = "SELECT alumno.codUserAlumn, alumno.matricula, CONCAT(alumno.nomAlumn,' '
 $result = $conn->query($sql);
 
 // Generar las opciones del select con los resultados de la consulta
-echo "<h2>Solicitud de alumnos</h2>";
+echo "<h2>Informacion del alumno</h2>";
 if ($result->num_rows > 0) 
 {
     while ($row = $result->fetch_assoc()) 

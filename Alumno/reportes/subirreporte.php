@@ -9,7 +9,7 @@ $matricula = $_SESSION["user"];
 $tipoDocument = "PDF";
 
 // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
-$mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
+$mysqli = new mysqli('localhost:5555', 'root', '', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
 
 // Verificar la conexión
 if ($mysqli->connect_errno) {

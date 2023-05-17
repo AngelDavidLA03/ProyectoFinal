@@ -40,7 +40,7 @@ if ($result->num_rows > 0)
 
 
         //echo '<img src="data:image/jpeg;base64,' . base64_encode($foto) . '" alt="' . $mat . '">';
-        echo '<img src="data:image/jpeg;base64,' . base64_encode($foto) . '" alt="' . $mat . '" style="max-width: 125px;">';
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($foto) . '" alt="' . $mat . '" style="max-width: 300px;">';
         echo $mat . "<br>";
         echo "Nombre: " . $nom . "<br>";
         echo "Edad: " . $edad . "<br>";
@@ -49,7 +49,8 @@ if ($result->num_rows > 0)
         echo "Semestre: " . $sem . "<br>";
         echo "Localidad: " . $ciudad . "<br>";
 
-        echo "<button class='aceptar-btn' data-valor='$id'>Aceptar</button>" . "<button class='rechazar-btn' data-valor='$id'>Rechazar</button>";
+        echo "<button class='aceptar-btn' data-valor='$id'>Aceptar</button>";
+        echo "<button class='rechazar-btn' data-valor='$id'>Rechazar</button>";
     }
   
 }

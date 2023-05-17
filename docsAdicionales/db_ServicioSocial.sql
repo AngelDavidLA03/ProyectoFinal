@@ -1009,32 +1009,6 @@ UPDATE usuario
 SET usuario.pass = newPass
 WHERE ((usuario.codUser = codUser) AND (usuario.email = emailL));
 
-/* PROCEDIMIENTO UTILIZADO PARA LA ACEPTACION DEL ALUMNO */
-CREATE DEFINER=`root`@`localhost` PROCEDURE `acceptAlumn`(
-	IN `codUser` VARCHAR(11),
-	IN `id` VARCHAR(16)
-	
-)
-LANGUAGE SQL
-NOT DETERMINISTIC
-CONTAINS SQL
-SQL SECURITY DEFINER
-COMMENT 'PROCEDIMIENTO UTILIZADO PARA LA ACEPTACION DEL ALUMNO'
-UPDATE realizar
-SET realizar.estado = 'ACEPTADO'
-WHERE ((realizar.codUserAlumn = codUser) AND (realizar.idServicio = id));
 
-/* PROCEDIMIENTO UTILIZADO PARA EL RECHAZO DEL ALUMNO */
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rejectAlumn`(
-	IN `codUser` VARCHAR(11),
-	IN `id` VARCHAR(16)
-)
-LANGUAGE SQL
-NOT DETERMINISTIC
-CONTAINS SQL
-SQL SECURITY DEFINER
-COMMENT 'PROCEDIMIENTO UTILIZADO PARA EL RECHAZO DEL ALUMNO'
-DELETE FROM realizar
-WHERE ((realizar.codUserAlumn = codUser) AND (realizar.idServicio = id));
 
 
