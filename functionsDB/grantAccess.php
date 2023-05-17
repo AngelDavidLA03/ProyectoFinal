@@ -45,7 +45,7 @@ if($exsite == 1)
     }
     else if($usuario == "ALUMNO")
     {   
-        header("location: ../Alumno/estudiante.php");
+        header("location: ../Alumno/Documentacion/documentacion.php");
     } 
     else if($usuario == "COORDINADOR")
     {

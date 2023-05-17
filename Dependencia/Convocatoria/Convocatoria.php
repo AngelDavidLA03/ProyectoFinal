@@ -35,8 +35,7 @@
     <div class="card">
   <label for="convocatorias">Convocatorias realizadas:</label>
   <select id="convocatorias" class="convocatorias">
-  
-
+  <option value="null"> </option>
   <?php include 'obtenerlista.php'; /**/?>
 
 </select>
