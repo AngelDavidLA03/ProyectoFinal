@@ -89,7 +89,7 @@ nav a:hover {
   margin-top: 20px;
   float: left;
   width: 9cm;
-  height: 9cm;
+  height: 10.5cm;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -104,11 +104,12 @@ nav a:hover {
   max-width: 400px; /* Reducimos el ancho máximo del card */
   margin-top: 20px;
   width: 9cm;
-  height: 9cm;
+  height: 10.5cm;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
+
   
 }
 #alumno-info-card {
@@ -117,10 +118,10 @@ nav a:hover {
   max-width: 400px; /* Reducimos el ancho máximo del card */
   margin-top: 20px;
   width: 9cm;
-  height: 9cm;
+  height: 10.5cm;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 
