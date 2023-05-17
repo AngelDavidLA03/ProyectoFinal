@@ -77,6 +77,7 @@
         comboBox.addEventListener("change", function() 
         {
           var selectedValue = comboBox.value;
+          document.getElementById("alumno-info-card").innerHTML = "<?php echo '<br>'?>";
           // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() 
@@ -131,5 +132,44 @@
     });
   </script>
     
+    <script>
+    // Obtener el contenedor de los botones
+    var contenedor = document.getElementById('alumno-info-card');
+
+    // Agregar un manejador de eventos al contenedor
+    contenedor.addEventListener('click', function(event) {
+      // Verificar si se hizo clic en un botón
+      var alumn = event.target.getAttribute('data-valor');
+      var id = comboBox.value;
+      if (event.target.classList.contains('aceptar-btn')) {
+        // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
+        var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+              alert("Se informará al usuario de la decision tomada.");
+            }
+          };
+          xhttp.open("POST", "aceptarsolicitud.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("alumn=" + alumn + "&servc=" + id);
+      }
+      else if(event.target.classList.contains('rechazar-btn')){
+        // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
+        var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+              alert("Se informará al usuario de la decision tomada.");
+            }
+          };
+          xhttp.open("POST", "rechazarsolicitud.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("alumn=" + alumn + "&servc=" + id);
+      }
+    });
+    </script>
   </body>
 </html>

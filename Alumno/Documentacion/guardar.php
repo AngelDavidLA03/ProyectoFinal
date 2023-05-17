@@ -1,8 +1,8 @@
 <?php
 // Configuración de la conexión a la base de datos
-$servername = "localhost:5555";
+$servername = "localhost";
 $username = "root";
-$password = "";
+$password = "AdLa20031108";
 $dbname = "db_serviciosocial";
 
 // Obtener el archivo subido

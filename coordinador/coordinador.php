@@ -31,12 +31,12 @@
         <div class="container1">
             <nav>
                 <ul>
-                <li><a href="../coordinador.php">Crear cuenta</a></li>
-                <li><a href="../documentos/documentos.php">Subir documentos</a></li>
-                <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
-                <li><a href="../dependencias/dependencias.php">Dependencias</a></li>
-                <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
-                <li><a href="../../login/login.html">Cerrar sesión</a></li>
+                <li><a href="../coordinador/coordinador.php">Crear cuenta</a></li>
+                <li><a href="../coordinador/documentos/documentos.php">Subir documentos</a></li>
+                <li><a href="../coordinador/alumno/alumno.php">Alumnos en servicio</a></li>
+                <li><a href="../coordinador/dependencias/dependencias.php">Dependencias</a></li>
+                <li><a href="../coordinador/solicitudes/solicitudes.php">Solicitudes</a></li>
+                <li><a href="../functionsDB/logout.php">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </div>

@@ -26,7 +26,6 @@ if ($result->num_rows > 0) {
     $idServicio = $row["idServicio"];
     $nomServic = $row["nomServic"];
 
-
     echo '<option value="' . $idServicio . '">';
     echo $nomServic . '<br>';
     echo '</option>';
