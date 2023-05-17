@@ -33,7 +33,7 @@
       </div>
     </header>
     <div class="card">
-  <label for="convocatorias">Convocatorias disponibles:</label>
+  <label for="convocatorias">Convocatorias realizadas:</label>
   <select id="convocatorias" class="convocatorias">
   
 
@@ -44,28 +44,7 @@
 </div>
     <div class="card" id="Solicitud">
       <h2>Detalles</h2>
-      <script> 
-        var comboBox = document.getElementById("convocatorias");
-        comboBox.addEventListener("change", function() 
-        {
-          var selectedValue = comboBox.value;
-          console.log(selectedValue);
-          // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function() 
-          {
-            if (this.readyState == 4 && this.status == 200) 
-            {
-              document.getElementById("Solicitud").innerHTML = this.responseText;
-            }
-          };
-          xhttp.open("POST", "detalles.php", true);
-          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          xhttp.send("idServicio=" + selectedValue);
-
-        });
-
-      </script>
+      
 
       <div id="detalles-convocatoria"></div> 
     </div>
@@ -79,6 +58,10 @@
 
     
 
+    
+
+
+
 
     <div class="card" id="alumno-info-card">
   <h2>Informacion del alumno</h2>
@@ -88,7 +71,65 @@
     <button id="rechazar-btn">Rechazar</button>
   </div>
 </div>
-    
+        
+  <script> 
+        var comboBox = document.getElementById("convocatorias");
+        comboBox.addEventListener("change", function() 
+        {
+          var selectedValue = comboBox.value;
+          // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+              document.getElementById("Solicitud").innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("POST", "detalles.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("idServicio=" + selectedValue);
+
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+              document.getElementById("alumnos-card").innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("POST", "alumnos.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("idServicio=" + selectedValue);
+
+        });
+
+      </script>
+
+  <script>
+    // Obtener el contenedor de los botones
+    var contenedor = document.getElementById('alumnos-card');
+
+    // Agregar un manejador de eventos al contenedor
+    contenedor.addEventListener('click', function(event) {
+      // Verificar si se hizo clic en un botón
+      if (event.target.classList.contains('btnAlumn')) {
+        var valor = event.target.getAttribute('data-valor');
+        // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
+        var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() 
+          {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+              document.getElementById("alumno-info-card").innerHTML = this.responseText;
+            }
+          };
+          xhttp.open("POST", "informacion.php", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("alumn=" + valor);
+      }
+    });
+  </script>
     
   </body>
 </html>

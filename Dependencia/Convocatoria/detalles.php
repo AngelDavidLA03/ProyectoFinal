@@ -21,6 +21,7 @@ $sql = "SELECT idServicio,nomServic,actividades,horaInicio,diasPorSem,horaFin,fe
 $result = $conn->query($sql);
 
 // Generar las opciones del select con los resultados de la consulta
+echo "<h2>Detalles</h2>";
 if ($result->num_rows > 0) 
 {
     while ($row = $result->fetch_assoc()) 
