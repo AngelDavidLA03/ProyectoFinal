@@ -656,24 +656,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdocuments`(
 COMMENT 'PROCEDIMIENTO PARA LA CREACION DEL DOCUMENTO EN LA BASE DE DATOS'
 BEGIN
 	
-	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL TIPO DE DOCUMENTO
-	SELECT @lastValue:= 
-	(CASE 
-        WHEN RIGHT(CAST((idDocument) AS VARCHAR(8)),3) != '000'
-        	THEN RIGHT(CAST((idDocument) AS VARCHAR(8)),3)
-        ELSE '000' 
-   END) INTO @lastValue
-	FROM documento 
-	WHERE (idDocument LIKE CONCAT('%',tipoDocumentS,'%'))
-	ORDER BY idDocument DESC 
-	LIMIT 1;
-
-	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
-	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
-
 	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
 	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
 	
+	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL TIPO DE DOCUMENTO
+	SELECT @lastValue := (CASE
+        	WHEN LEFT(CAST((idDocument) AS VARCHAR(8)), 2) = @numberYear THEN
+            (CASE
+             WHEN RIGHT(CAST((idDocument) AS VARCHAR(8)), 3) != '000' THEN RIGHT(CAST((idDocument) AS VARCHAR(8)), 3)
+            ELSE '000'
+         END)
+      ELSE '000'
+   END) INTO @lastValue
+	FROM documento 
+	WHERE idDocument LIKE CONCAT('%', tipoDocumentS, '%')
+	ORDER BY idDocument DESC 
+	LIMIT 1;
+	SELECT @lastValue;
+
+	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
+	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
+	SELECT @digits;
+
 	-- SE GENERA EL ID DEPENDIENDO DE LA CANTIDAD DE DIGITOS CON EL QUE CUENTA EL DIGITO
 	SELECT @id:= CONCAT(@numberYear,tipoDocumentS,
 	(CASE @digits
@@ -802,25 +806,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEss`(
 )
 COMMENT 'PROCEDIMIENTO PARA LA CREACION DEL REGISTRO DE SERVICIO SOCIAL Y LA RELACION EN LA BASE DE DATOS'
 BEGIN	
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
 	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
 	SELECT @lastValue:=
-    (CASE 
-        WHEN MAX(serviciosocial.idServicio) != '0000'
-        	THEN LEFT(CAST(RIGHT(CAST(MAX(serviciosocial.idServicio) AS VARCHAR(16)), 7) AS VARCHAR(10)), 4) 
-        ELSE '0000' 
-    END) INTO @lastValue
+    (CASE
+        	WHEN LEFT(CAST((serviciosocial.idServicio) AS VARCHAR(15)), 2) = @numberYear THEN
+            (CASE
+             WHEN RIGHT(CAST(serviciosocial.idServicio AS VARCHAR(15)),4) != '0000' 
+				 	THEN RIGHT(CAST(serviciosocial.idServicio AS VARCHAR(15)),4)
+            ELSE '0000'
+         END)
+      ELSE '0000'
+   END) INTO @lastValue
 	FROM serviciosocial INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
    						  INNER JOIN dependencia ON solicitar.codUserDepend = dependencia.codUserDepend
 	WHERE dependencia.codUserDepend = codUser
 	ORDER BY serviciosocial.idServicio DESC
 	LIMIT 1;
 
-	
 	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
 	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
-	
-	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
-	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
 	
 	-- SE GENERA EL NUEVO NUMERO GENERADO
 	SELECT @newDigits:= 
@@ -832,12 +839,9 @@ BEGIN
 		ELSE NULL
 	END) INTO @newDigits;
 	
-	-- SE CAMBIA EL IDIOMA PARA TENER LOS NOMBRES DE LOS MESES EN ESPAÑOL
-	SET lc_time_names = 'es_ES';
-	
 	-- SE GENERA EL NUEVO ID
-	SELECT @id:= CONCAT('ITMH/66/',@newDigits,'/',@numberYear) INTO @id;
-	
+	SELECT @id:= CONCAT(@numberYear,'-ITMH/66/',@newDigits) INTO @id;
+
 	-- SE INTRODUCEN LOS VALORES DENTRO DE LA TABLA
 	INSERT INTO serviciosocial(`idServicio`,`nomServic`,`objetivo`,`actividades`,`detalles`,`caracteristicas`,`cupoLimit`,`jornada`,`fechaInicio`,`fechaFin`,`fechaCreacion`) 
 	VALUES (@id,nom,obj,acts,details,caracts,cupo,jorn,fi,ff,DATE(NOW()));
@@ -1061,25 +1065,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `folioSS`(
 )
 COMMENT 'PROCEDIMIENTO PARA LA CREACION DEL REGISTRO DE SERVICIO SOCIAL Y LA RELACION EN LA BASE DE DATOS'
 BEGIN	
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
 	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
 	SELECT @lastValue:=
-    (CASE 
-        WHEN MAX(serviciosocial.idServicio) != '0000'
-        	THEN LEFT(CAST(RIGHT(CAST(MAX(serviciosocial.idServicio) AS VARCHAR(16)), 7) AS VARCHAR(10)), 4) 
-        ELSE '0000' 
-    END) INTO @lastValue
+    (CASE
+        	WHEN LEFT(CAST((serviciosocial.idServicio) AS VARCHAR(15)), 2) = @numberYear THEN
+            (CASE
+             WHEN RIGHT(CAST(serviciosocial.idServicio AS VARCHAR(15)),4) != '0000' 
+				 	THEN RIGHT(CAST(serviciosocial.idServicio AS VARCHAR(15)),4)
+            ELSE '0000'
+         END)
+      ELSE '0000'
+   END) INTO @lastValue
 	FROM serviciosocial INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
    						  INNER JOIN dependencia ON solicitar.codUserDepend = dependencia.codUserDepend
 	WHERE dependencia.codUserDepend = codUser
 	ORDER BY serviciosocial.idServicio DESC
 	LIMIT 1;
-
 	
 	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
 	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
-	
-	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
-	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
 	
 	-- SE GENERA EL NUEVO NUMERO GENERADO
 	SELECT @newDigits:= 
@@ -1090,12 +1097,10 @@ BEGIN
 		WHEN 4 THEN (@lastValue + 1)
 		ELSE NULL
 	END) INTO @newDigits;
-	
-	-- SE CAMBIA EL IDIOMA PARA TENER LOS NOMBRES DE LOS MESES EN ESPAÑOL
-	SET lc_time_names = 'es_ES';
-	
+
 	-- SE GENERA EL NUEVO ID
-	SELECT CONCAT('ITMH/66/',@newDigits,'/',@numberYear) AS folio;
+	SELECT @id:= CONCAT(@numberYear,'-ITMH/66/',@newDigits) INTO @id;
+	SELECT @id AS folio;
 END //
 DELIMITER ;
 

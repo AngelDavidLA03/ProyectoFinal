@@ -50,7 +50,9 @@ nav a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  margin-top: 78px;
+  margin-bottom: 20px;
+  overflow: auto;
 }
 
 .card {
@@ -60,12 +62,14 @@ nav a:hover {
   padding: 20px;
   max-width: 600px;
   width: 100%;
+  overflow: visible;
 }
 
 .card-header {
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 20px;
+  white-space: normal;
 }
 
 .form-group {
