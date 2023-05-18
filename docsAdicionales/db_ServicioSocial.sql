@@ -110,6 +110,7 @@ CREATE TABLE area (
 CREATE TABLE alumno (
 	codUserAlumn VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (ALU), y numeros siguiendo el orden del 0001 hasta el 9999',
 	matricula VARCHAR(10) NOT NULL COMMENT 'Modificar la longitud segun si es requerido por la institucion',
+	nss VARCHAR(11) NULL COMMENT 'Introducir el número de seguro social',
 	/* NOMBRE */
 	nomAlumn VARCHAR(48) NOT NULL,
 	apAlumn VARCHAR(24) NOT NULL,
@@ -325,6 +326,15 @@ CREATE TABLE cartaFinalizacion (
 	UNIQUE INDEX `idDocumentFin` (`idDocumentFin`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentFin` FOREIGN KEY (`idDocumentFin`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = CFI',
+ENGINE=INNODB;
+
+/* SUBTABLA NUMERO DE SEGURO SOCIAL */
+CREATE TABLE tarjetaSeguro (
+	idDocumentSeg VARCHAR(8) PRIMARY KEY NOT NULL,
+	matriculaSeg VARCHAR(10) NOT NULL,
+	UNIQUE INDEX `idDocumentSeg` (`idDocumentSeg`) USING BTREE,
+	CONSTRAINT `ESPEC_idDocumentSeg` FOREIGN KEY (`idDocumentSeg`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
+) COMMENT 'ABREVIACION = NSS',
 ENGINE=INNODB;
 
 /* RELACION ADMINISTRAR (DIRECTOR GENERAL 1 - DEPENDENCIA 1) */
@@ -622,6 +632,19 @@ CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE FINALIZACION'
 INSERT INTO cartafinalizacion(`idDocumentFin`,`matriculaFin`)
+VALUES (idDocument,matricula);
+
+/* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - TARJETA DE SEGURO SOCIAL*/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEnss`(
+	IN `idDocument` VARCHAR(8),
+	IN `matricula` VARCHAR(10)
+)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE FINALIZACION'
+INSERT INTO tarjetaseguro(`idDocumentSeg`,`matriculaSeg`)
 VALUES (idDocument,matricula);
 
 /* PROCEDIMIENTO PARA LA CARGA DE ARCHIVOS */
