@@ -8,16 +8,18 @@ $conexion = conexion();
 
 // Llamar al procedimiento almacenado
 $codUser = $_SESSION["user"];
-$nom = $_POST["Titulo"];
-$acts = $_POST["actividades"];
-$hi = $_POST["horaInicio"];
-$hf = $_POST["horaFin"];
-$dias = $_POST["diasPorSem"];
+$nom = $_POST["nom"];
+$obj = $_POST["obj"];
+$acts = $_POST["actividades"]; 
+$details = $_POST["details"];
+$caracts = $_POST["caracts"];
+$cupo = $_POST["cupo"];
+$jorn = $_POST["jorn"];
 $fi = $_POST["fechaInicio"];
 $ff = $_POST["fechaFin"];
 
-$stmt = $conexion->prepare("CALL SAVEss(?,?,?,?,?,?,?,?)");
-$stmt->bind_param("sssssiss",$codUser,$nom,$acts,$hi,$hf,$dias,$fi,$ff);
+$stmt = $conexion->prepare("CALL SAVEss(?,?,?,?,?,?,?,?,?,?)");
+$stmt->bind_param("ssssssisss",$codUser,$nom,$obj,$acts,$details,$caracts,$cupo,$jorn,$fi,$ff);
 
 $stmt->execute();
 

@@ -37,7 +37,33 @@
  <div class="container">
   <div class="card">
     <div class="card-header">
-      <h2>Nueva solicitud</h2>
+    <?php
+      // Conectar a la base de datos
+      $conexion = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
+
+      // Obtener los parámetros de la petición AJAX
+      $codUser = $_SESSION["user"];
+
+      // Ejecutar el procedimiento almacenado
+      $stmt = $conexion->prepare("CALL folioSS(?)");
+      $stmt->bind_param("s",$codUser);
+
+      $stmt->execute();
+      
+      $r = $stmt->get_result();
+
+      while ($fila = mysqli_fetch_assoc($r)) 
+      {
+        // Acceder a las columnas de la fila
+        $f = $fila['folio'];
+        // Enviar una respuesta al cliente
+        echo "Nueva Solicitud - ".$f."<br>";
+      }
+      
+      
+      // Cerrar la conexión a la base de datos
+      mysqli_close($conexion);
+    ?>
     </div>
     <!-- AQUI ESMPIEZA EL DESMADRE DE LA COSA ESA-->
     <div class="card-body">
@@ -45,30 +71,38 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="Titulo">Titulo:</label>
-              <input type="text" id="Titulo" name="Titulo" required>
+              <label for="nom">Nombre del programa:</label>
+              <input type="text" id="nom" name="nom" maxlength="54" required>
             </div>
             <div class="form-group">
-              <label for="horaInicio">Hora de inicio:</label>
-              <input type="time" id="horaInicio" name="horaInicio" required>
+              <label for="obj">Objetivos:</label>
+              <input type="text" id="obj" name="obj" maxlength="108" required>
             </div>
             <div class="form-group">
-              <label for="diasPorSem">Días por semana:</label>
-              <input type="number" id="diasPorSem" name="diasPorSem" required>
+              <label for="actividades">Actividades:</label>
+              <input type="text" id="actividades" name="actividades" maxlength="256" style="font-size: 20px;" required>
+            </div>
+            <div class="form-group">
+              <label for="details">Detalles de actividades:</label>
+              <input type="text" id="details" name="details" maxlength="256" required>
+            </div>
+          </div>
+            <div class="col-md-6">
+            <div class="form-group">
+              <label for="caracts">Características del solicitante:</label>
+              <input type="text" id="caracts" name="caracts" maxlength="256" required>
+            </div>
+            <div class="form-group">
+              <label for="cupo">Máximo de participantes:</label>
+              <input type="number" id="cupo" name="cupo" required>
+            </div>  
+            <div class="form-group">
+              <label for="jorn">Jornada laboral:</label>
+              <input type="text" id="jorn" name="jorn" placeholder="LUNES-VIERNES" maxlength="17" required >
             </div>
             <div class="form-group">
               <label for="fechaInicio">Fecha de inicio:</label>
               <input type="date" id="fechaInicio" name="fechaInicio" required>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="actividades">Actividades:</label>
-              <input type="text" id="actividades" name="actividades" style="font-size: 20px;" required>
-            </div>
-            <div class="form-group">
-              <label for="fechaInicio">Hora de inicio:</label>
-              <input type="time" id="fechaInicio" name="fechaInicio" required>
             </div>
             <div class="form-group">
               <label for="fechaFin">Fecha de fin:</label>
