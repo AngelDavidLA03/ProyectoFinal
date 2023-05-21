@@ -173,7 +173,7 @@ CREATE TABLE documento (
 CREATE TABLE convenio (
 	idDocumentConv VARCHAR(8) PRIMARY KEY NOT NULL,
 	numConv INT(4) NOT NULL,
-	codUserDependConv VARCHAR(11),
+	idDependConv VARCHAR(7) NOT NULL,
 	UNIQUE INDEX `idDocumentConv` (`idDocumentConv`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentConv` FOREIGN KEY (`idDocumentConv`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = CNV',
@@ -411,15 +411,15 @@ WHERE (emailL LIKE email) AND (passwordL LIKE pass);
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcnv`(
 	IN `idDocument` VARCHAR(8),
 	IN `num` INT(4),
-	IN `codUser` VARCHAR(11)
+	IN `idDepend` VARCHAR(7)
 )
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CONVENIO'
-INSERT INTO convenio(`idDocumentConv`,`numConv`,`codUserDependConv`)
-VALUES (idDocument,num,codUser);
+INSERT INTO convenio(`idDocumentConv`,`numConv`,`idDependConv`)
+VALUES (idDocument,num,idDepend);
 
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE PRESENTACION*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEcpe`(
@@ -660,14 +660,19 @@ BEGIN
 	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
 	
 	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL TIPO DE DOCUMENTO
-	SELECT @lastValue := (CASE
-        	WHEN LEFT(CAST((idDocument) AS VARCHAR(8)), 2) = @numberYear THEN
-            (CASE
-             WHEN RIGHT(CAST((idDocument) AS VARCHAR(8)), 3) != '000' THEN RIGHT(CAST((idDocument) AS VARCHAR(8)), 3)
-            ELSE '000'
-         END)
-      ELSE '000'
-   END) INTO @lastValue
+	SET @lastValue := '';
+	SELECT
+	(CASE
+		WHEN idDocument IS NULL THEN '000'
+		WHEN LEFT(CAST((idDocument) AS VARCHAR(8)), 2) = @numberYear 
+			THEN
+				(CASE
+					WHEN RIGHT(CAST((idDocument) AS VARCHAR(8)), 3) != '000' 
+						THEN RIGHT(CAST((idDocument) AS VARCHAR(8)), 3)
+            		ELSE '000'
+         		END)
+        ELSE '000'
+    END) INTO @lastValue
 	FROM documento 
 	WHERE idDocument LIKE CONCAT('%', tipoDocumentS, '%')
 	ORDER BY idDocument DESC 
@@ -810,8 +815,10 @@ BEGIN
 	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
 	
 	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
-	SELECT @lastValue:=
-    (CASE
+	SET @lastValue := '';
+	SELECT
+	(CASE
+		WHEN serviciosocial.idServicio IS NULL THEN '000'
         	WHEN LEFT(CAST((serviciosocial.idServicio) AS VARCHAR(15)), 2) = @numberYear THEN
             (CASE
              WHEN RIGHT(CAST(serviciosocial.idServicio AS VARCHAR(15)),4) != '0000' 
@@ -1069,8 +1076,10 @@ BEGIN
 	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
 	
 	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
-	SELECT @lastValue:=
-    (CASE
+	SET @lastValue := '';
+	SELECT
+	(CASE
+		WHEN serviciosocial.idServicio IS NULL THEN '000'
         	WHEN LEFT(CAST((serviciosocial.idServicio) AS VARCHAR(15)), 2) = @numberYear THEN
             (CASE
              WHEN RIGHT(CAST(serviciosocial.idServicio AS VARCHAR(15)),4) != '0000' 

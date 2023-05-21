@@ -59,8 +59,6 @@
   <h2>Informacion del alumno</h2>
   <p id="alumno-info"></p>
   <div class="botones">
-    <button id="aceptar-btn">Aceptar</button>
-    <button id="rechazar-btn">Rechazar</button>
   </div>
 </div>
         
@@ -71,7 +69,6 @@
       function loadDetails()
       {
         var selectedValue = comboBox.value;
-          document.getElementById("alumno-info-card").innerHTML = "<?php echo '<br>'?>";
           // Hacer una petición AJAX al servidor para ejecutar el procedimiento almacenado correspondiente
           var xhttp = new XMLHttpRequest();
           xhttp.onreadystatechange = function() 
