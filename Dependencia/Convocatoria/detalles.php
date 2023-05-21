@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta para obtener las convocatorias desde la base de datos
-$sql = "SELECT idServicio,nomServic,actividades,horaInicio,diasPorSem,horaFin,fechaInicio,fechaFin FROM serviciosocial WHERE idServicio = '$id'";
+$sql = "SELECT serviciosocial.idServicio,serviciosocial.nomServic,serviciosocial.objetivo,serviciosocial.actividades,serviciosocial.detalles,serviciosocial.caracteristicas,serviciosocial.cupoLimit,(serviciosocial.cupoLimit - COUNT(realizar.codUserAlumn)) AS cupoDisp,serviciosocial.jornada,serviciosocial.fechaInicio,serviciosocial.fechaFin FROM serviciosocial INNER JOIN realizar ON serviciosocial.idServicio = realizar.idServicio WHERE serviciosocial.idServicio = '$id' AND realizar.estado = 'ACEPTADO';";
 $result = $conn->query($sql);
 
 // Generar las opciones del select con los resultados de la consulta
@@ -28,19 +28,25 @@ if ($result->num_rows > 0)
     {
         $idServicio = $row["idServicio"];
         $nomServic = $row["nomServic"];
+        $objetivo = $row["objetivo"];
         $actividades = $row["actividades"];
-        $horaInicio = $row["horaInicio"];
-        $diasPorSem = $row["diasPorSem"];
-        $horaFin = $row["horaFin"];
+        $detalles = $row["detalles"];
+        $caracteristicas  = $row["caracteristicas"];
+        $cupoLimit = $row["cupoLimit"];
+        $cupoDisp = $row["cupoDisp"];
+        $jornada = $row["jornada"];
         $fechaInicio = $row["fechaInicio"];
         $fechaFin = $row["fechaFin"];
 
-        echo "Identificador: " . $idServicio . "<br>";
-        echo "Nombre de Servicio: " . $nomServic . "<br>";
-        echo "Actividades: " . $actividades . "<br>";
-        echo "Hora de Inicio: " . $horaInicio . "<br>";
-        echo "Días por Semana: " . $diasPorSem . "<br>";
-        echo "Hora de Fin: " . $horaFin . "<br>";
+        echo "Folio: " . $idServicio . ".<br>";
+        echo "Nombre del Programa: " . $nomServic . ".<br>";
+        echo "Objetivo: ". $objetivo .".<br>";
+        echo "Actividades: " . $actividades . ".<br>";
+        echo "Detalles de actividades: " . $detalles . ".<br>";
+        echo "Caracteristicas del solicitante: " . $caracteristicas . ".<br>";
+        echo "Limitado a: " . $cupoLimit . " alumnos.<br>";
+        echo "Espacios disponibles: ".$cupoDisp.".<br>";
+        echo "Jornada laboral de: ". $jornada .".<br>";
         echo "Fecha de Inicio: " . $fechaInicio . "<br>";
         echo "Fecha de Fin: " . $fechaFin . "<br>";
     }

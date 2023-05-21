@@ -1,0 +1,17 @@
+CNV | num INT(4)
+CPE | matricula VARCHAR(10)
+CON | matricula VARCHAR(10)
+RAC | 
+DEC | 
+NRE | 
+INE | curp VARCHAR(18)
+DOM | 
+RFC | rfc VARCHAR(13)
+CAC | matricula(10)
+LAC | actividades(128)
+HON | monto DECIMAL(6,2), motivo VARCHAR(24), matricula VARCHAR(10)
+RAL | motivo VARCHAR(24)
+CBA | matricula VARCHAR(10)
+CLI | matricula VARCHAR(10)
+RDE |  motivo VARCHAR(24) 
+CFI | matricula VARCHAR(10)

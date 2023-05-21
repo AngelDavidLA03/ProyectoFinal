@@ -21,5 +21,7 @@ $stmt2->bind_param("ss",$alumno,$id);
 $stmt2->execute();
 $stmt2->close();
 
+echo "<h2>Informacion del Alumno</h2>";
+
 $mysqli->close();
 ?>
