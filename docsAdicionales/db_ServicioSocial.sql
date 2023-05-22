@@ -27,22 +27,22 @@ INSERT INTO usuario (`codUser`, `email`, `pass`, `tipoUser`) VALUES ('2366DEP000
 CREATE TABLE dependencia(
 	codUserDepend VARCHAR(11) PRIMARY KEY NOT NULL COMMENT 'Generar automaticamente con el año de creacion, identificador de la institucion, tipo de usuario simplificado (DEP), y numeros siguiendo el orden del 0001 hasta el 9999',
 	idDepend VARCHAR(7) NULL COMMENT 'Generar automaticamente con el año de generacion del documento de convenio, el separador "-" y el numero de convenio arrojado por el documento de convenio',
-	nomDepend VARCHAR(54) NOT NULL COMMENT 'Introducir el nombre de la dependencia (abreviado o completo dependiendo el caso) en un maximo de 32 caracteres',
+	nomDepend VARCHAR(108) NOT NULL COMMENT 'Introducir el nombre de la dependencia (abreviado o completo dependiendo el caso) en un maximo de 32 caracteres',
 	RFC VARCHAR(13) NOT NULL,
 	califDepend VARCHAR(9) NULL COMMENT 'Solo permitir valores como Terrible, Mala, Regular, Buena y Excelente',
-	numTrabajadores INT(2) NOT NULL,
+	numTrabajadores INT(3) NOT NULL,
 	enfoqueDepend VARCHAR(54) NOT NULL COMMENT 'Introducir a que se dedica la empresa en un maximo de 24 caracteres',
 	/* CONTACTO */
 	numTelfDepend VARCHAR(18) NOT NULL,
 	/* --------- */
 	/* DIRECCION */
-	calleDepend VARCHAR(21) NOT NULL,
+	calleDepend VARCHAR(54) NOT NULL,
 	numExtDepend INT(3) NOT NULL,
 	numIntDepend INT(3) NOT NULL,
-	coloniaDepend VARCHAR(15) NOT NULL,
+	coloniaDepend VARCHAR(28) NOT NULL,
 	cpDepend INT(5) NOT NULL COMMENT 'Codigo Postal',
-	ciudadDepend VARCHAR(20) NOT NULL,
-	efDepend VARCHAR(20) NOT NULL COMMENT 'Entidad Federativa',
+	ciudadDepend VARCHAR(48) NOT NULL,
+	efDepend VARCHAR(28) NOT NULL COMMENT 'Entidad Federativa',
 	/* --------- */
 	logo LONGBLOB NULL COMMENT 'Imagen de logo de la dependencia',
 	tipoDepend VARCHAR(7) NOT NULL COMMENT 'Solo permitir valores como Publica, Social y Privada'
@@ -87,9 +87,9 @@ INSERT INTO estadoVerif (`idEstado`, `nomEstado`) VALUES (4, 'Rechazada');
 CREATE TABLE directorGeneral (
 	idDirector VARCHAR(10) PRIMARY KEY NOT NULL COMMENT 'Formado por año de registro, "-" de separador, iniciales de nombre(s) y apellidos, "-" de separador, e identificador del 00 al 99',
 	/* NOMBRE */
-	nomDirector VARCHAR(48) NOT NULL,
-	apDirector VARCHAR(24) NOT NULL,
-	amDirector VARCHAR(24) NOT NULL,
+	nomDirector VARCHAR(54) NOT NULL,
+	apDirector VARCHAR(36) NOT NULL,
+	amDirector VARCHAR(36) NOT NULL,
 	/* ------ */
 	edadDirector INT(2) NOT NULL,
 	curpDirector VARCHAR(18) NOT NULL,
@@ -209,7 +209,7 @@ ENGINE=INNODB;
 /* SUBTABLA DECRETOS */
 CREATE TABLE decretos (
 	idDocumentDec VARCHAR(8) PRIMARY KEY NOT NULL,
-	idDependDec VARCHAR(7) NOT NULL,
+	idDirectorDec VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentDec` (`idDocumentDec`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentDec` FOREIGN KEY (`idDocumentDec`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = DEC',
@@ -218,7 +218,7 @@ ENGINE=INNODB;
 /* SUBTABLA NOMBRAMIENTO DEL REPRESENTANTE */
 CREATE TABLE nombramientoRepresentante (
 	idDocumentNomRep VARCHAR(8) PRIMARY KEY NOT NULL,
-	idDependNomRep VARCHAR(7) NOT NULL,
+	idDirectorNomRep VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentNomRep` (`idDocumentNomRep`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentNomRep` FOREIGN KEY (`idDocumentNomRep`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = NRE',
@@ -228,7 +228,7 @@ ENGINE=INNODB;
 CREATE TABLE identificacionRepresentante (
 	idDocumentINE VARCHAR(8) PRIMARY KEY NOT NULL,
 	documentCURP VARCHAR(18) NOT NULL,
-	idDependCURP VARCHAR(7) NOT NULL,
+	idDirectorCURP VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentINE` (`idDocumentINE`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentINE` FOREIGN KEY (`idDocumentINE`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = INE',
@@ -237,7 +237,7 @@ ENGINE=INNODB;
 /* SUBTABLA COMPROBANTE DE DOMICILIO */
 CREATE TABLE comprobanteDomicilio (
 	idDocumentDomic VARCHAR(8) PRIMARY KEY NOT NULL,
-	idDependDomic VARCHAR(7) NOT NULL,
+	idDirectorDomic VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentDomic` (`idDocumentDomic`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentDomic` FOREIGN KEY (`idDocumentDomic`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = DOM',
@@ -247,7 +247,7 @@ ENGINE=INNODB;
 CREATE TABLE regFedCont (
 	idDocumentRFC VARCHAR(8) PRIMARY KEY NOT NULL,
 	documentRFC VARCHAR(13) NOT NULL,
-	idDependRFC VARCHAR(7) NOT NULL,
+	idDirectorRFC VARCHAR(10) NOT NULL,
 	UNIQUE INDEX `idDocumentRFC` (`idDocumentRFC`) USING BTREE,
 	CONSTRAINT `ESPEC_idDocumentRFC` FOREIGN KEY (`idDocumentRFC`) REFERENCES `db_servicioSocial`.`documento` (`idDocument`) ON UPDATE CASCADE ON DELETE CASCADE
 ) COMMENT 'ABREVIACION = RFC',
@@ -463,68 +463,68 @@ VALUES (idDocument,matricula);
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - DECRETOS*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdec`(
 	IN `idDocument` VARCHAR(8),
-	IN `idDepend` VARCHAR(7)
+	IN `idDirector` VARCHAR(10)
 )
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - DECRETOS'
-INSERT INTO decretos(`idDocumentDec`,`idDependDec`)
+INSERT INTO decretos(`idDocumentDec`,`idDirectorDec`)
 VALUES (idDocument,idDepend);
 
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - NOMBRAMIENTO DE REPRESENTANTE*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEnre`(
 	IN `idDocument` VARCHAR(8),
-	IN `idDepend` VARCHAR(7)
+	IN `idDirector` VARCHAR(10)
 )
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - NOMBRAMIENTO DE REPRESENTANTE'
-INSERT INTO nombramientorepresentante(`idDocumentNomRep`,`idDependNomRep`)
+INSERT INTO nombramientorepresentante(`idDocumentNomRep`,`idDirectorNomRep`)
 VALUES (idDocument,idDepend);
 
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - IDENTIFICACION DE REPRESENTANTE*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEine`(
 	IN `idDocument` VARCHAR(8),
 	IN `curp` VARCHAR(18),
-	IN `idDepend` VARCHAR(7)
+	IN `idDirector` VARCHAR(10)
 )
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - IDENTIFICACION DE REPRESENTANTE'
-INSERT INTO identificacionrepresentante(`idDocumentINE`,`documentCURP`,`idDependCURP`)
+INSERT INTO identificacionrepresentante(`idDocumentINE`,`documentCURP`,`idDirectorCURP`)
 VALUES (idDocument,curp,idDepend);
 
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - COMPROBANTE DE DOMICILIO*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVEdom`(
 	IN `idDocument` VARCHAR(8),
-	IN `idDepend` VARCHAR(7)
+	IN `idDirector` VARCHAR(10)
 )
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - COMPROBANTE DE DOMICILIO'
-INSERT INTO comprobantedomicilio(`idDocumentDomic`,`idDependDomic`)
+INSERT INTO comprobantedomicilio(`idDocumentDomic`,`idDirectorDomic`)
 VALUES (idDocument,idDepend);
 
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REGISTRO FEDERAL DEL CONTRIBUYENTE*/
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SAVErfc`(
 	IN `idDocument` VARCHAR(8),
 	IN `rfc` VARCHAR(13),
-	IN `idDepend` VARCHAR(7)
+	IN `idDirector` VARCHAR(10)
 )
 LANGUAGE SQL
 NOT DETERMINISTIC
 CONTAINS SQL
 SQL SECURITY DEFINER
 COMMENT 'PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - REGISTRO FEDERAL DEL CONTRIBUYENTE'
-INSERT INTO regfedcont(`idDocumentRFC`,`documentRFC`,`idDependRFC`)
+INSERT INTO regfedcont(`idDocumentRFC`,`documentRFC`,`idDirectorRFC`)
 VALUES (idDocument,rfc,idDepend);
 
 /* PROCEDIMIENTO PARA LA CLASIFICACION DE DOCUMENTOS - CARTA DE ACEPTACION*/
@@ -886,9 +886,9 @@ COMMENT 'PROCEDIMIENTO PARA LA INSERCION TEMPORAL DEL REGISTRO DE DEPENDENCIA EN
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDirectorGen`(
 	IN `codUser` VARCHAR(11),
- 	IN `nom` VARCHAR(48),
-	IN	`ap` VARCHAR(24),
-	IN	`am` VARCHAR(24),
+ 	IN `nom` VARCHAR(54),
+	IN	`ap` VARCHAR(36),
+	IN	`am` VARCHAR(36),
 	IN	`edad` INT(2),
 	IN	`curp` VARCHAR(18),
 	IN	`email` VARCHAR(128),
@@ -940,6 +940,9 @@ BEGIN
 	-- INSERCION DEL REGISTRO EN LA ADMINISTRACION DE LA DEPENDENCIA
 	INSERT INTO administrar(codUserDepend,idDirector)
 	VALUES(codUser,@id);
+	
+	-- ARROJA EL ID GENERADO
+	SELECT @id;
 END //
 DELIMITER ;
 
@@ -1109,6 +1112,56 @@ BEGIN
 
 	-- SE GENERA EL NUEVO ID
 	SELECT @id:= CONCAT(@numberYear,'-ITMH/66/',@newDigits) INTO @id;
+	SELECT @id AS folio;
+END //
+DELIMITER ;
+
+/* PROCEDIMIENTO PARA LA CREACION DE UN NUEVO USUARIO */
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GETcodUser`(
+	IN `tipoUser` VARCHAR(11)
+)
+COMMENT 'PROCEDIMIENTO PARA LA CREACION CREACION DE UN NUEVO USUARIO'
+BEGIN	
+	-- SE OBTIENEN LOS 2 ULTIMOS DIGITOS DEL AÑO ACTUAL
+	SELECT @numberYear:= RIGHT(CAST(YEAR(DATE(NOW())) AS VARCHAR(4)),2) INTO @numberYear;
+	
+	-- SE OBTIENE EL ULTIMO VALOR DEL ID SEGUN EL ID ANTERIOR
+	SET @lastValue := '';
+	SELECT
+	(CASE
+		WHEN usuario.codUser IS NULL THEN '0000'
+        	WHEN LEFT(CAST((usuario.codUser) AS VARCHAR(11)), 2) = @numberYear THEN
+            (CASE
+             WHEN RIGHT(CAST(usuario.codUser AS VARCHAR(11)),4) != '0000' 
+				 	THEN RIGHT(CAST(usuario.codUser AS VARCHAR(11)),4)
+            ELSE '0000'
+         END)
+      ELSE '0000'
+   END) INTO @lastValue
+	FROM usuario
+	WHERE usuario.tipoUser = tipoUser
+	ORDER BY usuario.codUser DESC
+	LIMIT 1;
+	
+	-- SE INCREMENTA EL VALOR ANTERIOR EN 1
+	SELECT @digits:= LENGTH(@lastValue + 1) INTO @digits;
+	
+	-- SE GENERA EL NUEVO NUMERO GENERADO
+	SELECT @newDigits:= 
+	(CASE @digits
+		WHEN 1 THEN CONCAT('000',(@lastValue + 1))
+		WHEN 2 THEN CONCAT('00',(@lastValue + 1))
+		WHEN 3 THEN CONCAT('0',(@lastValue + 1))
+		WHEN 4 THEN (@lastValue + 1)
+		ELSE NULL
+	END) INTO @newDigits;
+
+	-- SE GENERA EL PREFIJO DEL TIPO DE USUARIO
+	SELECT @pref:= LEFT(CAST(tipoUser AS VARCHAR(11)),3) INTO @pref;
+
+	-- SE GENERA EL NUEVO ID
+	SELECT @id:= CONCAT(@numberYear,'66',@pref,@newDigits) INTO @id;
 	SELECT @id AS folio;
 END //
 DELIMITER ;
