@@ -23,7 +23,7 @@
 		<div class="container2">
 			<nav>
 				<ul>
-                    <li><a href="../cuenta/services.php">Cuenta</a></li>
+                    <li><a href="../cuenta/iniciodependencia.php">Cuenta</a></li>
                     <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
                     <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
                     <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>

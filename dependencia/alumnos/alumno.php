@@ -28,7 +28,7 @@
             <div class="container">
               <nav>
                 <ul>
-                   <li><a href="../cuenta/services.php">Cuenta</a></li>
+                   <li><a href="../cuenta/iniciodependencia.php">Cuenta</a></li>
                     <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
                     <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
                      <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
@@ -52,7 +52,7 @@
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
+    $conn = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -81,40 +81,42 @@
 
 
     //Generar el apartado para que el usuario ingrese el id del alumno y filtrarlo
+    if(isset($_GET['matricula']) && !empty($_GET['matricula']))
+    {
+      // Obtener el valor de matricula enviado por el usuario
+      $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
 
-    // Obtener el valor de matricula enviado por el usuario
-    $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
+      // Conectar a la base de datos
+      $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
 
-    // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
+      // Verificar si hubo un error al conectar
+      if (mysqli_connect_errno()) {
+        die("Error al conectar a la base de datos: " . mysqli_connect_error());
+      }
 
-    // Verificar si hubo un error al conectar
-    if (mysqli_connect_errno()) {
-      die("Error al conectar a la base de datos: " . mysqli_connect_error());
+      //Consulta SQL para obtener los datos del alumno con la matricula seleccionada
+      $sql = "SELECT * FROM alumno WHERE matricula = $matricula";
+
+
+      // Ejecutar la consulta SQL y guardar los resultados en una variable
+      $resultado = mysqli_query($conn, $sql);
+
+      // Generar el código HTML y CSS del carrusel
+      echo '<div class="carousel-container">';
+      echo '<div class="carousel">';
+      while ($fila = mysqli_fetch_assoc($resultado)) {
+        echo '<div class="carousel-item" data-carrera="' . $fila["especialidad"] . '">';
+        echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["foto"]) . '" alt="' . $fila["matricula"] . '">';
+        echo '<div class="alumno-info">';
+        echo '<p class="alumno-nombre">' . $fila["matricula"] . '</p>';
+        echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
+        echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
+        echo '</div>'; // Cierre de "alumno-info"
+
+        echo '</div>'; // Cierre de "carousel-item"
+      }
+      echo '</div>'; // Cierre de "carousel"
     }
-
-    //Consulta SQL para obtener los datos del alumno con la matricula seleccionada
-    $sql = "SELECT * FROM alumno WHERE matricula = $matricula";
-
-
-    // Ejecutar la consulta SQL y guardar los resultados en una variable
-    $resultado = mysqli_query($conn, $sql);
-
-     // Generar el código HTML y CSS del carrusel
-     echo '<div class="carousel-container">';
-     echo '<div class="carousel">';
-     while ($fila = mysqli_fetch_assoc($resultado)) {
-       echo '<div class="carousel-item" data-carrera="' . $fila["especialidad"] . '">';
-       echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["foto"]) . '" alt="' . $fila["matricula"] . '">';
-       echo '<div class="alumno-info">';
-       echo '<p class="alumno-nombre">' . $fila["matricula"] . '</p>';
-       echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
-       echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
-       echo '</div>'; // Cierre de "alumno-info"
-
-       echo '</div>'; // Cierre de "carousel-item"
-     }
-     echo '</div>'; // Cierre de "carousel"
      // Cerrar la conexión a la base de datos
      mysqli_close($conn);
     ?>

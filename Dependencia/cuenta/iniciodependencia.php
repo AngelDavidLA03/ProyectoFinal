@@ -61,6 +61,34 @@
 
       <!-- Logo Dependencia -->
       <div class="profile-image-container">
+        <?php
+          $year = date("Y"); // Obtener el año actual
+          $lastTwoDigits = substr($year, -2); // Obtener los dos últimos dígitos del año
+          
+          $id = $_SESSION['user'];
+          $prefID = $lastTwoDigits . "66DEP0000";
+
+          if ($id != $prefID)
+          {
+            $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+
+            $resultado = mysqli_query($conn, "SELECT logo FROM dependencia WHERE codUserDepend = '$id'");
+            $fila = mysqli_fetch_assoc($resultado);
+
+            $blob = $fila["logo"];
+            $logo = base64_encode($blob);
+
+            ?>
+            <div class="profile-image-wrapper">
+              <img src="data:image/jpeg;base64,<?php echo $logo?>" alt="Profile Image" class="profile-image">
+            </div>
+            <?php
+
+            
+          }
+          else
+          {
+            ?>
             <div class="profile-image-wrapper">
               <img src="./tecnm.png" alt="Profile Image" class="profile-image">
             </div>
@@ -68,7 +96,11 @@
               <input type="file" name="profile-image" id="profile-image-input" accept="image/*" onchange="previewProfileImage(event)">
               <label for="profile-image-input" class="profile-image-label"><i class="fas fa-camera"></i></label>
             </div>
+            <?php
+          }
+        ?>
       </div>
+      
 
   
        <!-- Datos Dependencia -->
@@ -82,7 +114,6 @@
           <form id="dependForm" enctype="multipart/form-data">
 
             <?php
-
               $tipo = 'DEPENDENCIA';
               // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
               $mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
@@ -101,15 +132,73 @@
 
               $r = $stmt->get_result();
 
-              while ($fila = mysqli_fetch_assoc($r)) {
+              while ($fila = mysqli_fetch_assoc($r)) 
+              {
                 // Acceder a las columnas de la fila
                 $f = $fila['folio'];
-                // Enviar una respuesta al cliente
-                echo "<label>Código de Usuario:</label>";
-                echo "<input type='text' name='codigouser' value='" . $f . "' readonly style='text-transform: uppercase;' maxlength='11' required>";
               }
 
-              $mysqli->close();
+              $year = date("Y"); // Obtener el año actual
+              $lastTwoDigits = substr($year, -2); // Obtener los dos últimos dígitos del año
+              
+              $id = $_SESSION['user'];
+              $prefID = $lastTwoDigits . "66DEP0000";
+
+              if ($id != $prefID)
+              {
+                $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+
+                $resultado = mysqli_query($conn, "SELECT nomDepend, RFC, numTrabajadores, enfoqueDepend, numTelfDepend, calleDepend, numExtDepend, numIntDepend, coloniaDepend, cpDepend, ciudadDepend, efDepend, tipoDepend FROM dependencia WHERE codUserDepend = '$id'");
+                $fila = mysqli_fetch_assoc($resultado);
+
+                echo "<label>Código de Usuario:</label>";
+                echo "<input type='text' name='codigouser' value='" . $id . "' readonly style='text-transform: uppercase;' maxlength='11' required>";
+       
+                echo"<label>Nombre de Dependencia:</label>";
+                echo"<input type='text' name='nomdep' value='".$fila["nomDepend"]."' readonly style='text-transform: uppercase;' maxlength='108' required>";
+
+                echo"<label>RFC:</label>";
+                echo"<input type='text' name='rfc' value='".$fila["RFC"]."' readonly style='text-transform: uppercase;' maxlength='13' required>";
+
+                echo"<label>Cantidad de Trabajadores:</label>";
+                echo"<input type='number' name='canttrab' value='".$fila["numTrabajadores"]."' readonly style='text-transform: uppercase;' maxlength='3' required>";
+
+                echo"<label>Giro:</label>";
+                echo"<input type='text' name='giro' value='".$fila["enfoqueDepend"]."' readonly style='text-transform: uppercase;' maxlength='54' required>";
+
+                echo"<label>Teléfono:</label>";
+                echo"<input type='text' name='tel' value='".$fila["numTelfDepend"]."' readonly style='text-transform: uppercase;' maxlength='18' required>";
+
+                echo"<label>Calle:</label>";
+                echo"<input type='text' name='calle' value='".$fila["calleDepend"]."' readonly style='text-transform: uppercase;' maxlength='54' required>";
+
+                echo"<label>Numero Exterior:</label>";
+                echo"<input type='number' name='numext' value='".$fila["numExtDepend"]."' readonly style='text-transform: uppercase;' maxlength='3' required>";
+
+                echo"<label>Numero Interior:</label>";
+                echo"<input type='number' name='numint' value='".$fila["numIntDepend"]."' readonly style='text-transform: uppercase;' maxlength='3' required>";
+
+                echo"<label>Colonia:</label>";
+                echo"<input type='text' name='colonia' value='".$fila["coloniaDepend"]."' readonly style='text-transform: uppercase;' maxlength='28' required>";
+
+                echo"<label>Código Postal:</label>";
+                echo"<input type='number' name='cp' value='".$fila["cpDepend"]."' readonly style='text-transform: uppercase;' maxlength='5' required>";
+
+                echo"<label>Ciudad:</label>";
+                echo"<input type='text' name='ciudad' value='".$fila["ciudadDepend"]."' readonly style='text-transform: uppercase;' maxlength='4' required>";
+
+                echo"<label>Entidad Federativa:</label>";
+                echo"<input type='text' name='entfed' value='".$fila["efDepend"]."' readonly style='text-transform: uppercase;' maxlength='28' required>";
+
+                echo"<label>Tipo (PUBLICA, SOCIAL o PRIVADA):</label>";
+                echo"<input type='text' name='tipo' value='".$fila["tipoDepend"]."' readonly style='text-transform: uppercase;' maxlength='7' required>";
+                echo"</form>";
+              }
+              else
+              {
+                echo "<label>Código de Usuario:</label>";
+                echo "<input type='text' name='codigouser' value='" . $f . "' readonly style='text-transform: uppercase;' maxlength='11' required>";
+       
             ?>
               <label>Nombre de Dependencia:</label>
               <input type="text" name="nomdep" style="text-transform: uppercase;" maxlength="108" required>
@@ -155,6 +244,11 @@
               <button type="button" onclick="clearFields()">Cancelar</button>
             </div>
           </form>
+          <?php
+            }
+            $mysqli->close();
+            $stmt->close();
+          ?>
         </div>
 
         <script>
@@ -235,34 +329,77 @@
         
           <div class="content-container">
             <form id="dirForm" enctype="multipart/form-data">
-              <?php
-                $tipo = 'DEPENDENCIA';
-                // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
-                $mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
+            <?php
+              $tipo = 'DEPENDENCIA';
+              // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
+              $mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
 
-                // Verificar la conexión
-                if ($mysqli->connect_errno) {
-                  echo "Error en la conexión a la base de datos: " . $mysqli->connect_error;
-                  exit();
-                }
+              // Verificar la conexión
+              if ($mysqli->connect_errno) {
+                echo "Error en la conexión a la base de datos: " . $mysqli->connect_error;
+                exit();
+              }
 
-                // Llamar al procedimiento SAVEdocuments
-                $stmt = $mysqli->prepare("CALL getCodUser(?)");
-                $stmt->bind_param("s", $tipo);
+              // Llamar al procedimiento SAVEdocuments
+              $stmt = $mysqli->prepare("CALL getCodUser(?)");
+              $stmt->bind_param("s", $tipo);
 
-                $stmt->execute();
+              $stmt->execute();
 
-                $r = $stmt->get_result();
+              $r = $stmt->get_result();
 
-                while ($fila = mysqli_fetch_assoc($r)) {
-                  // Acceder a las columnas de la fila
-                  $f = $fila['folio'];
-                  // Enviar una respuesta al cliente
-                  echo "<label>Código de Usuario:</label>";
-                  echo "<input type='text' name='codigouserdir' value='" . $f . "' readonly style='text-transform: uppercase;' maxlength='11' required>";
-                }
+              while ($fila = mysqli_fetch_assoc($r)) 
+              {
+                // Acceder a las columnas de la fila
+                $f = $fila['folio'];
+              }
 
-                $mysqli->close();
+              $year = date("Y"); // Obtener el año actual
+              $lastTwoDigits = substr($year, -2); // Obtener los dos últimos dígitos del año
+              
+              $id = $_SESSION['user'];
+              $prefID = $lastTwoDigits . "66DEP0000";
+
+              if ($id != $prefID)
+              {
+                $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+
+                $resultado = mysqli_query($conn, "SELECT directorgeneral.nomDirector, directorgeneral.apDirector, directorgeneral.amDirector, directorgeneral.edadDirector, directorgeneral.curpDirector, directorgeneral.emailDirector, directorgeneral.numTelfDirector
+                FROM directorgeneral INNER JOIN administrar ON directorgeneral.idDirector = administrar.idDirector 
+                              INNER JOIN dependencia ON administrar.codUserDepend = dependencia.codUserDepend 
+                WHERE dependencia.codUserDepend = '$id'");
+                $fila = mysqli_fetch_assoc($resultado);
+
+                echo "<label>Código de Usuario:</label>";
+                echo "<input type='text' name='codigouser' value='" . $id . "' readonly style='text-transform: uppercase;' maxlength='11' required>";
+
+                echo "<label>Nombre(s) de Representante:</label>";
+                echo "<input type='text' name='nomdir' value='".$fila["nomDirector"]."' readonly style='text-transform: uppercase;' maxlength='54' required>";
+
+                echo "<label>Apellido Paterno:</label>";
+                echo "<input type='text' name='appatdir' value='".$fila["apDirector"]."' readonly style='text-transform: uppercase;' maxlength='36' required>";
+
+                echo "<label>Apellido Materno:</label>";
+                echo "<input type='text' name='apmatdir' value='".$fila["amDirector"]."' readonly style='text-transform: uppercase;' maxlength='36' required>";
+                
+                echo "<label>Edad:</label>";
+                echo "<input type='number' name='edaddir' value='".$fila["edadDirector"]."' readonly style='text-transform: uppercase;' maxlength='2' required step='1'>";
+
+                echo "<label>CURP:</label>";
+                echo "<input type='text' name='curodir' value='".$fila["curpDirector"]."' readonly style='text-transform: uppercase;' maxlength='18' required>";
+
+                echo "<label>Correo Electronico:</label>";
+                echo "<input type='text' name='emaildir' value='".$fila["emailDirector"]."' readonly style='text-transform: uppercase;' maxlength='128' required>";
+                
+                echo "<label>Teléfono:</label>";
+                echo "<input type='text' name='teldir' value='".$fila["numTelfDirector"]."' readonly style='text-transform: uppercase;' maxlength='18' required>";
+                echo "</form>";
+              }
+              else
+              {
+                echo "<label>Código de Usuario:</label>";
+                echo "<input type='text' name='codigouser' value='" . $f . "' readonly style='text-transform: uppercase;' maxlength='11' required>";
+       
               ?>
               <label>Nombre(s) de Representante:</label>
               <input type="text" name="nomdir" style="text-transform: uppercase;" maxlength="54" required>
@@ -323,6 +460,11 @@
           </script>
 
             </form>
+            <?php
+              }
+              $mysqli->close();
+              $stmt->close();
+            ?>
           </div>
       </div>
    </div>
@@ -399,38 +541,40 @@
   
   <!-- Mostrar la galeria de imagenes -->
   <div class="gallery">
+  <?php
 
-    <!-- Opcion Visualizar y crear solcitudes de vacantes/ solciitante alumnos-->
-  <div class="gallery-item">
-    <img src="./images/identificacionoficial.jpg" alt="Solicitudes">
-    <div class="description">Identificación Oficial</div>
-    <div class="button-container2">
-      <form method="post" action="saveINE.php"  enctype="multipart/form-data" id="form4">
-          <input type="file" name="file" id="upload-file4" style="display: none;">
-          <input type="hidden" name="opcion" value="4">
-          <input type="submit" value="Subir" class="upload-button">
-        </form>
-        <div class="selected-file" id="selected-file4"></div>
-        <button onclick="uploadFile(4)" class="select-button">Seleccionar</button>
-    </div>
-  </div>
+    echo "<!-- Opcion Visualizar y crear solcitudes de vacantes/ solciitante alumnos-->";
+    echo "<div class='gallery-item'>";
+    echo "<img src='./images/identificacionoficial.jpg' alt='Solicitudes'>";
+    echo "<div class='description'>Identificación Oficial</div>";
+    echo "<div class='button-container2'>";
+    echo "<form method='post' action='saveINE.php'  enctype='multipart/form-data' id='form4'>";
+    echo "<input type='file' name='file' id='upload-file4' style='display: none;'>";
+    echo "<input type='hidden' name='opcion' value='4'>";
+    echo "<input type='submit' value='Subir' class='upload-button'>";
+    echo "</form>";
+    echo "<div class='selected-file' id='selected-file4'></div>";
+    echo "<button onclick='uploadFile(4)' class='select-button'>Seleccionar</button>";
+    echo "</div>";
+    echo "</div>";
 
-<!-- Opcion Visualizar Aspirantes-->
-  <div class="gallery-item">
-    <img src="./images/RFC.png" alt="Aceptar/Rechazar Aspirantes">
-    <div class="description">Registro Federal de Contribuyentes </div>
-    <div class="button-container2">
-      <form method="post" action="saveRFC.php" enctype="multipart/form-data" id="form5">
-        <input type="file" name="file" id="upload-file5" style="display: none;">
-        <input type="hidden" name="opcion" value="5">
-        <input type="submit" value="Subir" class="upload-button">
-      </form>
-      <div class="selected-file" id="selected-file5"></div>
-      <button onclick="uploadFile(5)" class="select-button">Seleccionar</button>
-    </div>
-  </div>
+    echo "<!-- Opcion Visualizar Aspirantes-->";
+    echo "<div class='gallery-item'>";
+    echo "<img src='./images/RFC.png' alt='Aceptar/Rechazar Aspirantes'>";
+    echo "<div class='description'>Registro Federal de Contribuyentes </div>";
+    echo "<div class='button-container2'>";
+    echo "<form method='post' action='saveRFC.php' enctype='multipart/form-data' id='form5'>";
+    echo "<input type='file' name='file' id='upload-file5' style='display: none;'>";
+    echo "<input type='hidden' name='opcion' value='5'>";
+    echo "<input type='submit' value='Subir' class='upload-button'>";
+    echo "</form>";
+    echo "<div class='selected-file' id='selected-file5'></div>";
+    echo "<button onclick='uploadFile(5)' class='select-button'>Seleccionar</button>";
+    echo "</div>";
+    echo "</div>";
 
- </div>
+    echo"</div>";
+ ?>
 
 
 
