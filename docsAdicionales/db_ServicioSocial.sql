@@ -829,7 +829,6 @@ BEGIN
    END) INTO @lastValue
 	FROM serviciosocial INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
    						  INNER JOIN dependencia ON solicitar.codUserDepend = dependencia.codUserDepend
-	WHERE dependencia.codUserDepend = codUser
 	ORDER BY serviciosocial.idServicio DESC
 	LIMIT 1;
 
@@ -1093,7 +1092,6 @@ BEGIN
    END) INTO @lastValue
 	FROM serviciosocial INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
    						  INNER JOIN dependencia ON solicitar.codUserDepend = dependencia.codUserDepend
-	WHERE dependencia.codUserDepend = codUser
 	ORDER BY serviciosocial.idServicio DESC
 	LIMIT 1;
 	
