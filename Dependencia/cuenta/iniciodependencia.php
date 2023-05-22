@@ -82,7 +82,6 @@
           <form id="dependForm" enctype="multipart/form-data">
 
             <?php
-              session_start(); // Iniciar la sesión
 
               $tipo = 'DEPENDENCIA';
               // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
