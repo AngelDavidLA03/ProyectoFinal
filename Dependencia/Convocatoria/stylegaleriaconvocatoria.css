@@ -91,7 +91,7 @@ nav a:hover {
   margin-left: 96px;
   max-width: 400px; /* Reducimos el ancho máximo del card */
   width: 9cm;
-  height: 12cm;
+  height: 12.5cm;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -106,13 +106,13 @@ nav a:hover {
   max-width: 400px; /* Reducimos el ancho máximo del card */
   margin-top: 20px;
   width: 9cm;
-  height: 12cm;
+  height: 12.5cm;
   display: flex;
   flex-direction: column;
   justify-content: left;
-  align-items: center;
-
-  
+  align-items: initial;
+  overflow-y: scroll;
+  max-height:533px;  
 }
 #alumno-info-card {
   float: left;
@@ -121,7 +121,7 @@ nav a:hover {
   margin-top: 20px;
   margin-right: 96px;
   width: 9cm;
-  height: 12cm;
+  height: 12.5cm;
   display: flex;
   flex-direction: column;
   justify-content: left;
