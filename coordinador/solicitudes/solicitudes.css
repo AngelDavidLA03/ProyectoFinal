@@ -52,65 +52,67 @@ nav a:hover {
   background-color: #fff;
   color: #2c3e50;
 }
+
+
+
    /* Estilos CSS para la página */
-      body {
-        background-color: #f5f5f5;
-        font-family: Arial, sans-serif;
-      }
-      .container {
-        max-width: 900px;
-        margin: 40px auto 0; /* Agregamos 40px de margen superior */
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        margin-top: 200px;
-      }
-      h1 {
-        text-align: center;
-        font-size: 36px;
-        margin-top: 0;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
-      th,
-      td {
-        text-align: left;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
-      }
-      th {
-        background-color: #f2f2f2;
-        font-weight: normal;
-      }
-      tr:hover {
-        background-color: #f5f5f5;
-      }
-      .btn-group {
-        display: flex;
-        justify-content: center;
-      }
-      button {
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-      }
-      button:hover {
-        background-color: #3e8e41;
-      }
-      .reject-btn {
-        background-color: #f44336;
-        margin-right: 10px;
-      }
-      .reject-btn:hover {
-        background-color: #ba251f;
-      }
+   .container {
+    background-color: #eaeaea;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: -700px;
+    margin-top: 100px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #1d009f8a;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #1d009f8a;
+    color: #ffffff;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #d3d3d3;
+  }
+
+  /* Estilos adicionales para el filtro de búsqueda */
+  .search-container {
+    margin-bottom: 20px;
+  }
+
+  .search-container input[type="text"] {
+    padding: 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  /* Estilos para el contenedor de la tabla con barra de desplazamiento vertical */
+  .table-container {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+  }

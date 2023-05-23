@@ -15,11 +15,10 @@
       <div class="containers">
         <nav>
           <ul>
-                <li><a href="../coordinador.php">Crear cuenta</a></li>
+                <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
                 <li><a href="../documentos/documentos.php">Subir documentos</a></li>
                 <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
                 <li><a href="../dependencias/dependencias.php">Dependencias</a></li>
-                <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
                 <li><a href="../../login/login.html">Cerrar sesión</a></li>   
           </ul>
         </nav>
@@ -32,6 +31,12 @@
   <!-- Contenido de la tabla -->
   <div class="container">
   <h1>Renovar Convenio</h1>
+
+   <!-- Filtro de búsqueda -->
+   <div class="search-container">
+    <input type="text" id="search-input" placeholder="Buscar por nombre de dependencia">
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -41,42 +46,92 @@
         <th>RFC</th>
         <th>Calificación</th>
         <th>Tipo</th>
-        <th>Acciones</th>
+        <th>Convenio</th>
+        <th>Aceptar/Rechazar</th>
       </tr>
     </thead>
     <tbody>
-      <?php
-        // Hacer la conexión a la base de datos
-        $conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
 
-        // Realizar una consulta a la base de datos
-        $query = "SELECT codUserDepend, idDepend, nomDepend, RFC, califDepend, tipoDepend FROM dependencia";
-        $result = mysqli_query($conn, $query);
+    <?php
+// Hacer la conexión a la base de datos
+$conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
 
-        // Iterar sobre los resultados y mostrarlos en la tabla
-        while($row = mysqli_fetch_assoc($result)) {
-          ?>
-            <tr>
-              <td><?php echo $row["codUserDepend"]; ?></td>
-              <td><?php echo $row["idDepend"]; ?></td>
-              <td><?php echo $row["nomDepend"]; ?></td>
-              <td><?php echo $row["RFC"]; ?></td>
-              <td><?php echo $row["califDepend"]; ?></td>
-              <td><?php echo $row["tipoDepend"]; ?></td>
-              <td class="btn-group">
-                <button data-procedure="aceptar_convenio">Aceptar</button>
-                <button class="reject-btn" data-procedure="rechazar_convenio">Rechazar</button>
-              </td>
-            </tr>
-          <?php
-        }
+// Realizar una consulta a la base de datos
+$query = "SELECT d.codUserDepend, d.idDepend, d.nomDepend, d.RFC, d.califDepend, d.tipoDepend, dc.document
+          FROM dependencia AS d
+          JOIN convenio AS c ON d.codUserDepend = c.codUserDependConv
+          JOIN documento AS dc ON dc.idDocument = c.idDocumentConv";
 
-        // Cerrar la conexión a la base de datos
-        mysqli_close($conn);
-      ?>
+$result = mysqli_query($conn, $query);
+
+// Iterar sobre los resultados y mostrarlos en la tabla
+while($row = mysqli_fetch_assoc($result)) {
+  ?>
+    <tr>
+      <td><?php echo $row["codUserDepend"]; ?></td>
+      <td><?php echo $row["idDepend"]; ?></td>
+      <td><?php echo $row["nomDepend"]; ?></td>
+      <td><?php echo $row["RFC"]; ?></td>
+      <td><?php echo $row["califDepend"]; ?></td>
+      <td><?php echo $row["tipoDepend"]; ?></td>
+      <td><?php
+                echo "<form id='form-con' action='documento.php' method='post' target='_blank'>";
+                echo "<input type='hidden' name='blob' value='" . base64_encode($row["document"]) . "'>";
+                echo "<button type='submit'>Convenio</button>";
+                echo "</form>"; ?></td>
+
+      <td class="btn-group">
+        <button data-procedure="aceptar_convenio">Aceptar</button>
+        <button class="reject-btn" data-procedure="rechazar_convenio">Rechazar</button>
+      </td>
+    </tr>
+  <?php
+}
+
+// Cerrar la conexión a la base de datos
+mysqli_close($conn);
+?>
+
+
+
     </tbody>
   </table>
 </div>
+
+<!-- script abrir pdf en una ventna -->
+
+<script>
+function openPdf(blobData) {
+  var decodedData = atob(blobData);
+  var win = window.open("", "PdfWindow");
+  win.document.write("<html><body><embed src='data:application/pdf;base64," + decodedData + "' width='100%' height='100%' type='application/pdf'></embed></body></html>");
+}
+</script>
+
+<script>
+  // Obtener la referencia al input de búsqueda
+  const searchInput = document.getElementById('search-input');
+
+  // Obtener la referencia a la tabla
+  const table = document.getElementById('table-dependencies');
+
+  // Agregar evento de input al input de búsqueda
+  searchInput.addEventListener('input', function() {
+    const searchValue = this.value.trim().toLowerCase();
+
+    // Iterar sobre las filas de la tabla y mostrar u ocultar según la búsqueda
+    Array.from(table.getElementsByTagName('tbody')[0].getElementsByTagName('tr')).forEach(function(row) {
+      const nameColumn = row.getElementsByTagName('td')[2];
+      const name = nameColumn.textContent.toLowerCase();
+
+      if (name.includes(searchValue)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
 
 <!-- Botones aceptar y rechazar -->
 <script>

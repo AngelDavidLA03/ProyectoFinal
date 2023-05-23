@@ -58,49 +58,105 @@ nav a:hover {
 
 /* Termina menu superior*/
 
+ /* GALERIA DOCUMENTACION DEPENDENCIA */
+ .gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-/* Estilos galeria */
-
-.container {
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 70px;
 }
 
-.image-gallery {
-display: flex;
-justify-content: center;
+
+
+.gallery-item {
+  position: relative;
+  width: calc(33.33% - 10px);
+  margin-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px; /* Separacion entre cada fila */
 }
 
-.item {
-flex: 1;
-margin: 0 10px;
-text-align: center;
+.gallery-item img {
+  width: 250px;
+  height: 200px;
+  transition: transform 0.3s ease;
 }
 
-.item img {
-max-width: 100%;
-max-height: 300px; /* Ajusta la altura máxima según tus preferencias */
-object-fit: contain; /* Ajusta el modo de ajuste del objeto según tus preferencias */
+.gallery-item:hover img {
+  transform: scale(1.1);
 }
 
-.btn-container {
-display: flex;
-justify-content: center;
-margin-top: 50px;
+.gallery-item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.btn-container button {
-background-color: green;
-color: white;
-padding: 10px 20px;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-font-size: 16px;
+.gallery-item:hover:before {
+  opacity: 1;
 }
 
-.btn-container button:hover {
-opacity: 0.8;
+.gallery-item .description {
+  position: absolute;
+  bottom: -10px; /* Altura recuadro negro */
+  left: 0;
+  right: 0;
+  padding: 10px;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-top: 60px;
+}
+
+.button-container2 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -50px; /* Altura botones */
+}
+
+.upload-button {
+  margin-top: 15px;
+  font-size: 15px;
+  padding: 12px 24px;
+  pointer-events: auto;
+  background-color: #1d009f8a;
+  color: white;
+}
+
+/* Estilo del contenedor del encabezado */
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1d009f8a;
+  padding: 10px;
+  margin-top: 80px;
+}
+
+/* Estilo del encabezado */
+.header-container h1 {
+  color: white;
+  text-align: center;
+}
+
+.select-button{
+  margin-top: 10px;
+  font-size: 10px;
+  padding: 12px 24px;
+  pointer-events: auto;
+  background-color: #99CC33;
+  color: white;
 }
