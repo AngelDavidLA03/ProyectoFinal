@@ -50,6 +50,7 @@
  
 <!-- Carrusel de imagenes -->
     <?php
+    session_start();
 
     // Conectar a la base de datos
     $conn = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
@@ -59,8 +60,12 @@
       die("Error al conectar a la base de datos: " . mysqli_connect_error());
     }
 
+    $id = $_SESSION['user'];
     // Obtener los datos de los alumnos de la base de datos
-    $resultado = mysqli_query($conn, "SELECT * FROM alumno");
+    $resultado = mysqli_query($conn, "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
+    INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
+    INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
+    WHERE solicitar.codUserDepend = '$id';");
 
     // Generar el código HTML y CSS del carrusel
     echo '<div class="carousel-container">';
@@ -69,8 +74,9 @@
       echo '<div class="carousel-item" data-carrera="' . $fila["especialidad"] . '">';
       echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["foto"]) . '" alt="' . $fila["matricula"] . '">';
       echo '<div class="alumno-info">';
-      echo '<p class="alumno-nombre">' . $fila["matricula"] . '</p>';
+      echo '<p class="alumno-nombre">'.$fila["apAlumn"] .' '.$fila["amAlumn"].' '.$fila["nomAlumn"] .'</p>';
       echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
+      echo '<p class="alumno-id">' . $fila["matricula"] . '</p>';
       echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
       echo '</div>'; // Cierre de "alumno-info"
 
@@ -95,7 +101,10 @@
       }
 
       //Consulta SQL para obtener los datos del alumno con la matricula seleccionada
-      $sql = "SELECT * FROM alumno WHERE matricula = $matricula";
+      $sql = "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
+      INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
+      INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
+      WHERE solicitar.codUserDepend = '$id' AND alumno.codUserAlumn = '$matricula';";
 
 
       // Ejecutar la consulta SQL y guardar los resultados en una variable
@@ -108,8 +117,9 @@
         echo '<div class="carousel-item" data-carrera="' . $fila["especialidad"] . '">';
         echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["foto"]) . '" alt="' . $fila["matricula"] . '">';
         echo '<div class="alumno-info">';
-        echo '<p class="alumno-nombre">' . $fila["matricula"] . '</p>';
+        echo '<p class="alumno-nombre">'.$fila["apAlumn"] .' '.$fila["amAlumn"].' '.$fila["nomAlumn"] .'</p>';
         echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
+        echo '<p class="alumno-id">' . $fila["matricula"] . '</p>';
         echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
         echo '</div>'; // Cierre de "alumno-info"
 
