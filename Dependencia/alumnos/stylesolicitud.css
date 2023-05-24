@@ -129,14 +129,14 @@ nav a:hover {
 }
 
 
-/* Estilos de la tabla modal*/
+/* Estilos de la tabla modal */
 table {
   border-collapse: collapse;
   width: 100%;
 }
 
 td, th {
-  border: 1px solid #ddd;
+  border: 3px solid #8a63d2;
   padding: 8px;
 }
 
@@ -150,4 +150,19 @@ th {
 /* Estilos específicos de la tabla dentro de la ventana modal */
 #modal .modal-body table {
   margin-top: 20px;
+}
+
+/* Estilos para las filas impares */
+table tr:nth-child(odd) {
+  background-color: #bb9df4;
+}
+
+/* Estilos para las filas pares */
+table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* Efecto de sombra en la tabla */
+table {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
