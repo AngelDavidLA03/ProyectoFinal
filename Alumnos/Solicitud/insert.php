@@ -9,12 +9,11 @@ if (isset($_GET['idServicio'])) {
 
   // Recibir los datos del formulario
   $codUser = $_SESSION["user"];
-  $estado = 'rechazado';
 
   // Configuración de la conexión a la base de datos
-  $host = "localhost:5555";
+  $host = "localhost";
   $usuario = "root";
-  $contraseña = "";
+  $contraseña = "AdLa20031108";
   $base_de_datos = "db_serviciosocial";
 
   // Conexión a la base de datos
@@ -26,10 +25,12 @@ if (isset($_GET['idServicio'])) {
   }
 
   // Consulta INSERT
-  $consulta = "INSERT INTO `realizar` (`codUserAlumn`, `idServicio`, `estado`) VALUES ('2366ALU0010', '$idServicio', '$estado')";
+  $stmt = $conexion->prepare("INSERT INTO `realizar` (codUserAlumn, idServicio) VALUES (?,?)");
+  $stmt->bind_param("ss", $codUser, $idServicio);
+
 
   // Ejecutar la consulta
-  if (mysqli_query($conexion, $consulta)) {
+  if ($stmt->execute()) {
       echo "La inserción se realizó correctamente."; echo $codUser;
   } else {
       echo "Error al ejecutar la inserción: " . mysqli_error($conexion);
@@ -37,9 +38,9 @@ if (isset($_GET['idServicio'])) {
 
   // Cerrar conexión
   mysqli_close($conexion);
-  exit; // Terminar el script después de procesar la solicitud de inserción
 } else {
   echo "El parámetro 'idServicio' no está presente en la URL.";
-  exit;
 }
+header("location: ../InicioAlumno/estudiante.php");
+exit;
 ?>

@@ -1,9 +1,9 @@
 <?php
 
 // Configuración de la conexión a la base de datos
-$host = "localhost:5555";
+$host = "localhost";
 $usuario = "root";
-$contraseña = "";
+$contraseña = "AdLa20031108";
 $base_de_datos = "db_serviciosocial";
 
 // Conexión a la base de datos
@@ -22,7 +22,7 @@ $resultados = mysqli_query($conexion, $consulta);
 while ($fila = mysqli_fetch_assoc($resultados)) {
 //  $idServicio = $fila['idServicio']; // Almacena el ID de servicio en una variable
 
-$idServicio = '2366ALU0010';
+$idServicio = $fila['idServicio'];
 
   echo '<div class="service-card">';
   echo '<h3>Se solicita: ' . $fila['nomServic'] . '</h3>';
