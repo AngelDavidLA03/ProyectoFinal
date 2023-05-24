@@ -65,7 +65,7 @@
     <ul class="dropdown-menu">
         <li><a href="#" class="menu-option">Perfil</a></li>
         <li><a href="#" class="menu-option">Configuración</a></li>
-        <li><a href="..//login/login.html" class="menu-option">Cerrar sesión</a></li>
+        <li><a href="../../functionsDB/logout.php" class="menu-option">Cerrar sesión</a></li>
     </ul>
 </div>
 
@@ -167,6 +167,36 @@
     <div class="extra-card">
         <h3>Nombre del servicio social</h3>
         <p>Aquí se muestra el nombre del servicio social al que estás inscrito.</p>
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "AdLa20031108";
+        $database = "db_serviciosocial";
+        
+        $id = $_SESSION['user'];
+        
+        $conn = new mysqli($servername, $username, $password, $database);
+        
+        // Comprobar la conexión
+        if ($conn->connect_error) {
+          die("Error de conexión: " . $conn->connect_error);
+        }
+        
+        // Consulta para obtener las convocatorias desde la base de datos
+        $sql = "SELECT serviciosocial.nomServic FROM serviciosocial INNER JOIN realizar ON serviciosocial.idServicio = realizar.idServicio WHERE realizar.codUserAlumn = '$id' AND realizar.estado = 'ACEPTADO';";
+        $result = $conn->query($sql);
+        
+        // Generar las opciones del select con los resultados de la consulta
+        if ($result->num_rows > 0) 
+        {
+            while ($row = $result->fetch_assoc()) 
+            {
+                $nomServic = $row["nomServic"];
+                echo "Nombre del Programa: " . $nomServic . ".<br>";
+            }
+        }
+        ?>
+
     </div>
 
     <div class="extra-card">
@@ -221,8 +251,8 @@
         }
     </style>
     <div class="menu">
-    <a href="..//InicioAlumno/estudiante.php">   <button class="menu-button">Paso 1. Actualizar datos</button>
-    <a href="..//Solicitud/Seleccionarservicio.php">  <button class="menu-button">Paso 2. Seleccionar servicio social</button>
+    <a href="../InicioAlumno/estudiante.php">   <button class="menu-button">Paso 1. Actualizar datos</button>
+    <a href="../Solicitud/Seleccionarservicio.php">  <button class="menu-button">Paso 2. Seleccionar servicio social</button>
     <a href="#">  <button class="menu-button highlight">Paso 3. Reportes</button>
     </div>
 

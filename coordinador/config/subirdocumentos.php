@@ -1,6 +1,6 @@
 <?php
 // Establecer conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "db_serviciosocial");
+$conexion = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
 
 
 

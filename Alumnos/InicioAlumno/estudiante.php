@@ -3,12 +3,23 @@
 <head>
     <title>Información del Estudiante</title>
     <link rel="stylesheet" href="styleestudiate.css">
+    <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
+  <?php
+        session_start();
+
+        // Se comprueba si el Coordinador ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "ALUMNO"))
+        {
+            header("location: ../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        } 
+    ?>
 </head>
 <body>
 <header>
     <div class="header">
         <?php
-        session_start();
         require_once 'consulta.php';
 
         $student_id = $_SESSION['user']; // ID del estudiante que deseas mostrar
@@ -208,8 +219,8 @@
     </style>
     <div class="menu">
     <a href="#">   <button class="menu-button highlight">Paso 1. Actualizar datos</button>
-    <a href="..//Solicitud/Seleccionarservicio.php">  <button class="menu-button">Paso 2. Seleccionar servicio social</button>
-    <a href="..//Reportes/reporte.php">  <button class="menu-button">Paso 3. Reportes</button>
+    <a href="../Solicitud/Seleccionarservicio.php">  <button class="menu-button">Paso 2. Seleccionar servicio social</button>
+    <a href="../Reportes/reporte.php">  <button class="menu-button">Paso 3. Reportes</button>
     </div>
 
             <?php

@@ -62,8 +62,6 @@
  
 <!-- Carrusel de imagenes -->
     <?php
-    session_start();
-
     // Conectar a la base de datos
     $conn = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
 
@@ -77,7 +75,7 @@
     $resultado = mysqli_query($conn, "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
     INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
     INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
-    WHERE solicitar.codUserDepend = '$id';");
+    WHERE solicitar.codUserDepend = '$id' AND realizar.estado = 'ACEPTADO';");
 
     // Generar el código HTML y CSS del carrusel
     echo '<div class="carousel-container">';
@@ -116,7 +114,7 @@
       $sql = "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
       INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
       INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
-      WHERE solicitar.codUserDepend = '$id' AND alumno.codUserAlumn = '$matricula';";
+      WHERE solicitar.codUserDepend = '$id' AND alumno.matricula = '$matricula' AND realizar.estado = 'ACEPTADO';";
 
 
       // Ejecutar la consulta SQL y guardar los resultados en una variable

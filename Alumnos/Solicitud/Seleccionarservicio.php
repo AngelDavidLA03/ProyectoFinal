@@ -3,7 +3,7 @@
 <head> 
   <title>Servicios Sociales</title>
   <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-  <?php/*
+  <?php
         session_start();
 
         // Se comprueba si el Coordinador ha iniciado sesion
@@ -12,7 +12,7 @@
             header("location: ../login/login.html?redirect=true");
             session_destroy();
             exit;
-        } */
+        } 
     ?>
   </head>
 
@@ -20,7 +20,6 @@
 
 <div class="header">
         <?php
-        session_start();
         require_once 'consulta.php';
 
         $student_id = $_SESSION['user'];; // ID del estudiante que deseas mostrar
@@ -126,9 +125,9 @@
     }
 </style>
 <div class="menu">
-<a href="..//InicioAlumno/estudiante.php">   <button class="menu-button">Paso 1. Actualizar datos</button>
+<a href="../InicioAlumno/estudiante.php">   <button class="menu-button">Paso 1. Actualizar datos</button>
     <a href="#.php"><button class="menu-button highlight">Paso 2. Seleccionar servicio social</button></a>
-    <a href="..//Reportes/reporte.php"><button class="menu-button">Paso 3. Reportes</button></a>
+    <a href="../Reportes/reporte.php"><button class="menu-button">Paso 3. Reportes</button></a>
 </div>
 </body>
 </html>
