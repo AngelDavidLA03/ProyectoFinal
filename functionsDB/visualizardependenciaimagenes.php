@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
 // Obtener los datos del alumno desde la base de datos
 $resultado = mysqli_query($conn, "SELECT codUserDepend,idDepend,nomDepend,RFC,enfoqueDepend,califDepend,calleDepend,numExtDepend,numIntDepend,coloniaDepend,cpDepend,ciudadDepend,numTelfDepend,tipoDepend,
 (SELECT d.document FROM convenio AS cvn INNER JOIN documento AS d ON d.idDocument = cvn.idDocumentConv
-                          INNER JOIN dependencia AS dep ON dep.idDepend = cvn.idDependConv 
+                          INNER JOIN dependencia AS dep ON dep.codUserDepend = cvn.codUserDepend 
  WHERE dep.codUserDepend = '$id') AS conven,
 (SELECT d.document FROM directorgeneral AS dg INNER JOIN administrar AS a ON dg.idDirector = a.idDirector
                               INNER JOIN dependencia AS dep ON a.codUserDepend = dep.codUserDepend

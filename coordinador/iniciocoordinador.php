@@ -35,7 +35,7 @@
         <i class="button-icon fas fa-building"></i>
         <div class="button-text">Dependencias</div>
       </a>
-      <a href="../login/login.html" class="button button-cerrar-sesion">
+      <a href="../functionsDB/logout.php" class="button button-cerrar-sesion">
         <i class="button-icon fas fa-sign-out-alt"></i>
         <div class="button-text">Cerrar Sesión</div>
       </a>
