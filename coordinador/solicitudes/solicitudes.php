@@ -55,12 +55,12 @@
 
     <?php
 // Hacer la conexión a la base de datos
-$conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
+$conn = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
 
 // Realizar una consulta a la base de datos
 $query = "SELECT d.codUserDepend, d.idDepend, d.nomDepend, d.RFC, d.califDepend, d.tipoDepend, dc.document
           FROM dependencia AS d
-          JOIN convenio AS c ON d.codUserDepend = c.codUserDependConv
+          JOIN convenio AS c ON d.idDepend = c.idDependConv
           JOIN documento AS dc ON dc.idDocument = c.idDocumentConv";
 
 $result = mysqli_query($conn, $query);
