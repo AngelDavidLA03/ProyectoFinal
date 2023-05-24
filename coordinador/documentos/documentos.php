@@ -11,7 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
     <!-- PROTECCION DE ACCESO A LA PAGINA Y REDIRECCIONAMIENTO AL LOGIN -->
-  
+    <?php
+        session_start();
+
+        // Se comprueba si la Dependencia ha iniciado sesion
+        if((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) && (!isset($_SESSION['tipo']) || $_SESSION['tipo'] !== "COORDINADOR"))
+        {
+            header("location: ../../login/login.html?redirect=true");
+            session_destroy();
+            exit;
+        }
+    ?>
   </head>
 
 

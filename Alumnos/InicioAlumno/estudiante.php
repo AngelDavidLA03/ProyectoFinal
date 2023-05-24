@@ -11,7 +11,7 @@
         session_start();
         require_once 'consulta.php';
 
-        $student_id = "2366ALU0010"; // ID del estudiante que deseas mostrar
+        $student_id = $_SESSION['user']; // ID del estudiante que deseas mostrar
 
         // Obtener nombre completo del estudiante desde la base de datos
         $stmt = $conn->prepare("SELECT nomAlumn, apAlumn, amAlumn FROM alumno WHERE codUserAlumn = :student_id");
@@ -41,7 +41,7 @@
         try {
             $stmt = $conn->prepare("SELECT * FROM alumno WHERE codUserAlumn = :student_id");
             $stmt->bindParam(":student_id", $student_id);
-            $student_id = "2366ALU0010"; // ID del estudiante que deseas mostrar
+            $student_id = $_SESSION['user'];; // ID del estudiante que deseas mostrar
 
             $stmt->execute();
             $student = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -64,7 +64,7 @@
     <ul class="dropdown-menu">
         <li><a href="#" class="menu-option">Perfil</a></li>
         <li><a href="#" class="menu-option">Configuración</a></li>
-        <li><a href="..//login/login.html" class="menu-option">Cerrar sesión</a></li>
+        <li><a href="../../functionsDB/logout.php" class="menu-option">Cerrar sesión</a></li>
     </ul>
 </div>
 
@@ -111,7 +111,7 @@
     try {
         $stmt = $conn->prepare("SELECT * FROM alumno WHERE codUserAlumn = :student_id");
         $stmt->bindParam(":student_id", $student_id);
-        $student_id = "2366ALU0010"; // ID del estudiante que deseas mostrar
+        $student_id = $_SESSION['user'];; // ID del estudiante que deseas mostrar
 
         $stmt->execute();
         $student = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -142,7 +142,7 @@
             <p id="student-semestre">Semestre: <?php echo $student['semestre']; ?></p>
             <p id="student-ssn">Número de Seguro Social: <?php echo $student['nss']; ?></p>
             <p id="student-number">Número de Teléfono: <?php echo $student['numTelfAlumn']; ?></p>
-            <p id="student-email">Correo Electrónico: <?php echo $student['correo']; ?></p>
+            <p id="student-email">Correo Electrónico: <?php echo $student['emailPers']; ?></p>
             <button onclick="toggleEditForm()">Actualizar datos</button>
 
                 <div id="edit-form" style="display: none;">
