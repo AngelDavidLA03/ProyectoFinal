@@ -77,7 +77,7 @@
       <ul class="dropdown-menu">
         <li><a href="#" class="menu-option">Perfil</a></li>
         <li><a href="#" class="menu-option">Configuración</a></li>
-        <li><a href="..//login/login.html" class="menu-option">Cerrar sesión</a></li>
+        <li><a href="../../functionsDB/logout.php" class="menu-option">Cerrar sesión</a></li>
       </ul>
     </div>
   </div>

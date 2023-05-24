@@ -11,7 +11,7 @@
         session_start();
         require_once 'consulta.php';
 
-        $student_id = $_SESSION['user'];; // ID del estudiante que deseas mostrar
+        $student_id = $_SESSION['user']; // ID del estudiante que deseas mostrar
 
         // Obtener nombre completo del estudiante desde la base de datos
         $stmt = $conn->prepare("SELECT nomAlumn, apAlumn, amAlumn FROM alumno WHERE codUserAlumn = :student_id");
