@@ -5,6 +5,7 @@
     {
         // Obtener los datos del archivo
         $archivo = $_FILES["file"]["tmp_name"];
+        $user = (string)$_POST['codUserDepend'];;
         $tipo = "CNV";
 
         $mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
@@ -31,10 +32,8 @@
         $cod = $getConsulta[0];
         $stmt->close();
 
-        $idDir = $_SESSION['idDir'];
-
-        $stmt2 = $mysqli->prepare("CALL  SAVEdec(?,?)");
-        $stmt2->bind_param("ss",$cod,$idDir);
+        $stmt2 = $mysqli->prepare("CALL  SAVEcnv(?,?)");
+        $stmt2->bind_param("ss",$cod,$user);
 
         $stmt2->execute();
 

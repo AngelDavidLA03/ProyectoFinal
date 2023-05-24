@@ -49,7 +49,7 @@ if($exsite == 1)
     } 
     else if($usuario == "COORDINADOR")
     {
-        header("location: ../coordinador/coordinador.php");
+        header("location: ../coordinador/iniciocoordinador.php");
     }
 }
 else
