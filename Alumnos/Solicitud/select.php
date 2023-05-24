@@ -17,9 +17,12 @@ if (!$conexion) {
 // Obtener datos de la base de datos
 $consulta = "SELECT * FROM serviciosocial";
 $resultados = mysqli_query($conexion, $consulta);
+
 // Generar tarjetas dinámicamente
 while ($fila = mysqli_fetch_assoc($resultados)) {
-  $idServicio = $fila['idServicio']; // Almacena el ID de servicio en una variable
+//  $idServicio = $fila['idServicio']; // Almacena el ID de servicio en una variable
+
+$idServicio = '2366ALU0010';
 
   echo '<div class="service-card">';
   echo '<h3>Se solicita: ' . $fila['nomServic'] . '</h3>';
@@ -27,13 +30,17 @@ while ($fila = mysqli_fetch_assoc($resultados)) {
   echo '<p><span>Actividades:</span> ' . $fila['actividades'] . '</p>';
   echo '<p><span>Detalles:</span> ' . $fila['detalles'] . '</p>';
   echo '<p><span>Caracteriticas:</span> ' . $fila['caracteristicas'] . '</p>';
-  echo '<p><span>Fecha de fin:</span> ' . $fila['fechaInicio'] . '</p>';
+  echo '<p><span>Fecha de inicio:</span> ' . $fila['fechaInicio'] . '</p>';
   echo '<p><span>Fecha de fin:</span> ' . $fila['fechaFin'] . '</p>';
-  echo  '<p><span>Jornada:</span> '  . $fila['jornada'] . '</p>';
-  echo '<a href="insert.php?idServicio=' . $idServicio . '" class="postularme-btn">Postularme</a>';
+  echo '<p><span>Jornada:</span> '  . $fila['jornada'] . '</p>';
+
+  // Pregunta si está de acuerdo antes de mostrar el enlace
+  echo '<p>¿Está de acuerdo? ';
+  echo '<a href="insert.php?idServicio=' . $idServicio . '&acuerdo=true">Sí</a> ';
+  echo '<a href="insert.php?idServicio=' . $idServicio . '&acuerdo=false">No</a></p>';
+
   echo '</div>';
 }
-
 
 // Cerrar conexión
 mysqli_close($conexion);
