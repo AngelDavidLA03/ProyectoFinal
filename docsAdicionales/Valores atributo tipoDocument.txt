@@ -15,3 +15,9 @@ CBA | matricula VARCHAR(10)
 CLI | matricula VARCHAR(10)
 RDE |  motivo VARCHAR(24) 
 CFI | matricula VARCHAR(10)
+
+CPE
+RAC
+CLI
+CBA
+CNV

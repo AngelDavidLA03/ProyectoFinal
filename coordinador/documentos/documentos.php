@@ -47,7 +47,7 @@
       <img src="./images/cartapresentacion.jpg" alt="CartaPre">
       <div class="description">Carta Presentación</div>
       <div class="button-container2">
-        <form method="post" action="PONER DOCUMENTO PHP DE BSASE DATOS EJEMPLO: SUBIR.PHP" enctype="multipart/form-data">
+        <form method="post" action="saveCPE.php" enctype="multipart/form-data">
           <input type="file" name="file" id="upload-file1" style="display: none;">
           <input type="hidden" name="opcion" value="1">
           <input type="submit" value="Subir" class="upload-button">
@@ -62,7 +62,7 @@
       <img src="./images/reporte.jpg" alt="ReporteAct">
       <div class="description"> Reporte Actividades/Avance </div>
       <div class="button-container2">
-        <form method="post" action="PONER DOCUMENTO PHP DE BSASE DATOS EJEMPLO: SUBIR.PHP">
+        <form method="post" action="saveRAC.php">
           <input type="hidden" name="opcion" value="2">
           <input type="submit" value="Subir" class="upload-button">
         </form>
@@ -77,7 +77,7 @@
       <img src="./images/cartaliberacion.jpg" alt="LiberacionServ">
       <div class="description"> Liberación Servicio Social </div>
       <div class="button-container2">
-        <form method="post" action="PONER DOCUMENTO PHP DE BSASE DATOS EJEMPLO: SUBIR.PHP">
+        <form method="post" action="saveCLI.php">
           <input type="hidden" name="opcion" value="3">
           <input type="submit" value="Subir" class="upload-button">
         </form>
@@ -93,7 +93,7 @@
       <img src="./images/cartabaja.jpg" alt="CartaBaja">
       <div class="description"> Carta Baja </div>
       <div class="button-container2">
-        <form method="post" action="PONER DOCUMENTO PHP DE BSASE DATOS EJEMPLO: SUBIR.PHP">
+        <form method="post" action="saveCBA.php">
           <input type="hidden" name="opcion" value="4">
           <input type="submit" value="Subir" class="upload-button">
         </form>
@@ -109,7 +109,7 @@
       <img src="./images/cartaliberacion.jpg" alt="Convenio">
       <div class="description"> Convenio </div>
       <div class="button-container2">
-        <form method="post" action="PONER DOCUMENTO PHP DE BSASE DATOS EJEMPLO: SUBIR.PHP">
+        <form method="post" action="saveCNV.php">
           <input type="hidden" name="opcion" value="5">
           <input type="submit" value="Subir" class="upload-button">
         </form>
