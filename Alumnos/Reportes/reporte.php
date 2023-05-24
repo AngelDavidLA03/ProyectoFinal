@@ -169,14 +169,22 @@
         <p>Aquí se muestra el nombre del servicio social al que estás inscrito.</p>
     </div>
 
-    
     <div class="extra-card">
-        <h3>Subir archivo</h3>
-        <p>Aquí puedes subir el archivo relacionado al servicio social.</p>
+    <h3>Subir archivo</h3>
+    <p>Aquí puedes subir el archivo relacionado al servicio social.</p>
+    <form id="upload-form" action="Subir.php" method="post" enctype="multipart/form-data">
         <input type="file" name="fileUpload" id="fileUpload">
         <div id="upload-display" class="upload-display">
             <p>Nombre del archivo: <span id="file-name">N/A</span></p>
         </div>
+        <button type="submit" name="submit">Enviar</button>
+    </form>
+</div>
+
+
+    
+</div>
+
     </div>
 </div></head>
 <body>

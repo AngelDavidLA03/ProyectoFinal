@@ -89,5 +89,46 @@
       include 'select.php';
     ?>
   </div>
+  <style>
+    .menu {
+        display: flex;
+        justify-content: space-around;
+        background-color: #1d009f8a;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .menu-button {
+        background-color: transparent;
+        border: none;
+        color: black;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition-duration: 0.4s;
+    }
+
+    .menu-button:hover {
+        background-color: #1d009f8a;
+        color: white;
+    }
+
+    .highlight {
+        background-color: #1d009f8a;
+        color: white;
+    }
+</style>
+<div class="menu">
+<a href="..//InicioAlumno/estudiante.php">   <button class="menu-button">Paso 1. Actualizar datos</button>
+    <a href="#.php"><button class="menu-button highlight">Paso 2. Seleccionar servicio social</button></a>
+    <a href="..//Reportes/reporte.php"><button class="menu-button">Paso 3. Reportes</button></a>
+</div>
 </body>
 </html>
