@@ -11,7 +11,7 @@ if (isset($_SESSION['modification_count']) && $_SESSION['modification_count'] >=
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $student_id = "2366ALU0010"; // ID del estudiante que deseas actualizar
+        $student_id = $_SESSION['user'];; // ID del estudiante que deseas actualizar
 
         if (isset($_POST['new-number']) && !empty($_POST['new-number'])) {
             $new_number = $_POST['new-number'];

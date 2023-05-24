@@ -23,7 +23,7 @@
         session_start();
         require_once 'consulta.php';
 
-        $student_id = "2366ALU0010"; // ID del estudiante que deseas mostrar
+        $student_id = $_SESSION['user'];; // ID del estudiante que deseas mostrar
 
         // Obtener nombre completo del estudiante desde la base de datos
         $stmt = $conn->prepare("SELECT nomAlumn, apAlumn, amAlumn FROM alumno WHERE codUserAlumn = :student_id");
@@ -53,7 +53,7 @@
         try {
             $stmt = $conn->prepare("SELECT * FROM alumno WHERE codUserAlumn = :student_id");
             $stmt->bindParam(":student_id", $student_id);
-            $student_id = "2366ALU0010"; // ID del estudiante que deseas mostrar
+            $student_id = $_SESSION['user'];; // ID del estudiante que deseas mostrar
 
             $stmt->execute();
             $student = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -124,6 +124,7 @@ CREATE TABLE alumno (
 	creditosAcum INT(3) NOT NULL,
 	localidadAlum VARCHAR(15) NOT NULL,
 	/* CONTACTO */
+	emailPers VARCHAR(128) NULL,
 	numTelfAlumn VARCHAR(18) NOT NULL,
 	/* --------- */
 	foto LONGBLOB NULL COMMENT 'Foto del alumno'
@@ -747,7 +748,7 @@ BEGIN
 	VALUES (@id,DATE(NOW()),documentS,tipoDocumentS);
 	
 	-- DEVUELVE EL ID GENERADO PARA SER USADO EN OTRO PROCEDURE
-	SELECT @id;
+	SELECT @id AS id;
 END //
 DELIMITER ;
 

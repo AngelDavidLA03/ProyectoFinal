@@ -3,7 +3,7 @@
 if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
     require_once 'consulta.php'; // Asegúrate de incluir el archivo de conexión a la base de datos
 
-    $student_id = "2366ALU0010"; // ID del estudiante al que se le va a actualizar la foto
+    $student_id = $_SESSION['user'];; // ID del estudiante al que se le va a actualizar la foto
 
     // Ruta donde se almacenarán las fotos
     $uploadDir = 'uploads/';
@@ -38,7 +38,7 @@ if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 require_once 'consulta.php'; // Asegúrate de incluir el archivo de conexión a la base de datos
             
-                $student_id = "2366ALU0010"; // ID del estudiante al que se le va a actualizar la foto
+                $student_id = $_SESSION['user'];; // ID del estudiante al que se le va a actualizar la foto
             
                 // Ruta donde se almacenarán las fotos
                 $uploadDir = 'uploads/';

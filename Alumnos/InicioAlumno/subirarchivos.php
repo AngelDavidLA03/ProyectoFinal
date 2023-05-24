@@ -1,68 +1,104 @@
 <?php
+session_start();
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Incluir el archivo de conexión a la base de datos
     require_once "consulta.php";
 
     // Preparar la consulta SQL para cada archivo
-    $stmt = $conn->prepare("INSERT INTO documento (idDocument, fechaEntrega, document, tipoDocument) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("CALL SAVEdocuments(?,?)");
 
-    // Obtener la fecha actual
-    $fechaEntrega = date("Y-m-d");
+    $student_id = $_SESSION['user']; // ID del estudiante que deseas mostrar
+    $mat = preg_replace('/[^0-9]/', '', $student_id);
 
     // Obtener el archivo constancia
     $constancia = $_FILES["constancia"];
-    if ($constancia["error"] === 0 && $constancia["type"] === "application/pdf" && $constancia["size"] <= 40 * 1024 * 1024) {
-        // Generar el idDocument para constancia
-        $constanciaId = "Constancia_" . $fechaEntrega;
+    $datosC = file_get_contents($constancia["tmp_name"]);
 
-        // Mover el archivo a la ubicación deseada (cambia la ruta según tus necesidades)
-        $constanciaPath = "documentos/" . basename($constancia["name"]);
-        move_uploaded_file($constancia["tmp_name"], $constanciaPath);
-        
+    if ($datosC !== null && $constancia["error"] === 0 && $constancia["type"] === "application/pdf" && $constancia["size"] <= 40 * 1024 * 1024) {
+
         // Insertar los datos en la base de datos para el archivo constancia
-        $stmt->execute([$constanciaId, $fechaEntrega, $constanciaPath, "pdf"]);
-        echo "Archivo constancia subido correctamente.";
-    } else {
-        echo "Error al cargar el archivo constancia.";
+
+        $pref = "CON";
+
+        $stmt->bindParam(1, $datosC, PDO::PARAM_LOB);
+        $stmt->bindParam(2, $pref);
+        
+
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id = $result['id'];
+        $stmt->closeCursor();
+
+        if (!empty($id)) {
+            $stmt2 = $conn->prepare("CALL SAVEcon (?,?)");
+            $stmt2->execute([$id, $mat]);
+            $stmt2->closeCursor(); // Cerrar el conjunto de resultados anterior
+            echo "Archivo constancia subido correctamente.";
+        } else {
+            echo "Error al cargar el archivo constancia.";
+        }
     }
 
     // Obtener el archivo carta de presentación
     $carta = $_FILES["carta"];
-    if ($carta["error"] === 0 && $carta["type"] === "application/pdf" && $carta["size"] <= 40 * 1024 * 1024) {
-        // Generar el idDocument para carta de presentación
-        $cartaId = "Carta_" . $fechaEntrega;
+    $datosCar = file_get_contents($carta["tmp_name"]);
+    if ($datosCar !== null && $carta["error"] === 0 && $carta["type"] === "application/pdf" && $carta["size"] <= 40 * 1024 * 1024) {
 
-        // Mover el archivo a la ubicación deseada (cambia la ruta según tus necesidades)
-        $cartaPath = "documentos/" . basename($carta["name"]);
-        move_uploaded_file($carta["tmp_name"], $cartaPath);
+        $pref = "CPE";
+
+        $stmt->bindParam(1, $datosCar, PDO::PARAM_LOB);
+        $stmt->bindParam(2, $pref);
         
-        // Insertar los datos en la base de datos para el archivo carta de presentación
-        $stmt->execute([$cartaId, $fechaEntrega, $cartaPath, "pdf"]);
-        echo "Archivo carta de presentación subido correctamente.";
-    } else {
-        echo "Error al cargar el archivo carta de presentación.";
+
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id = $result['id'];
+        $stmt->closeCursor();
+
+        if (!empty($id)) {
+            $stmt3 = $conn->prepare("CALL SAVEcpe (?,?)");
+            $stmt3->execute([$id, $mat]);
+            $stmt3->closeCursor(); // Cerrar el conjunto de resultados anterior
+            echo "Archivo constancia subido correctamente.";
+        } else {
+            echo "Error al cargar el archivo constancia.";
+        }
     }
+
 
     // Obtener el archivo seguro social
     $seguro = $_FILES["seguro"];
-    if ($seguro["error"] === 0 && $seguro["type"] === "application/pdf" && $seguro["size"] <= 40 * 1024 * 1024) {
-        // Generar el idDocument para seguro social
-        $seguroId = "Seguro_" . $fechaEntrega;
+    $datosS = file_get_contents($seguro["tmp_name"]);
+    if ($datosS !== null && $seguro["error"] === 0 && $seguro["type"] === "application/pdf" && $seguro["size"] <= 40 * 1024 * 1024) {
 
-        // Mover el archivo a la ubicación deseada (cambia la ruta según tus necesidades)
-        $seguroPath = "documentos/" . basename($seguro["name"]);
-        move_uploaded_file($seguro["tmp_name"], $seguroPath);
+        $pref = "NSS";
         
-        // Insertar los datos en la base de datos para el archivo seguro social
-        $stmt->execute([$seguroId, $fechaEntrega, $seguroPath, "pdf"]);
-        echo "Archivo seguro social subido correctamente.";
-    } else {
-        echo "Error al cargar el archivo seguro social.";
+        $stmt->bindParam(1, $datosS, PDO::PARAM_LOB);
+        $stmt->bindParam(2, $pref);
+        
+
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id = $result['id'];
+        $stmt->closeCursor();
+
+        if (!empty($id)) {
+            $stmt4 = $conn->prepare("CALL SAVEnss (?,?)");
+            $stmt4->execute([$id, $mat]);
+            $stmt4->closeCursor(); // Cerrar el conjunto de resultados anterior
+            echo "Archivo constancia subido correctamente.";
+        } else {
+            echo "Error al cargar el archivo constancia.";
+        }
     }
-    
+
     // Cerrar la conexión
     $stmt = null;
     $conn = null;
+
+    header("location: estudiante.php");
+    
+    exit();
 }
 ?>
