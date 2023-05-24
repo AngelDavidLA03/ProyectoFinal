@@ -28,12 +28,12 @@
             <div class="container">
               <nav>
                 <ul>
-                   <li><a href="../coordinador.php">Crear cuenta</a></li>
+                   <li><a href="../coordinador.php">Inicio</a></li>
                    <li><a href="../documentos/documentos.php">Subir documentos</a></li>
                    <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
-                   <li><a href="../dependencias/dependencias.php">Dependencias</a></li>
+                   <li><a href="../dependencias/dependencias.php">Dependencias Registradas</a></li>
                    <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
-                   <li><a href="../../login/login.html">Cerrar sesión</a></li>
+                   <li><a href="../../functionsDB/logout.php">Cerrar sesión</a></li>
               </nav>
             </div>
         </header>
@@ -52,7 +52,7 @@
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost", "root", "", "db_serviciosocial");
+    $conn = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -60,7 +60,10 @@
     }
 
     // Obtener los datos de los alumnos de la base de datos
-    $resultado = mysqli_query($conn, "SELECT * FROM alumno");
+    $resultado = mysqli_query($conn, "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
+    INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
+    INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
+    WHERE realizar.estado = 'ACEPTADO';");
 
     // Generar el código HTML y CSS del carrusel
     echo '<div class="carousel-container">';
@@ -70,6 +73,7 @@
       echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["foto"]) . '" alt="' . $fila["matricula"] . '">';
       echo '<div class="alumno-info">';
       echo '<p class="alumno-nombre">' . $fila["matricula"] . '</p>';
+      echo '<p class="alumno-nombre">'.$fila["apAlumn"] .' '.$fila["amAlumn"].' '.$fila["nomAlumn"] .'</p>';
       echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
       echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
       echo '</div>'; // Cierre de "alumno-info"
@@ -83,10 +87,12 @@
     //Generar el apartado para que el usuario ingrese el id del alumno y filtrarlo
 
     // Obtener el valor de matricula enviado por el usuario
+    if(isset($_GET['matricula']) && !empty($_GET['matricula']))
+    {
     $matricula = isset($_GET['matricula']) ? $_GET['matricula'] : '';
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
+    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -94,7 +100,10 @@
     }
 
     //Consulta SQL para obtener los datos del alumno con la matricula seleccionada
-    $sql = "SELECT * FROM alumno WHERE matricula = $matricula";
+    $sql = "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
+    INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
+    INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
+    WHERE realizar.' AND alumno.codUserAlumn = '$matricula';";
 
 
     // Ejecutar la consulta SQL y guardar los resultados en una variable
@@ -115,6 +124,7 @@
        echo '</div>'; // Cierre de "carousel-item"
      }
      echo '</div>'; // Cierre de "carousel"
+    }
      // Cerrar la conexión a la base de datos
      mysqli_close($conn);
     ?>

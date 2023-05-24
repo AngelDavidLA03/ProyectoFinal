@@ -11,14 +11,14 @@ if (mysqli_connect_errno()) {
 }
 
 // Obtener los datos del alumno desde la base de datos
-$resultado = mysqli_query($conn, "SELECT * FROM dependencia WHERE idDepend = $id");
+$resultado = mysqli_query($conn, "SELECT * FROM dependencia WHERE codUserDepend = '$id'");
 $fila = mysqli_fetch_assoc($resultado);
 
 // Generar la tabla HTML con los detalles del alumno
 echo '<table>';
 echo '<tr><td>Código Dependencia:</td><td>' . $fila["codUserDepend"] . '</td></tr>';
 echo '<tr><td>Id Dependencia:</td><td>' . $fila["idDepend"] . '</td></tr>';
-echo '<tr><td>Nombre:</td><td>' . $fila["nomDepend"] . '</td></tr>';
+echo '<tr><td>Nombre:</td><td>' . strtoupper($fila["nomDepend"]) . '</td></tr>';
 echo '<tr><td>RFC:</td><td>' . $fila["RFC"] . '</td></tr>';
 echo '<tr><td>Calificación:</td><td>' . $fila["califDepend"] . '</td></tr>';
 echo '<tr><td>Giro:</td><td>' . $fila["enfoqueDepend"] . '</td></tr>';

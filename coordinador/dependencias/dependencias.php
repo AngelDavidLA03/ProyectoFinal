@@ -25,12 +25,12 @@
         <div class="container">
           <nav>
             <ul>
-                <li><a href="../coordinador.php">Crear cuenta</a></li>
-                <li><a href="../documentos/documentos.php">Subir documentos</a></li>
-                <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
-                <li><a href="../dependencias/dependencias.php">Dependencias</a></li>
-                <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
-                <li><a href="../../login/login.html">Cerrar sesión</a></li>
+                   <li><a href="../coordinador.php">Inicio</a></li>
+                   <li><a href="../documentos/documentos.php">Subir documentos</a></li>
+                   <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
+                   <li><a href="../dependencias/dependencias.php">Dependencias Registradas</a></li>
+                   <li><a href="../solicitudes/solicitudes.php">Solicitudes</a></li>
+                   <li><a href="../../functionsDB/logout.php">Cerrar sesión</a></li>
             </ul>
           </nav>
        </div>
@@ -39,7 +39,7 @@
 <!-- Boton para capturar id -->
     <div style="margin-top: 100px;">
       <form method="GET" action="">
-        <label for="idDepend">Ingrese el valor de idDepend:</label>
+        <label for="idDepend">Ingrese el nombre de la dependencia:</label>
         <input type="text" name="idDepend" id="idDepend">
         <input type="submit" value="Enviar">
       </form>
@@ -50,7 +50,7 @@
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
+    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -65,11 +65,11 @@
     echo '<div class="carousel">';
     while ($fila = mysqli_fetch_assoc($resultado)) {
       echo '<div class="carousel-item" data-carrera="' . $fila["tipoDepend"] . '">';
-      echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["logo"]) . '" alt="' . $fila["idDepend"] . '">';
+      echo '<img src="data:image/jpeg;base64,' . base64_encode($fila["logo"]) . '" alt="' . $fila["codUserDepend"] . '">';
       echo '<div class="alumno-info">';
-      echo '<p class="alumno-nombre">' . $fila["idDepend"] . '</p>';
+      echo '<p class="alumno-nombre">' . strtoupper($fila["nomDepend"]) . '</p>';
       echo '<p class="alumno-carrera">' . $fila["tipoDepend"] . '</p>';
-      echo '<button class="btn-modal" data-alumno-id="' . $fila["idDepend"] . '">Ver detalles</button>';
+      echo '<button class="btn-modal" data-alumno-id="' . $fila["codUserDepend"] . '">Ver detalles</button>';
       echo '</div>'; // Cierre de "alumno-info"
       echo '</div>'; // Cierre de "carousel-item"
     }
@@ -81,10 +81,12 @@
     // Generar el menú desplegable para filtrar por idDepend
 
     // Obtener el valor de idDepend enviado por el usuario
+    if(isset($_GET['idDepend']) && !empty($_GET['idDepend']))
+    {
     $idDepend = isset($_GET['idDepend']) ? $_GET['idDepend'] : '';
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","","db_servicioSocial");
+    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -92,7 +94,7 @@
     }
 
     // Preparar la consulta SQL para obtener los datos de la dependencia con el idDepend seleccionado
-    $sql = "SELECT * FROM dependencia WHERE idDepend = $idDepend";
+    $sql = "SELECT * FROM dependencia WHERE nomDepend LIKE '%$idDepend%'";
 
     // Ejecutar la consulta SQL y guardar los resultados en una variable
     $resultado = mysqli_query($conn, $sql);
@@ -106,12 +108,13 @@
       echo '<div class="alumno-info">';
       echo '<p class="alumno-nombre">' . $fila["idDepend"] . '</p>';
       echo '<p class="alumno-carrera">' . $fila["tipoDepend"] . '</p>';
-      echo '<button class="btn-modal" data-alumno-id="' . $fila["idDepend"] . '">Ver detalles</button>';
+      echo '<button class="btn-modal" data-alumno-id="' . $fila["codUserDepend"] . '">Ver detalles</button>';
       echo '</div>'; // Cierre de "alumno-info"
       echo '</div>'; // Cierre de "carousel-item"
     }
     echo '</div>'; // Cierre de "carousel-controls"
     echo '</div>'; // Cierre de "carousel-container"
+  }
 
     // Cerrar la conexión a la base de datos
     mysqli_close($conn);
