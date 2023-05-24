@@ -15,7 +15,7 @@
       <div class="containers">
         <nav>
           <ul>
-                   <li><a href="../coordinador.php">Inicio</a></li>
+                   <li><a href="../iniciocoordinador.php">Inicio</a></li>
                    <li><a href="../documentos/documentos.php">Subir documentos</a></li>
                    <li><a href="../alumno/alumno.php">Alumnos en servicio</a></li>
                    <li><a href="../dependencias/dependencias.php">Dependencias Registradas</a></li>
