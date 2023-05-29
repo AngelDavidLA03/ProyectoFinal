@@ -70,7 +70,7 @@
 
           if ($id != $prefID)
           {
-            $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+            $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
 
             $resultado = mysqli_query($conn, "SELECT logo FROM dependencia WHERE codUserDepend = '$id'");
             $fila = mysqli_fetch_assoc($resultado);
@@ -116,7 +116,7 @@
             <?php
               $tipo = 'DEPENDENCIA';
               // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
-              $mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
+              $mysqli = new mysqli('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc'); // Reemplaza con la configuración correcta de la base de datos
 
               // Verificar la conexión
               if ($mysqli->connect_errno) {
@@ -146,7 +146,7 @@
 
               if ($id != $prefID)
               {
-                $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+                $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
 
                 $resultado = mysqli_query($conn, "SELECT nomDepend, RFC, numTrabajadores, enfoqueDepend, numTelfDepend, calleDepend, numExtDepend, numIntDepend, coloniaDepend, cpDepend, ciudadDepend, efDepend, tipoDepend FROM dependencia WHERE codUserDepend = '$id'");
                 $fila = mysqli_fetch_assoc($resultado);
@@ -332,7 +332,7 @@
             <?php
               $tipo = 'DEPENDENCIA';
               // Llamar a los procedimientos almacenados mediante una conexión a la base de datos
-              $mysqli = new mysqli('localhost', 'root', 'AdLa20031108', 'db_serviciosocial'); // Reemplaza con la configuración correcta de la base de datos
+              $mysqli = new mysqli('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc'); // Reemplaza con la configuración correcta de la base de datos
 
               // Verificar la conexión
               if ($mysqli->connect_errno) {
@@ -362,7 +362,7 @@
 
               if ($id != $prefID)
               {
-                $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+                $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
 
                 $resultado = mysqli_query($conn, "SELECT directorgeneral.nomDirector, directorgeneral.apDirector, directorgeneral.amDirector, directorgeneral.edadDirector, directorgeneral.curpDirector, directorgeneral.emailDirector, directorgeneral.numTelfDirector
                 FROM directorgeneral INNER JOIN administrar ON directorgeneral.idDirector = administrar.idDirector 

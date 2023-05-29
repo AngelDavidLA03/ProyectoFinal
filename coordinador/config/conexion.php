@@ -6,9 +6,9 @@ ESTAS LÍNEAS DE CÓDIGO ESTABLECERÁN LA CONEXIÓN CON LA BASE DE DATOS
     
 
     $servidor = "localhost"; // servidor
-    $usuario = "root";     
-    $contraseña = "";
-    $bd = "db_serviciosocial";  //nombre de la base de datos
+    $usuario = "u611167522_root";     
+    $contraseña = "G3nU1n4M3nT3{]?_";
+    $bd = "u611167522_db_serviciosoc";  //nombre de la base de datos
 
     // Conectar a la base de datos
     $conexion = mysql_connect($servidor, $usuario, $contraseña, $bd);

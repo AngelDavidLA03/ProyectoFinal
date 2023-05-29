@@ -1,6 +1,6 @@
 <?php
 // Establecer conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
+$conexion = mysqli_connect("localhost", "u611167522_root", "G3nU1n4M3nT3{]?_", "u611167522_db_serviciosoc");
 
 if(isset($_POST['crear'])){
     if (strlen($_POST['code']) >= 1 && 

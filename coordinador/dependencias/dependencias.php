@@ -62,7 +62,7 @@
     <?php
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+    $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {
@@ -98,7 +98,7 @@
     $idDepend = isset($_GET['idDepend']) ? $_GET['idDepend'] : '';
 
     // Conectar a la base de datos
-    $conn = mysqli_connect("localhost","root","AdLa20031108","db_servicioSocial");
+    $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
 
     // Verificar si hubo un error al conectar
     if (mysqli_connect_errno()) {

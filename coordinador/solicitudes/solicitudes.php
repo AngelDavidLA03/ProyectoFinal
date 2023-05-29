@@ -68,7 +68,7 @@
 
     <?php
 // Hacer la conexión a la base de datos
-$conn = mysqli_connect("localhost", "root", "AdLa20031108", "db_serviciosocial");
+$conn = mysqli_connect("localhost", "u611167522_root", "G3nU1n4M3nT3{]?_", "u611167522_db_serviciosoc");
 
 // Realizar una consulta a la base de datos
 $query = "SELECT d.codUserDepend, d.idDepend, d.nomDepend, d.RFC, d.califDepend, d.tipoDepend, dc.document

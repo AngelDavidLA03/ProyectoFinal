@@ -3,9 +3,9 @@ session_start();
 /**/
 // Conexión a la base de datos
 $servername = "localhost";
-$username = "root";
-$password = "AdLa20031108";
-$database = "db_serviciosocial";
+$username = "u611167522_root";
+$password = "G3nU1n4M3nT3{]?_";
+$database = "u611167522_db_serviciosoc";
 
 $id = (string)$_POST['alumn'];
 

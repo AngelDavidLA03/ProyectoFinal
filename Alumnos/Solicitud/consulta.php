@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$db_name = "db_serviciosocial";
-$username = "root";
-$password = "AdLa20031108";
+$db_name = "u611167522_db_serviciosoc";
+$username = "u611167522_root";
+$password = "G3nU1n4M3nT3{]?_";
 
 try {
     $conn = new PDO("mysql:host={$host};dbname={$db_name}", $username, $password);
