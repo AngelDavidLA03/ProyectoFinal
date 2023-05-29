@@ -41,7 +41,7 @@ if($exsite == 1)
 
     if($usuario == "DEPENDENCIA")
     {   
-        header("location: ../dependencia/cuenta/iniciodependencia.php");
+        header("location: ../Dependencia/cuenta/iniciodependencia.php");
     }
     else if($usuario == "ALUMNO")
     {   

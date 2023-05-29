@@ -2,12 +2,13 @@
 
 // Configuración de la conexión a la base de datos
 $host = "localhost";
-$usuario = "root";
-$contraseña = "AdLa20031108";
-$base_de_datos = "db_serviciosocial";
+$db_name = "u611167522_db_serviciosoc";
+$username = "u611167522_root";
+$password = "G3nU1n4M3nT3{]?_";
+
 
 // Conexión a la base de datos
-$conexion = mysqli_connect($host, $usuario, $contraseña, $base_de_datos);
+$conexion = mysqli_connect($host, $username, $password, $db_name);
 
 // Verificar conexión
 if (!$conexion) {

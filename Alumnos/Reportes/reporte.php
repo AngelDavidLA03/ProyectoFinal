@@ -168,14 +168,14 @@
         <h3>Nombre del servicio social</h3>
         <p>Aquí se muestra el nombre del servicio social al que estás inscrito.</p>
         <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "AdLa20031108";
-        $database = "db_serviciosocial";
-        
+        $host = "localhost";
+        $db_name = "u611167522_db_serviciosoc";
+        $username = "u611167522_root";
+        $password = "G3nU1n4M3nT3{]?_";
+
         $id = $_SESSION['user'];
         
-        $conn = new mysqli($servername, $username, $password, $database);
+        $conn = new mysqli($host, $username, $password, $db_name);
         
         // Comprobar la conexión
         if ($conn->connect_error) {
