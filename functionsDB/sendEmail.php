@@ -39,7 +39,7 @@
     
     function sendEmail($c,$e)
     {
-        $url = 'http:localhost/proyectoFINAL/login/confirmPassword.html';
+        $url = 'https://proyectoservicio.online/login/confirmPassword.html';
         $para  = $e;
         $título = 'Cambio de contraseña en el sistema';
 
