@@ -1,4 +1,12 @@
 <?php
+      use PHPMailer\PHPMailer\PHPMailer;
+      use PHPMailer\PHPMailer\SMTP;
+      use PHPMailer\PHPMailer\Exception;
+
+      require 'PHPMailer/PHPMailer.php';
+      require 'PHPMailer/SMTP.php';
+      require 'PHPMailer/Exception.php';
+
       require_once('database.php');
 
       $conexion = conexion();
@@ -25,8 +33,8 @@
       $code = $getConsulta[1];
       $correo = $getConsulta[2];
 
-      echo $correo;
-      if($exist == 1)
+      echo $exist ." ". $correo ." ".$code;
+      if($exist != 0)
       {
         mysqli_free_result($result);
         mysqli_close($conexion);
@@ -34,7 +42,7 @@
       }
       else
       {
-        header("location: ../login/login.html?email=true");
+        echo "Ps no we";
       }
     
     function sendEmail($c,$e)
@@ -43,38 +51,49 @@
         $para  = $e;
         $título = 'Cambio de contraseña en el sistema';
 
-        // mensaje
-        $mensaje = '
-        <html>
-        <head>
-            <meta charset="UTF8" />
-        <title>Recordatorio de cumpleaños para Agosto</title>
-        </head>
-        <body>
-        <p>Hubo un intento de restablecimiento de tu clave de acceso en el sistema</p>
-        <p>Si fuiste tu, accede a la siguiente URL:
-        <p> <a 
-            href="'.$url.'?email='.$para.'&cod='.$c.'">
-            Verificar cuenta </a> 
-            </p>
-        <p>En caso de que no hayas sido tu, simplemente ignora este correo</>
-        
-        </body>
-        </html>
-        ';
+        $mail = new PHPMailer(true);
 
-        // Para enviar un correo HTML, debe establecerse la cabecera Content-type
-        $headers =  'MIME-Version: 1.0' . "\r\n"; 
-        $headers .= 'From: Servicio Social <info@address.com>' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                            //Enable verbose debug output
+            $mail->isSMTP();                                                  //Send using SMTP
+            $mail->Host       = 'smtp.hostinger.com';                         //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                         //Enable SMTP authentication
+            $mail->Username   = 'administracion@proyectoservicio.online';     //SMTP username
+            $mail->Password   = 'G3nU1n4M3nT3{]?_';                           //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;                  //Enable implicit TLS encryption
+            $mail->Port       = 465;                                          //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('administracion@proyectoservicio.online', 'Administracion de Servicio Social');
+            $mail->addAddress($e);     //Add a recipient
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Cambio de Contraseña';
+            $mail->Body    = '<html><head>
+            <meta charset="UTF8">
+            <title>Intento de Cambio de Contraseña</title>
+            </head>
+            <body>
+            <p>Hubo un intento de restablecimiento de tu clave de acceso en el sistema</p>
+            <p>Si fuiste tu, accede a la siguiente URL:
+            </p><p> <a href="'.$url.'?email='.$para.'&amp;cod='.$c.'">
+                Verificar cuenta </a> 
+                </p>
+            <p>En caso de que no hayas sido tu, simplemente ignora este correo
 
 
-        $enviado=false;
-        if(mail($para, $título, $mensaje, $headers)){
-        $enviado=true;
-        }
-      header("location: ../login/login.html?email=true");
-      exit;
+            </p></body></html>';
+
+                $mail->send();
+                header("location: ../login/login.html?email=true");
+                exit;
+            } catch (Exception $e) {
+                header("location: ../login/login.html?email=false");
+                exit;
+            }
+
     }
-    
+          
 ?>
