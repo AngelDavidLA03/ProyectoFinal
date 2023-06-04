@@ -30,8 +30,23 @@
         <ul>
           <li><a href="../cuenta/iniciodependencia.php">Cuenta</a></li>
           <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
-          <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
-          <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+          <?php
+            $id = $_SESSION['user'];
+
+            $conn = mysqli_connect('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc');
+
+            $resultado = mysqli_query($conn, "SELECT COUNT(numConv) AS isExist FROM convenio WHERE codUserDepend = '$id'");
+            $fila = mysqli_fetch_assoc($resultado);
+
+            $exist = $fila["isExist"];
+
+            if($exist == '1')
+            {
+              echo"<li><a href='../NuevaSolicitud/Solicitud.php'>Solicitud</a></li>";
+              echo"<li><a href='../Convocatoria/Convocatoria.php'>Convocatorias</a></li>";
+            }
+          ?>
+
           <li><a href="../../functionsDB/logout.php">Cerrar Sesión</a></li>
         </ul>
        </nav>
@@ -70,7 +85,7 @@
 
           if ($id != $prefID)
           {
-            $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
+            $conn = mysqli_connect('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc');
 
             $resultado = mysqli_query($conn, "SELECT logo FROM dependencia WHERE codUserDepend = '$id'");
             $fila = mysqli_fetch_assoc($resultado);
@@ -146,7 +161,7 @@
 
               if ($id != $prefID)
               {
-                $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
+                $conn = mysqli_connect('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc');
 
                 $resultado = mysqli_query($conn, "SELECT nomDepend, RFC, numTrabajadores, enfoqueDepend, numTelfDepend, calleDepend, numExtDepend, numIntDepend, coloniaDepend, cpDepend, ciudadDepend, efDepend, tipoDepend FROM dependencia WHERE codUserDepend = '$id'");
                 $fila = mysqli_fetch_assoc($resultado);
@@ -362,7 +377,7 @@
 
               if ($id != $prefID)
               {
-                $conn = mysqli_connect("localhost","u611167522_root","G3nU1n4M3nT3{]?_","u611167522_db_serviciosoc");
+                $conn = mysqli_connect('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc');
 
                 $resultado = mysqli_query($conn, "SELECT directorgeneral.nomDirector, directorgeneral.apDirector, directorgeneral.amDirector, directorgeneral.edadDirector, directorgeneral.curpDirector, directorgeneral.emailDirector, directorgeneral.numTelfDirector
                 FROM directorgeneral INNER JOIN administrar ON directorgeneral.idDirector = administrar.idDirector 
@@ -594,38 +609,89 @@
   <!-- FUNCIONALIDAD CON SCRIPTS PARA EL MENU INFERIOR-->
 
   <script>
-    // Obtener los enlaces de las pestañas
-    var tabLinks = document.querySelectorAll('.tab-link');
+  // Obtener los enlaces de las pestañas
+  var tabLinks = document.querySelectorAll('.tab-link');
 
-    // Obtener todos los contenidos de las pestañas
-    var tabContents = document.querySelectorAll('.tab-content');
+  // Obtener todos los contenidos de las pestañas
+  var tabContents = document.querySelectorAll('.tab-content');
 
-    // Establecer el estado inicial (seleccionar la pestaña "Inicio" y mostrar su contenido)
-    tabLinks[0].parentNode.classList.add('active');
-    tabContents[0].classList.add('active');
+  // Variable para almacenar el índice de la pestaña activa
+  var activeTabIndex = 0;
 
-    // Agregar un evento de clic a cada enlace
-    tabLinks.forEach(function(link) {
+  // Establecer el estado inicial (seleccionar la pestaña "Inicio" y mostrar su contenido)
+  tabLinks[activeTabIndex].parentNode.classList.add('active');
+  tabContents[activeTabIndex].classList.add('active');
+
+  // Agregar un evento de clic a cada enlace
+  tabLinks.forEach(function(link, index) {
     link.addEventListener('click', function(event) {
-    event.preventDefault();
+      event.preventDefault();
 
-    // Obtener el ID del contenido asociado a la pestaña
-    var targetId = this.getAttribute('href');
 
-    // Quitar la clase 'active' de todas las pestañas y contenidos
-    tabLinks.forEach(function(link) {
-      link.parentNode.classList.remove('active');
+      // Obtener el ID del contenido asociado a la pestaña
+      var targetId = this.getAttribute('href');
+
+      // Quitar la clase 'active' de la pestaña y el contenido activos
+      tabLinks[activeTabIndex].parentNode.classList.remove('active');
+      tabContents[activeTabIndex].classList.remove('active');
+
+      // Agregar la clase 'active' al enlace y al contenido seleccionados
+      this.parentNode.classList.add('active');
+      document.querySelector(targetId).classList.add('active');
+
+      // Actualizar el índice de la pestaña activa
+      activeTabIndex = index;
+      // Verificar si ya se hizo clic en la pestaña activa
+      if (activeTabIndex === 4) {
+            <?php
+                $id = $_SESSION['user'];
+
+                $conn = mysqli_connect('localhost', 'u611167522_root', 'G3nU1n4M3nT3{]?_', 'u611167522_db_serviciosoc');
+
+                $resultado = mysqli_query($conn, "SELECT COUNT(numConv) AS isExist FROM convenio WHERE codUserDepend = '$id'");
+                $fila = mysqli_fetch_assoc($resultado);
+
+                $exist = $fila["isExist"];
+
+                if($exist == '1')
+                {
+
+                }
+                else
+                {
+                  ?>
+
+            alert("En estos momentos se encuentra en validacion su informacion.\nSe le informara lo mas pronto posible de nuestra respuesta.\nEste atento a su correo electronico.")
+
+            // Redirigir a la pestaña con índice 0
+            var redirectToTab = 0;
+            if (redirectToTab >= 0 && redirectToTab < tabLinks.length) {
+              // Quitar la clase 'active' de la pestaña y el contenido activos
+              tabLinks[4].parentNode.classList.remove('active');
+              tabContents[4].classList.remove('active');
+
+              // Agregar la clase 'active' al enlace y al contenido seleccionados
+              var manualActiveTab = tabLinks[0].parentNode;
+
+              // Verifica si el elemento padre ya tiene la clase "active"
+              if (!manualActiveTab.classList.contains('active')) {
+                // Agrega la clase 'active' al elemento padre seleccionado manualmente
+                manualActiveTab.classList.add('active');
+                document.querySelector("#verificacion").classList.add('active');
+              }
+            }
+            
+
+            <?php 
+                }
+            ?>
+      }
     });
-    tabContents.forEach(function(content) {
-      content.classList.remove('active');
-    });
-
-    // Agregar la clase 'active' al enlace y al contenido seleccionados
-    this.parentNode.classList.add('active');
-    document.querySelector(targetId).classList.add('active');
   });
-});
-  </script>
+
+  
+</script>
+
 
 
 <!-- PROPUESTA FUNCIONALIDAD CONEXION CON BASE DATOS-->
@@ -675,7 +741,7 @@
       else if(redirect === '5')
       {
         // Muestra el mensaje de alerta dado cuando se regresa al login despues de un redireccionamiento
-        alert("Registro Federal del Contribuyente subido exitosamente.\nLo mas pronto posible le haremos saber el estatus del convenio.")
+        alert("Registro Federal del Contribuyente subido exitosamente.")
       }
       
     </script>
