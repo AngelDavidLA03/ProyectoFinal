@@ -40,10 +40,10 @@
             <div class="container">
               <nav>
                 <ul>
-                   <li><a href="../cuenta/iniciodependencia.php">Cuenta</a></li>
-                    <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
-                    <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
-                     <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+                      <li><a href="../cuenta/iniciodependencia.php">Cuenta</a></li>
+                      <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
+                      <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
+                      <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
                      <li><a href="../../login/login.html">Cerrar Sesión</a></li>
                 </ul>
               </nav>
@@ -55,7 +55,7 @@
           <form method="GET" action="">
             <label for="matricula">Ingrese el id del Alumno:</label>
             <input type="text" name="matricula" id="matricula">
-            <input type="submit" value="Enviar">
+             <input type="submit" value="Enviar" style="color: white; background-color: #3b2c91;">
           </form>
         </div>
 
@@ -87,7 +87,8 @@
       echo '<p class="alumno-nombre">'.$fila["apAlumn"] .' '.$fila["amAlumn"].' '.$fila["nomAlumn"] .'</p>';
       echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
       echo '<p class="alumno-id">' . $fila["matricula"] . '</p>';
-      echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
+    
+      echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '" style="color: white; background-color: #3b2c91;">Ver detalles</button>';
       echo '</div>'; // Cierre de "alumno-info"
 
       echo '</div>'; // Cierre de "carousel-item"
@@ -114,7 +115,7 @@
       $sql = "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
       INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
       INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
-      WHERE solicitar.codUserDepend = '$id' AND alumno.matricula = '$matricula' AND realizar.estado = 'ACEPTADO';";
+      WHERE solicitar.codUserDepend = '$id' AND alumno.matricula = '$matricula' AND realizar.estado = 'ACEPTADO' AND realizar.estado != 'FINALIZADO';";
 
 
       // Ejecutar la consulta SQL y guardar los resultados en una variable
@@ -130,7 +131,8 @@
         echo '<p class="alumno-nombre">'.$fila["apAlumn"] .' '.$fila["amAlumn"].' '.$fila["nomAlumn"] .'</p>';
         echo '<p class="alumno-carrera">' . $fila["especialidad"] . '</p>';
         echo '<p class="alumno-id">' . $fila["matricula"] . '</p>';
-        echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '">Ver detalles</button>';
+       
+        echo '<button class="btn-modal" data-alumno-id="' . $fila["matricula"] . '" style="color: white; background-color: #3b2c91;">Ver detalles</button>';
         echo '</div>'; // Cierre de "alumno-info"
 
         echo '</div>'; // Cierre de "carousel-item"

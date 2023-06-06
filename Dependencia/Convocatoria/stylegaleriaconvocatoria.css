@@ -9,7 +9,7 @@
 }
 
 header {
-  background-color:rgba(0, 51, 102, 0.8);
+  background-color:#c691e9;
   padding: 20px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
   position: fixed;
@@ -42,7 +42,7 @@ nav li {
 }
 
 nav a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   font-size: 1.2rem;
   padding: 5px 10px;
@@ -80,10 +80,25 @@ nav a:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   max-width: 400px; /* Reducimos el ancho máximo del card */
-  
+  border: 4px solid Black;
   
 
 }
+
+
+.title-container {
+    background-color: #003366;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  h2 {
+    color: white;
+    margin: 0;
+    text-align: center;
+  }
 
 #Solicitud {
   margin-top: 20px;
@@ -130,7 +145,7 @@ nav a:hover {
 
 
 .card:hover {
-  background-color: #99CC33;
+  background-color: #c691e9;
   transform: scale(1.1);
 
 }

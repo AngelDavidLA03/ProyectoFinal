@@ -30,6 +30,10 @@
         <ul>
           <li><a href="../cuenta/iniciodependencia.php">Cuenta</a></li>
           <li><a href="../alumnos/alumno.php">Alumnos en Servicio</a></li>
+          <li><a href="../NuevaSolicitud/Solicitud.php">Solicitud</a></li>
+          <li><a href="../Convocatoria/Convocatoria.php">Convocatorias</a></li>
+          
+
           <?php
             $id = $_SESSION['user'];
 
@@ -52,6 +56,31 @@
        </nav>
      </div>
    </header>
+   
+   
+    <!-- Agregar la barra de progreso arriba del menú -->
+    <div class="progress-bar">
+        <div class="line"></div>
+        <div class="dots">
+            <div class="dot">
+                <span class="description">Paso 1: Verificación Datos</span>
+            </div>
+            <div class="dot">
+                <span class="description">Paso 2: Representante/Responsable</span>
+            </div>
+            <div class="dot">
+                <span class="description">Paso 3: Documentación Dependencia</span>
+            </div>
+            <div class="dot">
+                <span class="description">Paso 4: Documentación Representante</span>
+            </div>
+            <!--
+            <div class="dot">
+                <span class="description">Paso 5: Convenio</span>
+            </div>
+            -->
+        </div>
+    </div>
 
 
 
@@ -65,7 +94,7 @@
       <li><a class="tab-link" href="#representante">     Paso 2 Representante/Responsable</a></li>
       <li><a class="tab-link" href="#documentaciondep">  Paso 3 Documentación Dependencia</a></li>
       <li><a class="tab-link" href="#documentacionrep">  Paso 4 Documentación Representante</a></li>
-      <li><a class="tab-link" href="#convenio">          Paso 5 Convenio</a></li>
+       <!-- <li><a class="tab-link" href="#convenio">          Paso 5 Convenio</a></li> -->
     </ul>
   </div>
 
@@ -745,6 +774,51 @@
       }
       
     </script>
+    
+    
+    
+    <script>
+    // Resto del código JavaScript
+
+    // Obtener la línea de progreso
+    var progressBarLine = document.querySelector('.progress-bar .line');
+
+    // Obtener los puntos de progreso
+    var progressDots = document.querySelectorAll('.progress-bar .dot');
+
+    // Obtener las descripciones de los pasos
+    var progressDescriptions = document.querySelectorAll('.progress-bar .description');
+
+
+
+    // Establecer el estado inicial
+    progressDots[0].classList.add('active');
+    progressBarLine.style.width = '0%';
+
+    // Agregar un evento de clic a cada enlace
+    tabLinks.forEach(function(link, index) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Quitar la clase 'active' de todas las pestañas, contenidos, puntos de progreso y descripciones
+            tabLinks.forEach(function(link) {
+                link.parentNode.classList.remove('active');
+            });
+            tabContents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            progressDots.forEach(function(dot) {
+                dot.classList.remove('active');
+            });
+
+            // Agregar la clase 'active' al enlace, contenido, punto de progreso y descripción seleccionados
+            this.parentNode.classList.add('active');
+            tabContents[index].classList.add('active');
+            progressDots[index].classList.add('active');
+            progressBarLine.style.width = (index * 33) + '%';
+        });
+    });
+  </script>
 
 
 </body>

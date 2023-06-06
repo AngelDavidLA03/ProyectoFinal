@@ -91,12 +91,17 @@ while($row = mysqli_fetch_assoc($result)) {
       <td><?php
                 echo "<form id='form-con' action='documento.php' method='post' target='_blank'>";
                 echo "<input type='hidden' name='blob' value='" . base64_encode($row["document"]) . "'>";
-                echo "<button type='submit'>Convenio</button>";
+                
+                echo "<button type='submit' style='color: white; background-color: #53ea2a;'>Convenio</button>";
                 echo "</form>"; ?></td>
 
       <td class="btn-group">
-        <button data-procedure="aceptar_convenio">Aceptar</button>
-        <button class="reject-btn" data-procedure="rechazar_convenio">Rechazar</button>
+        <!-- <button data-procedure="aceptar_convenio">Aceptar</button> -->
+        <!-- <button class="reject-btn" data-procedure="rechazar_convenio">Rechazar</button> -->
+        
+        <button data-procedure="aceptar_convenio" style="background-color: #3b2c91; color: white;">Aceptar</button>
+        <button class="reject-btn" data-procedure="rechazar_convenio" style="background-color: #db0b34; color: white;">Rechazar</button>
+
       </td>
     </tr>
   <?php

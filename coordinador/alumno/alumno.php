@@ -74,7 +74,7 @@
     $resultado = mysqli_query($conn, "SELECT alumno.* FROM alumno INNER JOIN realizar ON alumno.codUserAlumn = realizar.codUserAlumn
     INNER JOIN serviciosocial ON realizar.idServicio = serviciosocial.idServicio
     INNER JOIN solicitar ON serviciosocial.idServicio = solicitar.idServicio
-    WHERE realizar.estado = 'ACEPTADO';");
+    WHERE realizar.estado = 'ACEPTADO' AND realizar.estado != 'FINALIZADO';");
 
     // Generar el código HTML y CSS del carrusel
     echo '<div class="carousel-container">';

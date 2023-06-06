@@ -42,21 +42,28 @@
   
 </div>
     <div class="card" id="Solicitud">
-      <h2>Detalles</h2>
+       <div class="title-container">
+          <h2 color="white">Detalles</h2>
+        </div>
       
-
       <div id="detalles-convocatoria"></div> 
     </div>
 
 
      <div class="card" id="alumnos-card">
-      <h2>Solicitud de alumnos</h2>
+      
+      <div class="title-container">
+          <h2 color="white">Solicitud de Alumnos</h2>
+        </div>
+      
       <ul class="alumnos" id="alumnos-list">
       </ul>
     </div>
 
     <div class="card" id="alumno-info-card">
-  <h2>Informacion del alumno</h2>
+      <div class="title-container">
+          <h2 color="white">Información del alumno</h2>
+        </div>
   <p id="alumno-info"></p>
   <div class="botones">
   </div>

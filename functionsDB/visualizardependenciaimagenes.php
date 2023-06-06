@@ -65,7 +65,7 @@ $blobIne = base64_encode($fila["identf"]);
 $blobRfc = base64_encode($fila["regfed"]);
 
 
-if($fila["idDepend"] !== null && $blobCvn === true)
+if($fila["idDepend"] !== null && $blobCvn !== true)
 {
   echo "<form id='form-cpe' action='documento.php' method='post' target='_blank'>";
   echo "<input type='hidden' name='blob' value='" . htmlspecialchars($blobCvn) . "'>";
